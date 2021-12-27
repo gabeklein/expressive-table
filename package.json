@@ -1,0 +1,22 @@
+{
+  "name": "@expressive/table",
+  "module": "src",
+  "main": "lib",
+  "files": [
+    "lib/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prebuild": "rm -rf lib/",
+    "start": "npm --prefix demo run start"
+  },
+  "dependencies": {
+    "@expressive/mvc": "^1.0.0-beta.25"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.34",
+    "react": "^17.0.2",
+    "react-dom": "17.0.2",
+    "typescript": "^3.9.6"
+  }
+}
