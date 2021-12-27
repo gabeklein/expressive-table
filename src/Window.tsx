@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Provider } from '@expressive/mvc';
-import { CSSProperties, FC, ReactNode, useMemo } from 'react';
+import { CSSProperties, FC, memo, ReactNode, useMemo } from 'react';
 
 import Virtual from './Virtual';
 
@@ -28,20 +28,15 @@ namespace Window {
     | (ContainerProps & { render: RenderFunction })
 }
 
-function Visible(props: { render: RenderFunction }){
-  const { size, slice, range, DOM } = Virtual.tap();
-
-  console.log(`Render Visible:`)
-  console.log(`Size is now ${size}`)
-  console.log(`Render range ${range[0]} - ${range[1]}`)
-  console.log(`Render slice of ${slice.length} length`)
+const Visible = memo((props: { render: RenderFunction }) => {
+  const { size, slice, DOM } = Virtual.tap();
 
   return (
     <div style={{ position: "relative", [DOM.sizeX]: size }}>
       {slice.map(props.render)}
     </div>
   )
-}
+})
 
 function Window(props: Window.Props){
   const { get: control, container } = props.for.use();
