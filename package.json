@@ -19,6 +19,7 @@
     "postversion": "npm publish"
   },
   "dependencies": {
+    "@expressive/css": "^1.0.0-beta.68",
     "@expressive/mvc": "^1.0.0-beta.27"
   },
   "devDependencies": {

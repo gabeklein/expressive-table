@@ -18,7 +18,11 @@ export default  {
       sourcemap: true
     }
   ],
-  external: [ '@expressive/mvc', 'react' ],
+  external: [
+    '@expressive/mvc',
+    '@expressive/css',
+    'react'
+  ],
   plugins: [
     babel({
       presets: ['@expressive/react'],
