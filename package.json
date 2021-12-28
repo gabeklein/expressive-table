@@ -2,8 +2,10 @@
   "name": "@expressive/table",
   "module": "src",
   "main": "lib",
+  "types": "index.d.ts",
   "files": [
-    "lib/"
+    "lib/",
+    "index.d.ts"
   ],
   "scripts": {
     "build": "tsc",
