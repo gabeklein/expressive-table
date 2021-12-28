@@ -9,11 +9,11 @@ export class Grid extends Virtual {
   height = 40;
   columns: Column<this>[] = [];
 
-  Header?: FC<Table.HeaderProps<this>>;
-  Head?: FC<Table.HeadProps<this>>;
-  Cell?: FC<Table.CellProps<this>>;
-  Row?: FC<Table.RowProps<this>>;
-  Empty?: FC<Table.EmptyProps<this>>;
+  Header?: FC<Table.HeaderProps<this>> = undefined;
+  Head?: FC<Table.HeadProps<this>> = undefined;
+  Cell?: FC<Table.CellProps<this>> = undefined;
+  Row?: FC<Table.RowProps<this>> = undefined;
+  Empty?: FC<Table.EmptyProps<this>> = undefined;
 
   readonly css = from(this, state => {
     const { columns, height } = state;
