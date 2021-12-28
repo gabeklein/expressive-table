@@ -7,6 +7,9 @@
     "lib/",
     "index.d.ts"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc",
     "prebuild": "rm -rf lib/",
