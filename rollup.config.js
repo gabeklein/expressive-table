@@ -26,10 +26,6 @@ export default  {
   plugins: [
     babel({
       presets: ['@expressive/react'],
-      plugins: [
-        '@babel/transform-typescript',
-        '@babel/plugin-proposal-class-properties'
-      ],
       babelHelpers: "bundled"
     }),
     resolve({
