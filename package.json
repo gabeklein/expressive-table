@@ -11,9 +11,12 @@
     "access": "public"
   },
   "scripts": {
+    "start": "npm --prefix demo run start",
     "build": "rollup --config",
     "prebuild": "rm -rf lib/",
-    "start": "npm --prefix demo run start"
+    "preversion": "tsc --noEmit && npm run build",
+    "publish:beta": "npm version prerelease --preid=beta",
+    "postversion": "npm publish"
   },
   "dependencies": {
     "@expressive/mvc": "^1.0.0-beta.27"
