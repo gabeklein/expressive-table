@@ -1,4 +1,4 @@
-import { Children, useCallback, useLayoutEffect } from 'react';
+import { Children, useLayoutEffect } from 'react';
 
 import Grid from './Grid';
 import Window from './Window';
@@ -17,7 +17,8 @@ export const Table = (props) => do {
   <this style={{ ...props.style, ...virtual.css }}>
     <Header for={virtual} />
     <Window for={virtual} component={Row}>
-      {!virtual.length && virtual.Empty && <virtual.Empty context={virtual} />}
+      {!virtual.length && virtual.Empty && 
+        <virtual.Empty context={virtual} />}
     </Window>
     {props.footer}
   </this>
