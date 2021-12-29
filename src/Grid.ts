@@ -38,10 +38,8 @@ export class Grid extends Virtual {
       .map((x: any) => x.props.name)
       .join(",");
 
-    if(length !== undefined){
-      console.log(`Length is ${length}`)
+    if(length !== undefined)
       this.length = length;
-    }
 
     useLayoutEffect(() => {
       if(end)
