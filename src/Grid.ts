@@ -35,7 +35,8 @@ export class Grid extends Virtual {
     const { end, length } = props;
     const keys = Children
       .toArray(props.children)
-      .map((x: any) => x.key);
+      .map((x: any) => x.props.name)
+      .join(",");
 
     if(length !== undefined){
       console.log(`Length is ${length}`)
@@ -61,7 +62,7 @@ export class Grid extends Virtual {
     useLayoutEffect(() => {
       this.columns = [];
       this.extractColumns(props.children);
-    }, keys);
+    }, [keys]);
   }
 
   extractColumns(children: any){
