@@ -1,2 +1,2 @@
-export { Table as default, Col } from "./Table";
+export { Table as default, Column } from "./Table";
 export { Grid } from "./Grid";

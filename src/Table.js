@@ -24,7 +24,7 @@ export const Table = (props) => do {
   </this>
 }
 
-export const Col = (_props) => {
+export const Column = (_props) => {
   throw new Error("Used <Col /> component outside of a <Table />, this is not allowed.");
 }
 

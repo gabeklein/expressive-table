@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 
-import Grid, { Column } from './Grid';
+import Grid, { DataType } from './Grid';
 
 declare namespace Table {
   interface Props <T = any> {
@@ -29,7 +29,7 @@ declare namespace Table {
 
   interface HeadProps<T extends Grid = any> {
     context: T;
-    column: Col.Props;
+    column: Column.Props;
   }
   
   interface RowProps<T extends Grid = any> {
@@ -43,7 +43,7 @@ declare namespace Table {
   
   interface CellProps<T extends Grid = any> {
     context: T;
-    column: Col.Props;
+    column: Column.Props;
     row: number;
     index: any;
   }
@@ -51,9 +51,9 @@ declare namespace Table {
 
 declare const Table: FC<Table.Props>;
 
-declare namespace Col {
+declare namespace Column {
   type Render = (
-    this: Column<any>,
+    this: DataType<any>,
     row: any,
     context: Grid
   ) => ReactNode;
@@ -67,6 +67,6 @@ declare namespace Col {
   }
 }
 
-declare const Col: FC<Col.Props>
+declare const Column: FC<Column.Props>
 
-export { Table, Col }
+export { Table, Column }

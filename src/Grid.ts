@@ -1,13 +1,13 @@
 import { from } from '@expressive/mvc';
 import { Children, FC, Fragment, isValidElement, ReactNode, useLayoutEffect } from 'react';
 
-import { Col, Table } from './Table';
+import { Column, Table } from './Table';
 import Virtual from './Virtual';
 
 export class Grid extends Virtual {
   length = 0;
   height = 40;
-  columns: Column<this>[] = [];
+  columns: DataType<this>[] = [];
 
   Header?: FC<Table.HeaderProps<this>> = undefined;
   Head?: FC<Table.HeadProps<this>> = undefined;
@@ -27,7 +27,7 @@ export class Grid extends Virtual {
     }
   })
 
-  render(row: any, column: Column<this>, _context: this): ReactNode {
+  render(row: any, column: DataType<this>, _context: this): ReactNode {
     return `${column.name} (${row})`;
   };
 
@@ -74,7 +74,7 @@ export class Grid extends Virtual {
         return;
       }
   
-      if(type !== Col){
+      if(type !== Column){
         const name = typeof element.type === "string"
           ? element.type : element.type.name;
   
@@ -82,20 +82,20 @@ export class Grid extends Virtual {
       }
   
       this.columns.push(
-        new Column(props, index)
+        new DataType(props, index)
       );
     })
   }
 }
 
-export class Column<T extends Grid> {
+export class DataType<T extends Grid> {
   Head?: FC<Table.HeadProps<T>>;
   Cell?: FC<Table.CellProps<T>>;
 
   public size = "1fr";
   public name = "";
 
-  constructor(info: Col.Props, index: number){
+  constructor(info: Column.Props, index: number){
     let { name, size } = info;
 
     if(!name)

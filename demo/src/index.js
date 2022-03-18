@@ -1,6 +1,6 @@
 import Model from "@expressive/mvc";
 import ReactDOM from "react-dom";
-import Table, { Col } from "../../src";
+import Table, { Column } from "../../src";
 
 class Control extends Model {
   length = 100;
@@ -22,8 +22,8 @@ const App = () => do {
   }
   
   <Table length={length} header={Header}>
-    <Col name="foo" />
-    <Col name="bar" />
+    <Column name="foo" />
+    <Column name="bar" />
   </Table>
 }
 
