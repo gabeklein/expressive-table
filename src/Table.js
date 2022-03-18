@@ -1,6 +1,7 @@
-import { Children, useLayoutEffect } from 'react';
+import { Provider } from '@expressive/mvc';
+import { Children, memo, useLayoutEffect } from 'react';
 
-import Grid from './Grid';
+import Grid, { DataType } from './Grid';
 import Window from './Window';
 
 export const Table = (props) => do {
@@ -9,24 +10,51 @@ export const Table = (props) => do {
 
   virtual.useProps(props);
 
-  forward: className;
-  gridRows: min, auto, min;
-  position: relative;
-  overflow: hidden;
+  container: {
+    style = Object.assign({}, props.style, virtual.vars);
 
-  <this style={{ ...props.style, ...virtual.css }}>
-    <Header for={virtual} />
-    <Window for={virtual} component={Row}>
-      {!virtual.length && virtual.Empty && 
-        <virtual.Empty context={virtual} />}
-    </Window>
-    {props.footer}
-  </this>
+    forward: className;
+    gridRows: min, auto, min;
+    position: relative;
+    overflow: hidden;
+  }
+
+  empty: {
+    if(!virtual.length && virtual.Empty)
+      <virtual.Empty context={virtual} />
+  }
+
+  table: {
+    if(virtual.ready)
+      <this>
+        <Header for={virtual} />
+        <Window for={virtual} component={Row}>
+          <empty />
+        </Window>
+        {props.footer}
+      </this>
+  }
+
+  <Provider of={virtual}>
+    <container>
+      {props.children}
+      <table />
+    </container>
+  </Provider>
 }
 
-export const Column = (_props) => {
-  throw new Error("Used <Col /> component outside of a <Table />, this is not allowed.");
-}
+export const Column = memo((props) => {
+  const virtual = Grid.tap();
+
+  useLayoutEffect(() => {
+    const index = virtual.columns.length;
+    const column = new DataType(props, index);
+  
+    virtual.columns.push(column);
+  }, [])
+
+  return false;
+})
 
 const Header = ({ for: context }) => do {
   const Header = either(context.Header, DefaultHeader);

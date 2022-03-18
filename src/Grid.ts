@@ -1,10 +1,11 @@
-import { from } from '@expressive/mvc';
-import { Children, FC, Fragment, isValidElement, ReactNode, useLayoutEffect } from 'react';
+import { FC, ReactNode, useLayoutEffect } from 'react';
 
 import { Column, Table } from './Table';
 import Virtual from './Virtual';
 
 export class Grid extends Virtual {
+  ready = false;
+  vars = {};
   length = 0;
   height = 40;
   columns: DataType<this>[] = [];
@@ -15,17 +16,17 @@ export class Grid extends Virtual {
   Row?: FC<Table.RowProps<this>> = undefined;
   Empty?: FC<Table.EmptyProps<this>> = undefined;
 
-  readonly css = from(this, state => {
-    const { columns, height } = state;
-
+  componentDidMount(){
+    const { columns, height } = this;
     const template: string =
       columns.map(x => x.size || "1.0fr").join(" ");
-      
-    return {
+    
+    this.ready = true;
+    this.vars = {
       "--row-columns": template,
       "--row-height": height + "px",
     }
-  })
+  }
 
   render(row: any, column: DataType<this>, _context: this): ReactNode {
     return `${column.name} (${row})`;
@@ -33,16 +34,14 @@ export class Grid extends Virtual {
 
   useProps(props: Table.Props){
     const { end, length } = props;
-    const keys = Children
-      .toArray(props.children)
-      .map((x: any) => x.props.name)
-      .join(",");
 
     if(length !== undefined)
       this.length = length;
 
     useLayoutEffect(() => {
-      return end && this.effect(x => x.end && end());
+      return end && this.effect(x => {
+        x.end && end();          
+      });
     }, [end]);
     
     if(props.header)
@@ -55,36 +54,6 @@ export class Grid extends Virtual {
       this.Row = props.row;
     if(props.empty)
       this.Empty = props.empty;
-    
-    useLayoutEffect(() => {
-      this.columns = [];
-      this.extractColumns(props.children);
-    }, [keys]);
-  }
-
-  extractColumns(children: any){
-    Children.forEach(children, (element, index) => {
-      if(!isValidElement(element))
-        return;
-  
-      const { type, props } = element as any;
-  
-      if(type === Fragment){
-        this.extractColumns(props.children)
-        return;
-      }
-  
-      if(type !== Column){
-        const name = typeof element.type === "string"
-          ? element.type : element.type.name;
-  
-        throw `${name} is not a <Column>`;
-      }
-  
-      this.columns.push(
-        new DataType(props, index)
-      );
-    })
   }
 }
 
