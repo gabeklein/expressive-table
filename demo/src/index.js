@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import Table, { Col } from "../../src";
 
 class Control extends Model {
-  length = 0;
+  length = 100;
 
   didCreate(){
     window.DEBUG = this;
