@@ -14,7 +14,6 @@ const App = () => do {
   const { length } = Control.use();
   
   Table: {
-    overflow: scroll;
     fixed: 10;
     top: 60;
     outline: blue;
