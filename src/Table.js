@@ -1,4 +1,5 @@
 import { Provider } from '@expressive/mvc';
+import { useState } from 'react';
 import { Children, memo, useLayoutEffect } from 'react';
 
 import Grid, { DataType } from './Grid';
@@ -7,6 +8,7 @@ import Window from './Window';
 export const Table = (props) => do {
   const Model = props.for || Grid;
   const virtual = Model.use();
+  const [ padding, setPadding ] = useState(0);
 
   virtual.useProps(props);
 
@@ -24,15 +26,29 @@ export const Table = (props) => do {
       <virtual.Empty context={virtual} />
   }
 
+  sensor: {
+    overflowY: scroll;
+
+    ref = (element) => {
+      if(element)
+        setPadding(
+          element.parentElement.scrollWidth -
+          element.scrollWidth
+        );
+    }
+  }
+
   table: {
     if(virtual.ready)
       <this>
-        <Header for={virtual} />
+        <Header for={virtual} padding={padding} />
         <Window for={virtual} component={Row}>
           <empty />
         </Window>
         {props.footer}
       </this>
+    else
+      <sensor />
   }
 
   <Provider of={virtual}>
@@ -56,17 +72,18 @@ export const Column = memo((props) => {
   return false;
 })
 
-const Header = ({ for: context }) => do {
+const Header = ({ for: context, padding }) => do {
   const Header = either(context.Header, DefaultHeader);
 
   Header: {
     display: grid;
     position: relative;
     gridTemplateColumns: "var(--row-columns)";
+    marginRight: (padding);
   }
 
   if(Header)
-    <Header context={context}>
+    <Header context={context} padding={padding}>
       {context.columns.map((column, i) => do {
         const Type =
           either(column.Head, context.Head, DefaultHeadCell);
@@ -121,7 +138,7 @@ const Row = ({ index, offset, context }) => do {
 }
 
 const DefaultHeader = (props) => do {
-  forward: className;
+  forward: className, style;
   padding: 0, 10;
 
   <this>

@@ -41,8 +41,8 @@ const App = () => do {
 }
 
 const Header = ({ children }) => do {
-  forward: className;
-  padding: 20, 0;  
+  forward: className, style;
+  padding: 20, 10;  
   font: 20;
 
   <this>{children}</this>
