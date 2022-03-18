@@ -25,7 +25,12 @@ export const Table = (props) => do {
   const control = Control.using(props, [ "length" ]);
   const config = Config.using(props);
 
-  control.useProps(props)
+  useLayoutEffect(() => {
+    if(props.end)
+      return control.effect(state => {
+        state.end && props.end();          
+      });
+  }, [props.end]);
 
   container: {
     style = Object.assign({}, props.style, control.vars);

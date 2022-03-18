@@ -23,16 +23,6 @@ export class Grid extends Virtual {
   render(row: any, column: DataType<this>, _context: this): ReactNode {
     return `${column.name} (${row})`;
   };
-
-  useProps(props: Table.Props){
-    const { end } = props;
-
-    useLayoutEffect(() => {
-      return end && this.effect(state => {
-        state.end && end();          
-      });
-    }, [end]);
-  }
 }
 
 export class DataType<T extends Grid> {
