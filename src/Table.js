@@ -14,7 +14,6 @@ export const Table = (props) => do {
 
   container: {
     style = Object.assign({}, props.style, virtual.vars);
-
     forward: className;
     gridRows: min, auto, min;
     position: relative;
@@ -28,7 +27,6 @@ export const Table = (props) => do {
 
   sensor: {
     overflowY: scroll;
-
     ref = (element) => {
       if(element)
         setPadding(
@@ -160,11 +158,9 @@ const DefaultHeadCell = (props) => do {
 }
 
 const DefaultCell = (props) => do {
-  div: {
-    fontSize: "0.9em";
-  }
+  fontSize: 0.9;
 
-  <div>{props.children}</div>;
+  <this>{props.children}</this>;
 }
 
 /** Select first value defined but bail on falsey. */
