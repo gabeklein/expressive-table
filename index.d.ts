@@ -1,7 +1,7 @@
 import Model from "@expressive/mvc";
 import { FC, ReactNode } from "react";
 
-export { Table as default, Col, Grid };
+export { Table as default, Column, Grid };
 
 declare class Virtual extends Model {
   container: Model.Ref<HTMLElement | null>;
@@ -87,7 +87,7 @@ declare namespace Table {
 
   interface HeadProps<T extends Grid = any> {
     context: T;
-    column: Col.Props;
+    column: Column.Props;
   }
   
   interface RowProps<T extends Grid = any> {
@@ -101,7 +101,7 @@ declare namespace Table {
   
   interface CellProps<T extends Grid = any> {
     context: T;
-    column: Col.Props;
+    column: Column.Props;
     row: number;
     index: any;
   }
@@ -109,7 +109,7 @@ declare namespace Table {
 
 declare const Table: FC<Table.Props>;
 
-declare namespace Col {
+declare namespace Column {
     type Render = (
       this: Grid.Column<any>,
       row: any,
@@ -125,4 +125,4 @@ declare namespace Col {
     }
 }
 
-declare const Col: FC<Col.Props>
+declare const Column: FC<Column.Props>
