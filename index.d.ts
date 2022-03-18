@@ -57,8 +57,7 @@ declare class Grid extends Virtual {
     "--row-height": string;
   };
 
-  render(row: any, column: Grid.Column<this>, _context: this): ReactNode;
-  extractColumns(children: any): void;
+  render(row: any, column: Grid.Column<this>, context: this): ReactNode;
 }
 
 declare namespace Table {
