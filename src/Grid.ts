@@ -1,13 +1,25 @@
-import { FC, ReactNode, useLayoutEffect } from 'react';
+import { FC, ReactNode } from 'react';
 
-import { Column, Table } from './Table';
+import { Table } from './Table';
 import Virtual from './Virtual';
 
-export class Grid extends Virtual {
+declare namespace Grid {
+  interface Column<T extends Grid> {
+    head?: FC<Table.HeadProps<T>>;
+    cell?: FC<Table.CellProps<T>>;
+  
+    size: string;
+    name: string;
+  
+    render?: (row: number) => ReactNode;
+  }
+}
+
+class Grid extends Virtual {
   vars = {};
   length = 0;
   height = 40;
-  columns: DataType<this>[] = [];
+  columns: Grid.Column<this>[] = [];
 
   componentDidMount(){
     const { columns, height } = this;
@@ -20,37 +32,11 @@ export class Grid extends Virtual {
     }
   }
 
-  render(row: any, column: DataType<this>, _context: this): ReactNode {
+  render(row: any, column: Grid.Column<this>){
     return `${column.name} (${row})`;
   };
 }
 
-export class DataType<T extends Grid> {
-  head?: FC<Table.HeadProps<T>>;
-  cell?: FC<Table.CellProps<T>>;
 
-  public size = "1fr";
-  public name = "";
-
-  constructor(info: Column.Props, index: number){
-    let { name, size } = info;
-
-    if(!name)
-      name = `Column ${index + 1}`;
-
-    if(typeof size == "number")
-      size = size + "px";
-
-    Object.assign(this, {
-      name,
-      size,
-      render: info.render,
-      head: info.head,
-      cell: info.cell
-    });
-  }
-
-  public render?: (row: number) => ReactNode;
-}
-
+export { Grid }
 export default Grid;

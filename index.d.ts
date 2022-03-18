@@ -35,30 +35,30 @@ declare class Virtual extends Model {
   observeContainer(element: HTMLElement | null): (() => void) | undefined;
 }
 
+declare namespace Grid {
+  interface Column<T extends Grid> {
+    head?: FC<Table.HeadProps<T>>;
+    cell?: FC<Table.CellProps<T>>;
+  
+    size: string;
+    name: string;
+  
+    render?: (row: number) => ReactNode;
+  }
+}
+
 declare class Grid extends Virtual {
   length: number;
   height: number;
-  columns: Column<this>[];
-  Header?: FC<Table.HeaderProps<this>>;
-  Head?: FC<Table.HeadProps<this>>;
-  Cell?: FC<Table.CellProps<this>>;
-  Row?: FC<Table.RowProps<this>>;
-  Empty?: FC<Table.EmptyProps<this>>;
-  readonly css: {
+  columns: Grid.Column<this>[];
+
+  readonly vars: {
     "--row-columns": string;
     "--row-height": string;
   };
-  render(row: any, column: Column<this>, _context: this): ReactNode;
-  extractColumns(children: any): void;
-}
 
-declare class Column<T extends Grid> {
-    Head?: FC<Table.HeadProps<T>>;
-    Cell?: FC<Table.CellProps<T>>;
-    size: string;
-    name: string;
-    constructor(info: Col.Props, index: number);
-    render?: (row: number) => ReactNode;
+  render(row: any, column: Grid.Column<this>, _context: this): ReactNode;
+  extractColumns(children: any): void;
 }
 
 declare namespace Table {
@@ -112,7 +112,7 @@ declare const Table: FC<Table.Props>;
 
 declare namespace Col {
     type Render = (
-      this: Column<any>,
+      this: Grid.Column<any>,
       row: any,
       context: Grid
     ) => ReactNode;

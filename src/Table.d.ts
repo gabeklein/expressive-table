@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 
-import Grid, { DataType } from './Grid';
+import Grid from './Grid';
 
 declare namespace Table {
   interface Props <T = any> {
@@ -53,7 +53,7 @@ declare const Table: FC<Table.Props>;
 
 declare namespace Column {
   type Render = (
-    this: DataType<any>,
+    this: Grid.Column<any>,
     row: any,
     context: Grid
   ) => ReactNode;

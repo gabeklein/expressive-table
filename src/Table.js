@@ -2,7 +2,7 @@ import Model, { Provider } from '@expressive/mvc';
 import { useState } from 'react';
 import { Children, memo, useLayoutEffect } from 'react';
 
-import Grid, { DataType } from './Grid';
+import Grid from './Grid';
 import Window from './Window';
 
 class Config extends Model {
@@ -81,10 +81,21 @@ export const Column = memo((props) => {
   const virtual = Grid.tap();
 
   useLayoutEffect(() => {
-    const index = virtual.columns.length;
-    const column = new DataType(props, index);
+    let { name, size } = props;
+
+    if(!name)
+      name = `Column ${virtual.columns.length + 1}`;
+
+    if(typeof size == "number")
+      size = size + "px";
   
-    virtual.columns.push(column);
+    virtual.columns.push({
+      name,
+      size,
+      render: props.render,
+      head: props.head,
+      cell: props.cell
+    });
   }, [])
 
   return false;
