@@ -1,6 +1,5 @@
 import Model, { Provider } from '@expressive/mvc';
-import { useState } from 'react';
-import { Children, memo, useLayoutEffect } from 'react';
+import { memo, useLayoutEffect } from 'react';
 
 import Grid from './Grid';
 import Window from './Window';
