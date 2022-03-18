@@ -4,24 +4,16 @@ import { Column, Table } from './Table';
 import Virtual from './Virtual';
 
 export class Grid extends Virtual {
-  ready = false;
   vars = {};
   length = 0;
   height = 40;
   columns: DataType<this>[] = [];
-
-  Header?: FC<Table.HeaderProps<this>> = undefined;
-  Head?: FC<Table.HeadProps<this>> = undefined;
-  Cell?: FC<Table.CellProps<this>> = undefined;
-  Row?: FC<Table.RowProps<this>> = undefined;
-  Empty?: FC<Table.EmptyProps<this>> = undefined;
 
   componentDidMount(){
     const { columns, height } = this;
     const template: string =
       columns.map(x => x.size || "1.0fr").join(" ");
     
-    this.ready = true;
     this.vars = {
       "--row-columns": template,
       "--row-height": height + "px",
@@ -33,33 +25,19 @@ export class Grid extends Virtual {
   };
 
   useProps(props: Table.Props){
-    const { end, length } = props;
-
-    if(length !== undefined)
-      this.length = length;
+    const { end } = props;
 
     useLayoutEffect(() => {
-      return end && this.effect(x => {
-        x.end && end();          
+      return end && this.effect(state => {
+        state.end && end();          
       });
     }, [end]);
-    
-    if(props.header)
-      this.Header = props.header;
-    if(props.head)
-      this.Head = props.head;
-    if(props.cell)
-      this.Cell = props.cell;
-    if(props.row)
-      this.Row = props.row;
-    if(props.empty)
-      this.Empty = props.empty;
   }
 }
 
 export class DataType<T extends Grid> {
-  Head?: FC<Table.HeadProps<T>>;
-  Cell?: FC<Table.CellProps<T>>;
+  head?: FC<Table.HeadProps<T>>;
+  cell?: FC<Table.CellProps<T>>;
 
   public size = "1fr";
   public name = "";
@@ -77,8 +55,8 @@ export class DataType<T extends Grid> {
       name,
       size,
       render: info.render,
-      Head: info.head,
-      Cell: info.cell
+      head: info.head,
+      cell: info.cell
     });
   }
 
