@@ -10,6 +10,15 @@ class Control extends Model {
   }
 }
 
+const NoResults = () => do {
+  textAlign: center;
+  height: fill;
+  flexAlign: center;
+  color: 0x888;
+
+  <this>- No Results -</this>
+}
+
 const App = () => do {
   const { length } = Control.use();
   
@@ -21,7 +30,11 @@ const App = () => do {
     font: sans-serif;
   }
   
-  <Table length={length} header={Header}>
+  <Table
+    length={length}
+    header={Header}
+    empty={NoResults}
+  >
     <Column name="foo" />
     <Column name="bar" />
   </Table>
