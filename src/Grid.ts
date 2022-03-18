@@ -42,8 +42,7 @@ export class Grid extends Virtual {
       this.length = length;
 
     useLayoutEffect(() => {
-      if(end)
-        return this.effect(x => x.end && end());
+      return end && this.effect(x => x.end && end());
     }, [end]);
     
     if(props.header)

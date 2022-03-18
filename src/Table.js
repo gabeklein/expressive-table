@@ -63,7 +63,12 @@ const Row = ({ index, offset, context }) => do {
     gridTemplateColumns: "var(--row-columns)";
   }
 
-  <Row key={index} id={index} row={index} offset={offset} context={context}>
+  <Row
+    key={index}
+    id={index}
+    row={index}
+    offset={offset}
+    context={context}>
     {context.columns.map((column, i) => do {
       const content = column.render
         ? column.render(index, context, column)
