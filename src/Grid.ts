@@ -16,7 +16,7 @@ declare namespace Grid {
 }
 
 class Grid extends Virtual {
-  vars = {};
+  style = {};
   length = 0;
   height = 40;
   columns: Grid.Column<this>[] = [];
@@ -26,7 +26,7 @@ class Grid extends Virtual {
     const template: string =
       columns.map(x => x.size || "1.0fr").join(" ");
     
-    this.vars = {
+    this.style = {
       "--row-columns": template,
       "--row-height": height + "px",
     }

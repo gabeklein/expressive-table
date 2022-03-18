@@ -52,7 +52,7 @@ declare class Grid extends Virtual {
   height: number;
   columns: Grid.Column<this>[];
 
-  readonly vars: {
+  readonly style: {
     "--row-columns": string;
     "--row-height": string;
   };

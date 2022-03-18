@@ -33,7 +33,7 @@ export const Table = (props) => do {
   }, [props.end]);
 
   container: {
-    style = Object.assign({}, props.style, control.vars);
+    style = Object.assign({}, props.style, control.style);
     forward: className;
     gridRows: min, auto, min;
     position: relative;
