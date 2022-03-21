@@ -62,18 +62,20 @@ declare class Grid extends Virtual {
 
 declare namespace Table {
   interface Props <T = any> {
+    for?: Grid | typeof Grid;
+    data?: readonly T[];
+    length?: number;
+
     header?: FC<HeaderProps>;
     head?: FC<HeadProps>;
     row?: FC<RowProps>;
     cell?: FC<CellProps>;
     empty?: FC<EmptyProps>;
 
-    for?: Grid | typeof Grid;
-    children: ReactNode;
     className?: string;
     style?: {};
+    children: ReactNode;
 
-    length?: number;
     end?: () => void;
   }
 
