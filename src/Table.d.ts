@@ -4,6 +4,9 @@ import Grid from './Grid';
 
 declare namespace Table {
   interface Props <T = any> {
+    data?: readonly T[];
+    length?: number;
+  
     header?: FC<HeaderProps>;
     head?: FC<HeadProps>;
     row?: FC<RowProps>;
@@ -15,7 +18,6 @@ declare namespace Table {
     className?: string;
     style?: {};
 
-    length?: number;
     end?: () => void;
   }
 

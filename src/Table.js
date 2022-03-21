@@ -24,7 +24,7 @@ export const Table = (props) => do {
   const config = Config.using(props);
   const Empty = props.empty;
 
-  control.import(props, [ "length" ]);
+  control.import(props, [ "length", "data" ]);
 
   useLayoutEffect(() => {
     if(props.end)

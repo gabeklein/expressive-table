@@ -1,3 +1,4 @@
+import { on } from '@expressive/mvc';
 import { FC, ReactNode } from 'react';
 
 import { Table } from './Table';
@@ -16,8 +17,12 @@ declare namespace Grid {
 }
 
 class Grid extends Virtual {
-  style = {};
   length = 0;
+  data = on<readonly any[]>(undefined, data => {
+    this.length = data.length;
+  })
+
+  style = {};
   height = 40;
   columns: Grid.Column<this>[] = [];
 
@@ -33,10 +38,18 @@ class Grid extends Virtual {
   }
 
   render(row: any, column: Grid.Column<this>){
-    return `${column.name} (${row})`;
+    const { name } = column;
+
+    if(this.data){
+      const data = this.data[row];
+      
+      if(data && name in data)
+        return data[name];
+    }
+
+    return `${name} (${row})`;
   };
 }
-
 
 export { Grid }
 export default Grid;
