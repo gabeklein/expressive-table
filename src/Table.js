@@ -21,8 +21,10 @@ class Config extends Model {
 
 export const Table = (props) => do {
   const Control = props.for || Grid;
-  const control = Control.using(props, [ "length" ]);
+  const control = Control.use();
   const config = Config.using(props);
+
+  control.import(props, [ "length" ]);
 
   useLayoutEffect(() => {
     if(props.end)
