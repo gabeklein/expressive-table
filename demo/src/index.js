@@ -2,14 +2,6 @@ import Model from "@expressive/mvc";
 import ReactDOM from "react-dom";
 import Table, { Column } from "../../src";
 
-class Control extends Model {
-  length = 100;
-
-  didCreate(){
-    window.DEBUG = this;
-  }
-}
-
 const NoResults = () => do {
   textAlign: center;
   height: fill;
@@ -20,8 +12,6 @@ const NoResults = () => do {
 }
 
 const App = () => do {
-  const { length } = Control.use();
-  
   Table: {
     fixed: 10;
     top: 60;
@@ -31,7 +21,7 @@ const App = () => do {
   }
   
   <Table
-    length={length}
+    length={50}
     header={Header}
     empty={NoResults}
   >
