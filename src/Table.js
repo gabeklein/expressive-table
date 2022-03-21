@@ -123,8 +123,9 @@ const Header = ({ for: context, padding }) => do {
           <HeadCell
             key={column.name}
             context={context}
-            column={column}
-          />;
+            column={column}>
+            {column.name}
+          </HeadCell>
         else
           <div key={column.name} />
       })}
