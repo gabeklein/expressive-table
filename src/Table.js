@@ -12,7 +12,6 @@ class Config extends Model {
   head = undefined;
   cell = undefined;
   row = undefined;
-  empty = undefined;
 
   componentDidMount(){
     this.ready = true;
@@ -23,6 +22,7 @@ export const Table = (props) => do {
   const Control = props.for || Grid;
   const control = Control.use();
   const config = Config.using(props);
+  const Empty = props.empty;
 
   control.import(props, [ "length" ]);
 
@@ -42,8 +42,8 @@ export const Table = (props) => do {
   }
 
   empty: {
-    if(!control.length && config.empty)
-      <control.Empty context={control} />
+    if(!control.length && Empty)
+      <Empty context={control} />
   }
 
   sensor: {
