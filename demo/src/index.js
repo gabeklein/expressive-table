@@ -4,12 +4,12 @@ import ReactDOM from "react-dom";
 import Table, { Column } from "../../src";
 
 const DATA = [
-  { number: "one", letter: "A" },
-  { number: "two", letter: "B" },
-  { number: "three", letter: "C" },
-  { number: "four", letter: "D" },
-  { number: "five", letter: "E" },
-  { number: "siz", letter: "F" },
+  { letter: "A", number: "one" },
+  { letter: "B", number: "two" },
+  { letter: "C", number: "three" },
+  { letter: "D", number: "four" },
+  { letter: "E", number: "five" },
+  { letter: "F", number: "six" },
 ]
 
 const NoResults = () => do {
