@@ -21,13 +21,29 @@ const App = () => do {
   }
   
   <Table
-    length={50}
+    data={[
+      { number: "one", letter: "A" },
+      { number: "two", letter: "B" },
+      { number: "three", letter: "C" },
+      { number: "four", letter: "D" },
+      { number: "five", letter: "E" },
+      { number: "siz", letter: "F" },
+    ]}
     header={Header}
     empty={NoResults}
+    head={HeadCell}
   >
-    <Column name="foo" />
-    <Column name="bar" />
+    <Column name="number" />
+    <Column name="letter" />
   </Table>
+}
+
+const HeadCell = ({ children }) => do {
+  color: navy;
+
+  <this>
+    {children}
+  </this>
 }
 
 const Header = ({ children }) => do {
