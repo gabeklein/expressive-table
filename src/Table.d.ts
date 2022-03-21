@@ -18,7 +18,7 @@ declare namespace Table {
     className?: string;
     style?: {};
 
-    end?: () => void;
+    didEnd?: () => void;
   }
 
   interface EmptyProps<T extends Grid = any> {

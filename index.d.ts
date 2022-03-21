@@ -76,7 +76,7 @@ declare namespace Table {
     style?: {};
     children: ReactNode;
 
-    end?: () => void;
+    didEnd?: () => void;
   }
 
   interface EmptyProps<T extends Grid = any> {

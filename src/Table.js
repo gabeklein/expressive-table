@@ -27,11 +27,11 @@ export const Table = (props) => do {
   control.import(props, [ "length", "data" ]);
 
   useLayoutEffect(() => {
-    if(props.end)
-      return control.effect(state => {
-        state.end && props.end();          
-      });
-  }, [props.end]);
+    return control.effect(state => {
+      if(state.end && props.didEnd)
+        props.didEnd();          
+    });
+  }, []);
 
   container: {
     style = Object.assign({}, props.style, control.style);
