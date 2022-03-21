@@ -37,6 +37,7 @@ declare namespace Table {
   }
   
   interface RowProps<T extends Grid = any> {
+    data?: { [key: string]: any };
     className: string;
     children: ReactNode;
     context: T;
@@ -46,6 +47,8 @@ declare namespace Table {
   }
   
   interface CellProps<T extends Grid = any> {
+    data?: { [key: string]: any };
+    name: string;
     context: T;
     column: Column.Props;
     row: number;

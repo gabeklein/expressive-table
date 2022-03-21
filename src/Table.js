@@ -135,6 +135,7 @@ const Header = ({ for: context, padding }) => do {
 const Row = ({ index, offset, context }) => do {
   const config = Config.tap();
   const Row = either(config.row, DefaultRow);
+  const data = context.data && context.data[index];
 
   Row: {
     display: grid;
@@ -147,6 +148,7 @@ const Row = ({ index, offset, context }) => do {
 
   <Row
     key={index}
+    data={data}
     id={index}
     row={index}
     offset={offset}
@@ -162,6 +164,8 @@ const Row = ({ index, offset, context }) => do {
       if(Cell)
         <Cell
           key={column.name}
+          name={column.name}
+          data={data}
           context={context}
           column={column}
           row={index}
