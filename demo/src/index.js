@@ -1,6 +1,16 @@
 import Model from "@expressive/mvc";
+import { useState } from "react";
 import ReactDOM from "react-dom";
 import Table, { Column } from "../../src";
+
+const DATA = [
+  { number: "one", letter: "A" },
+  { number: "two", letter: "B" },
+  { number: "three", letter: "C" },
+  { number: "four", letter: "D" },
+  { number: "five", letter: "E" },
+  { number: "siz", letter: "F" },
+]
 
 const NoResults = () => do {
   textAlign: center;
@@ -12,6 +22,8 @@ const NoResults = () => do {
 }
 
 const App = () => do {
+  const [number, setNumber] = useState(30);
+
   Table: {
     fixed: 10;
     top: 60;
@@ -21,17 +33,15 @@ const App = () => do {
   }
   
   <Table
-    data={[
-      { number: "one", letter: "A" },
-      { number: "two", letter: "B" },
-      { number: "three", letter: "C" },
-      { number: "four", letter: "D" },
-      { number: "five", letter: "E" },
-      { number: "siz", letter: "F" },
-    ]}
+    // data={DATA}
+    length={number}
     header={Header}
     empty={NoResults}
     head={HeadCell}
+    didEnd={() => {
+      console.log("did end!");
+      setNumber((number) => number + 20)
+    }}
   >
     <Column name="number" />
     <Column name="letter" />
