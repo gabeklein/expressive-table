@@ -85,11 +85,13 @@ declare namespace Table {
 
   interface HeaderProps<T extends Grid = any> {
     context: T;
+    children: ReactNode;
   }
 
   interface HeadProps<T extends Grid = any> {
     context: T;
     column: Column.Props;
+    children: ReactNode;
   }
   
   interface RowProps<T extends Grid = any> {
