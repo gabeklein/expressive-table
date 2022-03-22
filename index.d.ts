@@ -101,7 +101,6 @@ declare namespace Table {
     context: T;
     offset: number;
     row: number;
-    id: any;
   }
   
   interface CellProps<T extends Grid = any> {

@@ -149,7 +149,6 @@ const Row = ({ index, offset, context }) => do {
   <Row
     key={index}
     data={data}
-    id={index}
     row={index}
     offset={offset}
     context={context}>
@@ -168,8 +167,7 @@ const Row = ({ index, offset, context }) => do {
           data={data}
           context={context}
           column={column}
-          row={index}
-          id={index}>
+          row={index}>
           {content}
         </Cell>
       else
