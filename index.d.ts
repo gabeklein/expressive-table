@@ -108,7 +108,7 @@ declare namespace Table {
     name: string;
     data?: { [key: string]: any };
     context: T;
-    column: Column.Props;
+    column: Column.Info;
     index: number;
     row: number;
   }
@@ -117,19 +117,24 @@ declare namespace Table {
 declare const Table: FC<Table.Props>;
 
 declare namespace Column {
-    type Render = (
-      this: Grid.Column<any>,
-      row: any,
-      context: Grid
-    ) => ReactNode;
+  interface Info {
+    readonly name: string;
+    readonly index: number;
+    readonly size: string;
+  }
 
-    interface Props {
-      name?: string;
-      size?: string | number;
-      head?: FC<Table.HeadProps>;
-      cell?: FC<Table.CellProps>;
-      render: Render;
-    }
+  interface Props {
+    name?: string;
+    size?: string | number;
+    head?: FC<Table.HeadProps>;
+    cell?: FC<Table.CellProps>;
+
+    render?: (
+      this: Column.Info,
+      context: Grid,
+      row: any
+    ) => ReactNode;
+  }
 }
 
 declare const Column: FC<Column.Props>

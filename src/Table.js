@@ -82,17 +82,21 @@ export const Column = memo((props) => {
   const virtual = Grid.tap();
 
   useLayoutEffect(() => {
+    const index = virtual.columns.length;
     let { name, size } = props;
 
     if(!name)
-      name = `Column ${virtual.columns.length + 1}`;
+      name = `Column ${index}`;
 
     if(typeof size == "number")
       size = size + "px";
+    else if(size == undefined)
+      size = "1fr";
   
     virtual.columns.push({
       name,
       size,
+      index,
       render: props.render,
       head: props.head,
       cell: props.cell
