@@ -32,6 +32,7 @@ declare namespace Table {
 
   interface HeadProps<T extends Grid = any> {
     context: T;
+    index: number;
     column: Column.Props;
     children: ReactNode;
   }
@@ -50,8 +51,8 @@ declare namespace Table {
     name: string;
     context: T;
     column: Column.Props;
+    index: number;
     row: number;
-    index: any;
   }
 }
 

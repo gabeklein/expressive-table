@@ -91,6 +91,7 @@ declare namespace Table {
   interface HeadProps<T extends Grid = any> {
     context: T;
     column: Column.Props;
+    index: number;
     children: ReactNode;
   }
   
@@ -104,12 +105,12 @@ declare namespace Table {
   }
   
   interface CellProps<T extends Grid = any> {
-    data?: { [key: string]: any };
     name: string;
+    data?: { [key: string]: any };
     context: T;
     column: Column.Props;
+    index: number;
     row: number;
-    index: any;
   }
 }
 

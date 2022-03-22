@@ -122,6 +122,7 @@ const Header = ({ for: context, padding }) => do {
         if(HeadCell)
           <HeadCell
             key={column.name}
+            index={i}
             context={context}
             column={column}>
             {column.name}
@@ -163,9 +164,10 @@ const Row = ({ index, offset, context }) => do {
       if(Cell)
         <Cell
           key={column.name}
+          context={context}
+          index={i}
           name={column.name}
           data={data}
-          context={context}
           column={column}
           row={index}>
           {content}
