@@ -59,6 +59,12 @@ declare namespace Table {
 declare const Table: FC<Table.Props>;
 
 declare namespace Column {
+  type Render = (
+    row: any,
+    context: Grid,
+    column: Column.Info
+  ) => ReactNode
+
   interface Info {
     readonly name: string;
     readonly index: number;
@@ -70,12 +76,7 @@ declare namespace Column {
     size?: string | number;
     head?: FC<Table.HeadProps>;
     cell?: FC<Table.CellProps>;
-
-    render?: (
-      this: Column.Info,
-      context: Grid,
-      row: any
-    ) => ReactNode;
+    render?: string | Render;
   }
 }
 
