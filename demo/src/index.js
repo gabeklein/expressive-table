@@ -12,15 +12,6 @@ const DATA = [
   { letter: "F", number: "six" },
 ]
 
-const NoResults = () => do {
-  textAlign: center;
-  height: fill;
-  flexAlign: center;
-  color: 0x888;
-
-  <this>- No Results -</this>
-}
-
 const App = () => do {
   const [number, setNumber] = useState(30);
 
@@ -33,7 +24,6 @@ const App = () => do {
   }
   
   <Table
-    // data={DATA}
     length={number}
     header={Header}
     empty={NoResults}
@@ -41,19 +31,10 @@ const App = () => do {
     didEnd={() => {
       console.log("did end!");
       setNumber((number) => number + 20)
-    }}
-  >
+    }}>
     <Column name="number" />
     <Column name="letter" />
   </Table>
-}
-
-const HeadCell = ({ children }) => do {
-  color: navy;
-
-  <this>
-    {children}
-  </this>
 }
 
 const Header = ({ children }) => do {
@@ -62,6 +43,21 @@ const Header = ({ children }) => do {
   font: 20;
 
   <this>{children}</this>
+}
+
+const HeadCell = ({ children }) => do {
+  color: navy;
+
+  <this>{children}</this>
+}
+
+const NoResults = () => do {
+  textAlign: center;
+  height: fill;
+  flexAlign: center;
+  color: 0x888;
+
+  <this>- No Results -</this>
 }
 
 window.addEventListener("load", () => {
