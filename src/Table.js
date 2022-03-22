@@ -116,17 +116,17 @@ const Header = ({ for: context, padding }) => do {
   if(Header)
     <Header context={context} padding={padding}>
       {context.columns.map((column, i) => do {
-        const HeadCell =
+        const Head =
           either(column.head, config.head, DefaultHeadCell);
 
-        if(HeadCell)
-          <HeadCell
+        if(Head)
+          <Head
             key={column.name}
             index={i}
             context={context}
             column={column}>
             {column.name}
-          </HeadCell>
+          </Head>
         else
           <div key={column.name} />
       })}
