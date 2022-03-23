@@ -118,10 +118,15 @@ declare const Table: FC<Table.Props>;
 
 declare namespace Column {
   type Render = (
-    row: any,
+    index: any,
     context: Grid,
     column: Column.Info
   ) => ReactNode
+
+  type GetData = <T = any>(
+    data: T,
+    index: number
+  ) => ReactNode;
 
   interface Info {
     readonly name: string;
@@ -134,7 +139,8 @@ declare namespace Column {
     size?: string | number;
     head?: FC<Table.HeadProps>;
     cell?: FC<Table.CellProps>;
-    render?: string | Render;
+    value?: string | GetData; 
+    render?: Render;
   }
 }
 

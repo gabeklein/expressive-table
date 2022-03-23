@@ -83,29 +83,30 @@ export const Column = memo((props) => {
 
   useLayoutEffect(() => {
     const index = virtual.columns.length;
-    let { name, size, render } = props;
+    let { size, render, value } = props;
+    let name;
 
-    if(typeof size == "number")
-      size = size + "px";
-    else if(size == undefined)
-      size = "1fr";
+    switch(typeof size){
+      case "number":
+        size = size + "px";
+        break;
 
-    if(typeof render == "string"){
-      const key = render;
-
-      if(!name)
-        name = key;
-
-      render = (row, context) => (
-        context.data[row][key]
-      )
+      case "undefined":
+        size = "1fr";
     }
 
-    if(!name)
-      name = `Column ${index}`;
+    switch(typeof value){
+      case "function":
+        render = (row, ctx) => value(ctx.data[row], row);
+        break;
+
+      case "string":
+        name = value;
+        render = (row, ctx) => ctx.data[row][value];
+    }
   
     virtual.columns.push({
-      name,
+      name: name || props.name || `Column ${index}`,
       size,
       index,
       render,

@@ -37,7 +37,7 @@ class Grid extends Virtual {
     }
   }
 
-  render(row: any, column: Grid.Column<this>){
+  render(row: number, column: Grid.Column<this>){
     const { name } = column;
 
     if(this.data){
