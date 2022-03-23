@@ -83,8 +83,7 @@ export const Column = memo((props) => {
 
   useLayoutEffect(() => {
     const index = virtual.columns.length;
-    let { size, render, value } = props;
-    let name;
+    let { size, render, value, name } = props;
 
     switch(typeof size){
       case "number":
@@ -101,12 +100,13 @@ export const Column = memo((props) => {
         break;
 
       case "string":
-        name = value;
         render = (row, ctx) => ctx.data[row][value];
+        if(!name)
+          name = value;
     }
   
     virtual.columns.push({
-      name: name || props.name || `Column ${index}`,
+      name: name || String(index),
       size,
       index,
       render,
