@@ -13,6 +13,13 @@ class Config extends Model {
   cell = undefined;
   row = undefined;
 
+  calibrate = ref(e => {
+    if(e)
+      this.padding =
+        e.parentElement.scrollWidth -
+        e.scrollWidth
+  })
+
   componentDidMount(){
     this.ready = true;
   }
@@ -48,13 +55,6 @@ export const Table = (props) => do {
 
   sensor: {
     overflowY: scroll;
-    ref = (element) => {
-      if(element){
-        config.padding =
-          element.parentElement.scrollWidth -
-          element.scrollWidth
-      }
-    }
   }
 
   table: {
@@ -67,7 +67,7 @@ export const Table = (props) => do {
         {props.footer}
       </this>
     else
-      <sensor />
+      <sensor ref={config.calibrate} />
   }
 
   <Provider of={{ control, config }}>
