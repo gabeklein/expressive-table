@@ -218,8 +218,19 @@ const DefaultHeadCell = (props) => do {
 
 const DefaultCell = (props) => do {
   fontSize: 0.9;
+  overflow: hidden;
+  paddingR: "1.2em";
 
-  <this>{props.children}</this>;
+  content: {
+    whiteSpace: nowrap;
+    overflow: hidden;
+  }
+  
+  <this>
+    <content>
+      {props.children}
+    </content> 
+  </this>
 }
 
 /** Select first value defined but bail on falsey. */
