@@ -95,14 +95,25 @@ export const Column = memo((props) => {
     }
 
     switch(typeof value){
-      case "function":
-        render = (row, ctx) => value(ctx.data[row], row);
-        break;
+      case "function": {
+        const get = virtual.data
+          ? row => ctx.data[row]
+          : row => row;
 
-      case "string":
-        render = (row, ctx) => ctx.data[row][value];
+        render = row => value(get(row), row);
+        break;
+      }
+
+      case "string": {
+        if(!virtual.data)
+          throw new Error(
+            `Column "${name || value}" expects Table data but none is defined.`
+          );
+
+        render = row => virtual.data[row][value];
         if(!name)
           name = value;
+      }
     }
   
     virtual.columns.push({
