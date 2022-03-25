@@ -97,7 +97,7 @@ export const Column = memo((props) => {
     switch(typeof value){
       case "function": {
         const get = virtual.data
-          ? row => ctx.data[row]
+          ? row => virtual.data[row]
           : row => row;
 
         render = row => value(get(row), row);
