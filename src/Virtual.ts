@@ -18,8 +18,12 @@ class Virtual extends Model {
   itemSize = 40;
   overscan = 0;
 
-  size = from(this, state => state.itemSize * state.length);
+  size = from(this, state => (
+    state.itemSize * state.length
+  ));
+
   range = from(() => this.getVisibleRange);
+
   slice = from(this, state => {
     const [ start, end ] = state.range;
     const items = [];
@@ -35,19 +39,20 @@ class Virtual extends Model {
 
   areaX = 0;
   areaY = 0;
-  scrollMargin = 0;
   offset = 0;
+  scrollMargin = 0;
 
   maintain = false;
   horizontal = false;
 
   end = from(this, state => {
-    const bottom =
+    const bottom = Math.ceil(
       state.offset +
       state.areaX +
-      state.overscan;
+      state.overscan
+    );
     
-    return Math.ceil(bottom) >= state.size;
+    return bottom >= state.size;
   })
 
   getItem(i: number){
