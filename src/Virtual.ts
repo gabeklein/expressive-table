@@ -12,7 +12,7 @@ export type Type<T extends Virtual> =
   ReturnType<T["getItem"]>;
 
 class Virtual extends Model {
-  container = ref(this.observeContainer);
+  container = ref(observe);
 
   length = 0;
   itemSize = 40;
@@ -79,45 +79,47 @@ class Virtual extends Model {
 
     return [first, last] as const;
   }
-  
-  observeContainer(element: HTMLElement | null){
-    if(!element)
-      return;
-  
-    let { maintain, DOM } = this;
-    let scrollOffset = 0;
-  
-    const content = element.lastChild as HTMLDivElement;
-  
-    const getSize = () => {
-      if(maintain)
-        window.requestAnimationFrame(getSize);
-  
-      const outerRect = element.getBoundingClientRect();
-      const innerRect = content.getBoundingClientRect();
-  
-      scrollOffset = outerRect.top - innerRect.top;
+}
 
-      this.scrollMargin = outerRect.width - innerRect.width;
-      this.areaX = outerRect[DOM.sizeX];
-      this.areaY = innerRect[DOM.sizeY];
-    }
-  
-    const getOffset = () => {
-      this.offset = element[DOM.scrollX] + scrollOffset;
-    }
-  
-    getSize();
-    getOffset();
-  
-    element.addEventListener("scroll", getOffset, {
-      capture: false, passive: true
-    });
-  
-    return () => {
-      maintain = false;
-      element.removeEventListener("scroll", getOffset);
-    }
+function observe(
+  this: Virtual, element: HTMLElement | null){
+
+  if(!element)
+    return;
+
+  let { maintain, DOM } = this;
+  let scrollOffset = 0;
+
+  const content = element.lastChild as HTMLDivElement;
+
+  const getSize = () => {
+    if(maintain)
+      window.requestAnimationFrame(getSize);
+
+    const outerRect = element.getBoundingClientRect();
+    const innerRect = content.getBoundingClientRect();
+
+    scrollOffset = outerRect.top - innerRect.top;
+
+    this.scrollMargin = outerRect.width - innerRect.width;
+    this.areaX = outerRect[DOM.sizeX];
+    this.areaY = innerRect[DOM.sizeY];
+  }
+
+  const getOffset = () => {
+    this.offset = element[DOM.scrollX] + scrollOffset;
+  }
+
+  getSize();
+  getOffset();
+
+  element.addEventListener("scroll", getOffset, {
+    capture: false, passive: true
+  });
+
+  return () => {
+    maintain = false;
+    element.removeEventListener("scroll", getOffset);
   }
 }
 
