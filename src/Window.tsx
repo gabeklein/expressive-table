@@ -52,7 +52,7 @@ function Window(props: Window.Props){
       <div
         ref={container}
         className={props.className}
-        style={{ ...props.style, overflowY: "scroll" }}
+        style={{ ...props.style, overflowY: "auto" }}
       >
         {props.children}
         <Visible render={renderRow} />

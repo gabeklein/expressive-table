@@ -1,4 +1,4 @@
-import Model, { Provider } from '@expressive/mvc';
+import Model, { Provider, ref } from '@expressive/mvc';
 import { memo, useLayoutEffect } from 'react';
 
 import Grid from './Grid';
@@ -60,7 +60,7 @@ export const Table = (props) => do {
   table: {
     if(config.ready)
       <this>
-        <Header for={control} padding={config.padding} />
+        <Header for={control} config={config} />
         <Window for={control} component={Row}>
           <empty />
         </Window>
@@ -118,9 +118,11 @@ export const Column = memo((props) => {
   return false;
 })
 
-const Header = ({ for: context, padding }) => do {
-  const config = Config.tap();
+const Header = ({ for: context, config }) => do {
   const Header = either(config.header, DefaultHeader);
+  const padding = context.tap($ => {
+    return $.size > $.areaX ? config.padding : 0;
+  })
 
   Header: {
     display: grid;
