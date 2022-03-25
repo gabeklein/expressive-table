@@ -28,6 +28,9 @@ class Virtual extends Model {
     const [ start, end ] = state.range;
     const items = [];
 
+    if(state.length === 0)
+      return [];
+
     if(end >= start)
       for(let i = start; i <= end; i++)
         items.push(this.getItem(i));
