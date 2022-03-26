@@ -110,6 +110,8 @@ const Header = ({ for: context, config }) => {
           <div key={column.name} />
       })}
     </Header>
+  else
+    <div />
 }
 
 const Row = ({ index, offset, context }) => {
