@@ -86,12 +86,15 @@ export const Column = memo((props) => {
     let { size, render, value, name } = props;
 
     switch(typeof size){
-      case "number":
-        size = size + "px";
-        break;
-
       case "undefined":
         size = "1fr";
+
+      case "string":
+        if(isNaN(size))
+          break;
+
+      case "number":
+        size += size % 1 ? "fr" : "px";
     }
 
     switch(typeof value){
