@@ -17,7 +17,6 @@ const App = () => {
 
   Table: {
     fixed: 10;
-    top: 60;
     outline: blue;
     textAlign: center;
     font: sans-serif;
