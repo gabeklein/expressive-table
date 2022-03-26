@@ -1,5 +1,6 @@
 import Model, { Provider, ref } from '@expressive/mvc';
 import { memo, useLayoutEffect } from 'react';
+import * as normal from "./components";
 
 import Grid from './Grid';
 import Window from './Window';
@@ -87,7 +88,7 @@ export const Column = memo((props) => {
 })
 
 const Header = ({ for: context, config }) => do {
-  const Header = either(config.header, DefaultHeader);
+  const Header = either(config.header, normal.Header);
   const padding = context.tap($ => {
     return $.size > $.areaX ? config.padding : 0;
   })
@@ -103,7 +104,7 @@ const Header = ({ for: context, config }) => do {
     <Header context={context} padding={padding}>
       {context.columns.map((column, i) => do {
         const Head =
-          either(column.head, config.head, DefaultHeadCell);
+          either(column.head, config.head, normal.HeadCell);
 
         if(Head)
           <Head
@@ -121,7 +122,7 @@ const Header = ({ for: context, config }) => do {
 
 const Row = ({ index, offset, context }) => do {
   const config = Config.tap();
-  const Row = either(config.row, DefaultRow);
+  const Row = either(config.row, normal.Row);
   const data = context.data && context.data[index];
 
   Row: {
@@ -145,7 +146,7 @@ const Row = ({ index, offset, context }) => do {
         : context.render(index, column, context);
 
       const Cell =
-        either(column.cell, config.cell, DefaultCell);
+        either(column.cell, config.cell, normal.Cell);
 
       if(Cell)
         <Cell
@@ -162,45 +163,6 @@ const Row = ({ index, offset, context }) => do {
         <div key={column.name} />
     })}
   </Row>
-}
-
-const DefaultHeader = (props) => do {
-  forward: className, style;
-  padding: 0, 10;
-
-  <this>
-    {props.children}
-  </this>
-}
-
-const DefaultRow = (props) => do {
-  forward: className;
-  padding: 0, 10;
-
-  <this style={{ top: props.offset }}>
-    {props.children}
-  </this>
-}
-
-const DefaultHeadCell = (props) => do {
-  <div>{props.column.name}</div>
-}
-
-const DefaultCell = (props) => do {
-  fontSize: 0.9;
-  overflow: hidden;
-  paddingR: "1.2em";
-
-  content: {
-    whiteSpace: nowrap;
-    overflow: hidden;
-  }
-  
-  <this>
-    <content>
-      {props.children}
-    </content> 
-  </this>
 }
 
 /** Select first value defined but bail on falsey. */
