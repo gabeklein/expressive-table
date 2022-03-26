@@ -60,7 +60,7 @@ declare const Table: FC<Table.Props>;
 
 declare namespace Column {
   type Render = (
-    index: any,
+    index: number,
     context: Grid,
     column: Column.Info
   ) => ReactNode

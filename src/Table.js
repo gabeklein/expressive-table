@@ -79,55 +79,9 @@ export const Table = (props) => do {
 }
 
 export const Column = memo((props) => {
-  const virtual = Grid.tap();
+  const { register } = Grid.tap();
 
-  useLayoutEffect(() => {
-    const index = virtual.columns.length;
-    let { size, render, value, name } = props;
-
-    switch(typeof size){
-      case "undefined":
-        size = "1fr";
-
-      case "string":
-        if(isNaN(size))
-          break;
-
-      case "number":
-        size += size % 1 ? "fr" : "px";
-    }
-
-    switch(typeof value){
-      case "function": {
-        const get = virtual.data
-          ? row => virtual.data[row]
-          : row => row;
-
-        render = row => value(get(row), row);
-        break;
-      }
-
-      case "string": {
-        if(!virtual.data)
-          throw new Error(
-            `Column "${name || value}" expects Table data but none is defined.`
-          );
-
-        render = row => virtual.data[row][value];
-        if(!name)
-          name = value;
-      }
-    }
-  
-    virtual.columns.push({
-      name: name || String(index),
-      size,
-      index,
-      render,
-      head: props.head,
-      cell: props.cell
-    });
-  }, [])
+  useLayoutEffect(() => register(props), [])
 
   return false;
 })

@@ -1,7 +1,7 @@
 import { from, on } from '@expressive/mvc';
 import { FC, ReactNode } from 'react';
 
-import { Table } from './Table';
+import { Column, Table } from './Table';
 import Virtual from './Virtual';
 
 declare namespace Grid {
@@ -11,8 +11,13 @@ declare namespace Grid {
   
     size: string;
     name: string;
+    index: number;
   
-    render?: (row: number) => ReactNode;
+    render?: (
+      index: number,
+      context: Grid,
+      column: Column.Info
+    ) => ReactNode;
   }
 }
 
@@ -34,6 +39,59 @@ class Grid extends Virtual {
       "--row-height": $.height + "px",
     }
   })
+
+  register = (props: Column.Props) => {
+    const index = this.columns.length;
+    const { data } = this;
+    let { size, render, value, name } = props;
+
+    switch(typeof size){
+      case "undefined":
+        size = "1fr";
+
+      case "string":
+        if(isNaN(+size))
+          break;
+
+      case "number":
+        size = `${size}${+size % 1 ? "fr" : "px"}`;
+    }
+
+    switch(typeof value){
+      case "function": {
+        const set = value;
+
+        const get = data
+          ? (row: number) => data[row]
+          : (row: number) => row;
+
+        render = (row: number) => set(get(row), row);
+        break;
+      }
+
+      case "string": {
+        if(!name)
+          name = value;
+        
+        if(!data)
+          throw new Error(
+            `Column "${name}" expects Table data but none is defined.`
+          );
+
+        const key = value;
+        render = (row: number) => data[row][key];
+      }
+    }
+  
+    this.columns.push({
+      name: name || String(index),
+      size,
+      index,
+      render,
+      head: props.head,
+      cell: props.cell
+    });
+  }
 
   componentDidMount(){
     this.update("columns" as any);
