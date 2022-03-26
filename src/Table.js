@@ -1,7 +1,7 @@
 import Model, { Provider, ref } from '@expressive/mvc';
 import { Fragment, memo, useLayoutEffect } from 'react';
-import * as normal from "./components";
 
+import * as normal from './components';
 import Grid from './Grid';
 import Window from './Window';
 
@@ -14,11 +14,11 @@ class Config extends Model {
   cell = undefined;
   row = undefined;
 
-  calibrate = ref(e => {
-    if(e)
+  calibrate = ref(event => {
+    if(event)
       this.padding =
-        e.parentElement.scrollWidth -
-        e.scrollWidth
+        event.parentElement.scrollWidth -
+        event.scrollWidth
   })
 
   componentDidMount(){
@@ -42,7 +42,7 @@ export const Table = (props) => {
   }, []);
 
   container: {
-    style = Object.assign({}, props.style, control.style);
+    style = { ...props.style, ...control.style }
     forward: className;
     gridRows: min, auto, min;
     position: relative;
@@ -115,8 +115,8 @@ const Header = ({ for: context, config }) => {
 
 const Row = ({ index, offset, context }) => {
   const config = Config.tap();
-  const Row = either(config.row, normal.Row);
   const data = context.data && context.data[index];
+  const Row = either(config.row, normal.Row);
 
   Row: {
     display: grid;
