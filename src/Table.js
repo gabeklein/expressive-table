@@ -44,7 +44,7 @@ export const Table = (props) => {
   container: {
     style = { ...props.style, ...control.style }
     forward: className;
-    gridRows: min, auto, min;
+    gridRows: min, auto;
     position: relative;
     overflow: hidden;
   }
@@ -65,7 +65,6 @@ export const Table = (props) => {
               <Empty context={control} />
             }
           </Window>
-          {props.footer}
         </Fragment>
       }
     </container>
