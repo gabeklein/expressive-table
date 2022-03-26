@@ -12,7 +12,7 @@ const DATA = [
   { letter: "F", number: "six" },
 ]
 
-const App = () => do {
+const App = () => {
   const [number, setNumber] = useState(30);
 
   Table: {
@@ -37,7 +37,7 @@ const App = () => do {
   </Table>
 }
 
-const Header = ({ children }) => do {
+const Header = ({ children }) => {
   forward: className, style;
   padding: 20, 10;  
   font: 20;
@@ -45,13 +45,13 @@ const Header = ({ children }) => do {
   <this>{children}</this>
 }
 
-const HeadCell = ({ children }) => do {
+const HeadCell = ({ children }) => {
   color: navy;
 
   <this>{children}</this>
 }
 
-const NoResults = () => do {
+const NoResults = () => {
   textAlign: center;
   height: fill;
   flexAlign: center;

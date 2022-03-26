@@ -1,4 +1,4 @@
-export const Header = (props) => do {
+export const Header = (props) => {
   forward: className, style;
   padding: 0, 10;
 
@@ -7,11 +7,11 @@ export const Header = (props) => do {
   </this>
 }
 
-export const HeadCell = (props) => do {
+export const HeadCell = (props) => {
   <div>{props.column.name}</div>
 }
 
-export const Row = (props) => do {
+export const Row = (props) => {
   forward: className;
   padding: 0, 10;
 
@@ -20,7 +20,7 @@ export const Row = (props) => do {
   </this>
 }
 
-export const Cell = (props) => do {
+export const Cell = (props) => {
   fontSize: 0.9;
   overflow: hidden;
   paddingR: "1.2em";

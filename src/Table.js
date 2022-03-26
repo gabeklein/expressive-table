@@ -1,5 +1,5 @@
 import Model, { Provider, ref } from '@expressive/mvc';
-import { memo, useLayoutEffect } from 'react';
+import { Fragment, memo, useLayoutEffect } from 'react';
 import * as normal from "./components";
 
 import Grid from './Grid';
@@ -26,7 +26,7 @@ class Config extends Model {
   }
 }
 
-export const Table = (props) => do {
+export const Table = (props) => {
   const Control = props.for || Grid;
   const control = Control.use();
   const config = Config.using(props);
@@ -49,32 +49,25 @@ export const Table = (props) => do {
     overflow: hidden;
   }
 
-  empty: {
-    if(!control.length && Empty)
-      <Empty context={control} />
-  }
-
   sensor: {
     overflowY: scroll;
   }
 
-  table: {
-    if(config.ready)
-      <this>
-        <Header for={control} config={config} />
-        <Window for={control} component={Row}>
-          <empty />
-        </Window>
-        {props.footer}
-      </this>
-    else
-      <sensor ref={config.calibrate} />
-  }
-
   <Provider of={{ control, config }}>
+    <sensor ref={config.calibrate} />
     <container>
       {props.children}
-      <table />
+      {config.ready &&
+        <Fragment>
+          <Header for={control} config={config} />
+          <Window for={control} component={Row}>
+            {!control.length && Empty &&
+              <Empty context={control} />
+            }
+          </Window>
+          {props.footer}
+        </Fragment>
+      }
     </container>
   </Provider>
 }
@@ -87,7 +80,7 @@ export const Column = memo((props) => {
   return false;
 })
 
-const Header = ({ for: context, config }) => do {
+const Header = ({ for: context, config }) => {
   const Header = either(config.header, normal.Header);
   const padding = context.tap($ => {
     return $.size > $.areaX ? config.padding : 0;
@@ -102,7 +95,7 @@ const Header = ({ for: context, config }) => do {
 
   if(Header)
     <Header context={context} padding={padding}>
-      {context.columns.map((column, i) => do {
+      {context.columns.map((column, i) => {
         const Head =
           either(column.head, config.head, normal.HeadCell);
 
@@ -120,7 +113,7 @@ const Header = ({ for: context, config }) => do {
     </Header>
 }
 
-const Row = ({ index, offset, context }) => do {
+const Row = ({ index, offset, context }) => {
   const config = Config.tap();
   const Row = either(config.row, normal.Row);
   const data = context.data && context.data[index];
@@ -140,7 +133,7 @@ const Row = ({ index, offset, context }) => do {
     row={index}
     offset={offset}
     context={context}>
-    {context.columns.map((column, i) => do {
+    {context.columns.map((column, i) => {
       const content = column.render
         ? column.render(index, context, column)
         : context.render(index, column, context);
