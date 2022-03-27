@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@expressive/css": "^1.0.0-beta.90",
-    "@expressive/mvc": "^1.0.0-beta.32"
+    "@expressive/mvc": "^1.0.0-beta.33"
   },
   "devDependencies": {
     "@expressive/babel-preset-react": "^1.0.0-beta.91",
