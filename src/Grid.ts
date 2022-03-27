@@ -1,4 +1,4 @@
-import { from, on } from '@expressive/mvc';
+import { from } from '@expressive/mvc';
 import { FC, ReactNode } from 'react';
 
 import { Column, Table } from './Table';
@@ -23,12 +23,19 @@ declare namespace Grid {
 
 class Grid extends Virtual {
   length = 0;
+  data = [];
+
   height = 40;
   columns: Grid.Column<this>[] = [];
 
-  data = on<readonly any[]>(undefined, data => {
-    this.length = data.length;
-  })
+  constructor(){
+    super();
+
+    this.on("data", data => {
+      if(data)
+        this.length = data.length;
+    })
+  }
 
   style = from(this, $ => {
     const template: string =
