@@ -23,7 +23,7 @@ export const Row = (props) => {
 export const Cell = (props) => {
   fontSize: 0.9;
   overflow: hidden;
-  paddingR: "1.2em";
+  paddingR: 1.2;
 
   content: {
     whiteSpace: nowrap;
