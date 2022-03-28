@@ -37,6 +37,8 @@ class Grid extends Model {
   rowHeight = 40;
   columns: Grid.Column<this>[] = [];
 
+  didEnd?: () => void = undefined;
+
   constructor(){
     super();
 
@@ -60,8 +62,8 @@ class Grid extends Model {
       if(data)
         virtual.length = data.length;
 
-      virtual.length = length!;
-      virtual.itemSize = rowHeight!;
+      virtual.length = length;
+      virtual.itemSize = rowHeight;
     })
   }
 
@@ -82,7 +84,7 @@ class Grid extends Model {
     }
   })
 
-  register = (props: Column.Props) => {
+  register(props: Column.Props){
     const { data, columns } = this;
     const index = columns.length;
     let { size, render, value, name } = props;
@@ -103,11 +105,9 @@ class Grid extends Model {
       case "function": {
         const set = value;
 
-        const get = data
-          ? (row: number) => data[row]
-          : (row: number) => row;
+        render = (row: number) =>
+          set(data ? data[row] : row, row)
 
-        render = (row: number) => set(get(row), row);
         break;
       }
 
@@ -134,8 +134,6 @@ class Grid extends Model {
       cell: props.cell
     });
   }
-
-  didEnd?: () => void = undefined;
 
   render(row: number, column: Grid.Column<this>){
     const { name } = column;

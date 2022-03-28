@@ -52,9 +52,11 @@ export const Table = (props) => {
 }
 
 export const Column = memo((props) => {
-  const { register } = Grid.tap();
+  const control = Grid.get();
 
-  useLayoutEffect(() => register(props), [])
+  useLayoutEffect(() => {
+    control.register(props)
+  }, []);
 
   return false;
 })
