@@ -38,7 +38,6 @@ const App = () => {
 }
 
 const Cell = ({ children }) => {
-  outline: red;
   flexAlign: center;
   
   <this>

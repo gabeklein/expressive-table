@@ -5,34 +5,22 @@ import * as normal from './components';
 import Grid from './Grid';
 import Window from './Window';
 
-class Config extends Model {
-  ready = false;
-  padding = 0;
-
-  header = undefined;
-  head = undefined;
-  cell = undefined;
-  row = undefined;
-
-  calibrate = ref(event => {
-    if(event)
-      this.padding =
-        event.parentElement.scrollWidth -
-        event.scrollWidth
-  })
-
-  componentDidMount(){
-    this.ready = true;
-  }
-}
+const IMPORT_PROPS = [
+  "length",
+  "data",
+  "didEnd",
+  "header",
+  "head",
+  "cell",
+  "row"
+]
 
 export const Table = (props) => {
   const Control = props.for || Grid;
   const control = Control.use();
-  const config = Config.using(props);
   const Empty = props.empty;
 
-  control.import(props, [ "length", "data", "didEnd" ]);
+  control.import(props, IMPORT_PROPS);
 
   container: {
     style = { ...props.style, ...control.style }
@@ -45,13 +33,13 @@ export const Table = (props) => {
     overflowY: scroll;
   }
 
-  <Provider of={{ control, config }}>
-    <sensor ref={config.calibrate} />
+  <Provider of={{ control }}>
+    <sensor ref={control.calibrate} />
     <container>
       {props.children}
-      {config.ready &&
+      {control.ready &&
         <Fragment>
-          <Header for={control} config={config} />
+          <Header for={control} />
           <Window for={control.virtual} component={Row}>
             {!control.virtual.length && Empty &&
               <Empty context={control} />
@@ -71,10 +59,11 @@ export const Column = memo((props) => {
   return false;
 })
 
-const Header = ({ for: context, config }) => {
-  const Header = either(config.header, normal.Header);
-  const scroll = Grid.tap($ => $.virtual.size > $.virtual.areaX);
-  const padding = scroll ? config.padding : 0;
+const Header = ({ for: control }) => {
+  const Header = either(control.header, normal.Header);
+  const padding = control.tap($ => (
+    $.virtual.size > $.virtual.areaX ? $.padding : 0
+  ));
 
   Header: {
     display: grid;
@@ -84,16 +73,16 @@ const Header = ({ for: context, config }) => {
   }
 
   if(Header)
-    <Header context={context} padding={padding}>
-      {context.columns.map((column, i) => {
+    <Header context={control} padding={padding}>
+      {control.columns.map((column, i) => {
         const Head =
-          either(column.head, config.head, normal.HeadCell);
+          either(column.head, control.head, normal.HeadCell);
 
         if(Head)
           <Head
             key={column.name}
             index={i}
-            context={context}
+            context={control}
             column={column}>
             {column.name}
           </Head>
@@ -107,9 +96,8 @@ const Header = ({ for: context, config }) => {
 
 const Row = ({ index, offset }) => {
   const grid = Grid.tap();
-  const config = Config.get();
   const data = grid.data && grid.data[index];
-  const Row = either(config.row, normal.Row);
+  const Row = either(grid.row, normal.Row);
 
   Row: {
     display: grid;
@@ -132,7 +120,7 @@ const Row = ({ index, offset }) => {
         : grid.render(index, column, grid);
 
       const Cell =
-        either(column.cell, config.cell, normal.Cell);
+        either(column.cell, grid.cell, normal.Cell);
 
       if(Cell)
         <Cell

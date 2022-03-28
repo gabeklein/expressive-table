@@ -1,4 +1,4 @@
-import Model, { from, use } from '@expressive/mvc';
+import Model, { from, ref, use } from '@expressive/mvc';
 import { FC, ReactNode } from 'react';
 
 import { Column, Table } from './Table';
@@ -22,35 +22,55 @@ declare namespace Grid {
 }
 
 class Grid extends Model {
-  virtual = use(Virtual, $ => {
-    this.on("data", data => {
-      if(data)
-        $.length = data.length;
-    })
+  virtual = use(Virtual);
 
-    this.on("length", length => {
-      $.length = length!;
-    })
+  header = undefined;
+  head = undefined;
+  cell = undefined;
+  row = undefined;
 
-    this.on("rowHeight", height => {
-      $.itemSize = height!;
-    })
-
-    this.once("didMount", () => {
-      $.on("end", end => {
-        if(end && this.didEnd)
-          this.didEnd();  
-      })
-    })
-  });
-
+  ready = false;
+  padding = 0;
   length = 0;
   data = [];
 
   rowHeight = 40;
   columns: Grid.Column<this>[] = [];
 
-  didEnd?: () => void = undefined;
+  constructor(){
+    super();
+
+    this.once("didMount", () => {
+      this.ready = true;
+      this.update("columns" as any);
+      this.virtual.on("end", end => {
+        if(end && this.didEnd)
+          this.didEnd();  
+      })
+    })
+
+    this.effect(state => {
+      const {
+        data,
+        length,
+        rowHeight,
+        virtual
+      } = state;
+
+      if(data)
+        virtual.length = data.length;
+
+      virtual.length = length!;
+      virtual.itemSize = rowHeight!;
+    })
+  }
+
+  calibrate = ref(event => {
+    if(event)
+      this.padding =
+        event.parentElement!.scrollWidth -
+        event.scrollWidth
+  })
 
   style = from(this, $ => {
     const template: string =
@@ -63,8 +83,8 @@ class Grid extends Model {
   })
 
   register = (props: Column.Props) => {
-    const index = this.columns.length;
-    const { data } = this;
+    const { data, columns } = this;
+    const index = columns.length;
     let { size, render, value, name } = props;
 
     switch(typeof size){
@@ -105,7 +125,7 @@ class Grid extends Model {
       }
     }
   
-    this.columns.push({
+    columns.push({
       name: name || String(index),
       size,
       index,
@@ -115,9 +135,7 @@ class Grid extends Model {
     });
   }
 
-  componentDidMount(){
-    this.update("columns" as any);
-  }
+  didEnd?: () => void = undefined;
 
   render(row: number, column: Grid.Column<this>){
     const { name } = column;
