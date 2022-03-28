@@ -1,4 +1,4 @@
-import { from } from '@expressive/mvc';
+import Model, { from, use } from '@expressive/mvc';
 import { FC, ReactNode } from 'react';
 
 import { Column, Table } from './Table';
@@ -21,21 +21,36 @@ declare namespace Grid {
   }
 }
 
-class Grid extends Virtual {
+class Grid extends Model {
+  virtual = use(Virtual, $ => {
+    this.on("data", data => {
+      if(data)
+        $.length = data.length;
+    })
+
+    this.on("length", length => {
+      $.length = length!;
+    })
+
+    this.on("rowHeight", height => {
+      $.itemSize = height!;
+    })
+
+    this.once("didMount", () => {
+      $.on("end", end => {
+        if(end && this.didEnd)
+          this.didEnd();  
+      })
+    })
+  });
+
   length = 0;
   data = [];
 
-  height = 40;
+  rowHeight = 40;
   columns: Grid.Column<this>[] = [];
 
-  constructor(){
-    super();
-
-    this.on("data", data => {
-      if(data)
-        this.length = data.length;
-    })
-  }
+  didEnd?: () => void = undefined;
 
   style = from(this, $ => {
     const template: string =
@@ -43,7 +58,7 @@ class Grid extends Virtual {
     
     return {
       "--row-columns": template,
-      "--row-height": $.height + "px",
+      "--row-height": $.rowHeight + "px",
     }
   })
 

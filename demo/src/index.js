@@ -27,6 +27,7 @@ const App = () => {
     header={Header}
     empty={NoResults}
     head={HeadCell}
+    cell={Cell}
     didEnd={() => {
       console.log("did end!");
       setNumber((number) => number + 20)
@@ -36,9 +37,18 @@ const App = () => {
   </Table>
 }
 
-const Header = ({ children }) => {
+const Cell = ({ children }) => {
+  outline: red;
+  flexAlign: center;
+  
+  <this>
+    {children}
+  </this>
+}
+
+const Header = ({ children, padding }) => {
   forward: className, style;
-  padding: 20, 10;  
+  padding: 20, 10;
   font: 20;
 
   <this>{children}</this>
@@ -46,6 +56,7 @@ const Header = ({ children }) => {
 
 const HeadCell = ({ children }) => {
   color: navy;
+  outline: grey;
 
   <this>{children}</this>
 }

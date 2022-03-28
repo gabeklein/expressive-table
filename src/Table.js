@@ -32,20 +32,12 @@ export const Table = (props) => {
   const config = Config.using(props);
   const Empty = props.empty;
 
-  control.import(props, [ "length", "data" ]);
-
-  useLayoutEffect(() => {
-    return control.effect(state => {
-      if(state.end && props.didEnd)
-        props.didEnd();          
-    });
-  }, []);
+  control.import(props, [ "length", "data", "didEnd" ]);
 
   container: {
     style = { ...props.style, ...control.style }
     forward: className;
     gridRows: min, auto;
-    position: relative;
     overflow: hidden;
   }
 
@@ -60,8 +52,8 @@ export const Table = (props) => {
       {config.ready &&
         <Fragment>
           <Header for={control} config={config} />
-          <Window for={control} component={Row}>
-            {!control.length && Empty &&
+          <Window for={control.virtual} component={Row}>
+            {!control.virtual.length && Empty &&
               <Empty context={control} />
             }
           </Window>
@@ -81,9 +73,8 @@ export const Column = memo((props) => {
 
 const Header = ({ for: context, config }) => {
   const Header = either(config.header, normal.Header);
-  const padding = context.tap($ => {
-    return $.size > $.areaX ? config.padding : 0;
-  })
+  const scroll = Grid.tap($ => $.virtual.size > $.virtual.areaX);
+  const padding = scroll ? config.padding : 0;
 
   Header: {
     display: grid;
@@ -114,9 +105,10 @@ const Header = ({ for: context, config }) => {
     <div />
 }
 
-const Row = ({ index, offset, context }) => {
-  const config = Config.tap();
-  const data = context.data && context.data[index];
+const Row = ({ index, offset }) => {
+  const grid = Grid.tap();
+  const config = Config.get();
+  const data = grid.data && grid.data[index];
   const Row = either(config.row, normal.Row);
 
   Row: {
@@ -133,11 +125,11 @@ const Row = ({ index, offset, context }) => {
     data={data}
     row={index}
     offset={offset}
-    context={context}>
-    {context.columns.map((column, i) => {
+    context={grid}>
+    {grid.columns.map((column, i) => {
       const content = column.render
-        ? column.render(index, context, column)
-        : context.render(index, column, context);
+        ? column.render(index, grid, column)
+        : grid.render(index, column, grid);
 
       const Cell =
         either(column.cell, config.cell, normal.Cell);
@@ -145,7 +137,7 @@ const Row = ({ index, offset, context }) => {
       if(Cell)
         <Cell
           key={column.name}
-          context={context}
+          context={grid}
           index={i}
           name={column.name}
           data={data}
