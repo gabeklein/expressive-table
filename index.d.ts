@@ -43,7 +43,7 @@ declare namespace Grid {
     size: string;
     name: string;
   
-    render?: (row: number) => ReactNode;
+    render: (row: number) => ReactNode;
   }
 }
 

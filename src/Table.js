@@ -123,12 +123,8 @@ const Row = ({ index, offset }) => {
     offset={offset}
     context={grid}>
     {grid.columns.map((column, i) => {
-      const content = column.render
-        ? column.render(index, grid, column)
-        : grid.render(index, column, grid);
-
-      const Cell =
-        either(column.cell, grid.cell, normal.Cell);
+      const Cell = either(column.cell, grid.cell, normal.Cell);
+      const content = column.render(index, grid, column);
 
       if(Cell)
         <Cell

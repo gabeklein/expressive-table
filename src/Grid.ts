@@ -13,7 +13,7 @@ declare namespace Grid {
     name: string;
     index: number;
   
-    render?: (
+    render: (
       index: number,
       context: Grid,
       column: Column.Info
@@ -36,20 +36,6 @@ class Grid extends Model {
   head = undefined;
   row = undefined;
   cell = undefined;
-
-  render = (row: number, column: Grid.Column<this>) => {
-    const { name } = column;
-
-    if(this.data){
-      const data = this.data[row];
-      
-      if(data && name in data)
-        return data[name];
-    }
-
-    return `${name} (${row})`;
-  };
-
   didEnd?: () => void = undefined;
 
   constructor(){
@@ -140,11 +126,28 @@ class Grid extends Model {
 
           return this.data[row][key];
         }
+        break;
+      }
+
+      default: {
+        render = (row: number) => {
+          if(this.data){
+            const data = this.data[row];
+            
+            if(data && name! in data)
+              return data[name!];
+          }
+      
+          return `${name} (${row})`;
+        }
       }
     }
+
+    if(!name)
+      name = String(index);
   
     this.columns.push({
-      name: name || String(index),
+      name,
       size,
       index,
       render,
