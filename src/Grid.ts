@@ -100,8 +100,7 @@ class Grid extends Model {
   })
 
   register(props: Column.Props){
-    const { data, columns } = this;
-    const index = columns.length;
+    const index = this.columns.length;
     let { size, render, value, name } = props;
 
     switch(typeof size){
@@ -120,27 +119,31 @@ class Grid extends Model {
       case "function": {
         const set = value;
 
-        render = (row: number) =>
-          set(data ? data[row] : row, row)
+        render = (row: number) => set(
+          this.data ? this.data[row] : row, row
+        );
 
         break;
       }
 
       case "string": {
+        const key = value;
+
         if(!name)
           name = value;
         
-        if(!data)
-          throw new Error(
-            `Column "${name}" expects Table data but none is defined.`
-          );
+        render = (row: number) => {
+          if(!this.data)
+            throw new Error(
+              `Column "${name}" expects Table data but none is defined.`
+            );
 
-        const key = value;
-        render = (row: number) => data[row][key];
+          return this.data[row][key];
+        }
       }
     }
   
-    columns.push({
+    this.columns.push({
       name: name || String(index),
       size,
       index,
