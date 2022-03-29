@@ -10,6 +10,13 @@ declare class Virtual extends Model {
   overscan: number;
   size: number;
   range: readonly [number, number];
+  areaX: number;
+  areaY: number;
+  scrollMargin: number;
+  offset: number;
+  maintain: boolean;
+  horizontal: boolean;
+  end: boolean;
   slice: ReturnType<this["getItem"]>[];
   DOM: Readonly<{
     readonly sizeX: "height";
@@ -18,21 +25,15 @@ declare class Virtual extends Model {
     readonly fromY: "left";
     readonly scrollX: "scrollTop";
   }>;
-  areaX: number;
-  areaY: number;
-  scrollMargin: number;
-  offset: number;
-  maintain: boolean;
-  horizontal: boolean;
-  end: boolean;
+
+  getVisibleRange(): readonly [number, number];
+  observeContainer(element: HTMLElement | null): (() => void) | undefined;
   getItem(i: number): {
     key: number;
     index: number;
     offset: number;
     size: number;
   };
-  getVisibleRange(): readonly [number, number];
-  observeContainer(element: HTMLElement | null): (() => void) | undefined;
 }
 
 declare namespace Grid {
@@ -42,15 +43,31 @@ declare namespace Grid {
   
     size: string;
     name: string;
+    index: number;
   
-    render: (row: number) => ReactNode;
+    render: (
+      index: number,
+      context: Grid,
+      column: Column.Info
+    ) => ReactNode;
   }
 }
 
-declare class Grid extends Virtual {
+declare class Grid extends Model {
+  virtual: Virtual;
+  ready: boolean;
+
+  data?: [];
   length: number;
-  height: number;
+  rowHeight: number;
   columns: Grid.Column<this>[];
+
+  header?: FC<Table.HeaderProps>;
+  head?: FC<Table.HeadProps>;
+  row?: FC<Table.RowProps>;
+  cell?: FC<Table.CellProps>;
+
+  didEnd?: () => void;
 
   readonly style: {
     "--row-columns": string;

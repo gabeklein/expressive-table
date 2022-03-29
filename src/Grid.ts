@@ -26,16 +26,16 @@ class Grid extends Model {
 
   data = [];
   length = 0;
-  rowHeight = 40;
-
   padding = 0;
   ready = false;
+  rowHeight = 40;
   columns: Grid.Column<this>[] = [];
 
   header = undefined;
   head = undefined;
   row = undefined;
   cell = undefined;
+
   didEnd?: () => void = undefined;
 
   constructor(){
