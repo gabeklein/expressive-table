@@ -24,32 +24,36 @@ declare namespace Grid {
 class Grid extends Model {
   virtual = use(Virtual);
 
+  length = 0;
+  rowHeight = 40;
+  data = [];
+
+  ready = false;
+  padding = 0;
+  columns: Grid.Column<this>[] = [];
+
   header = undefined;
   head = undefined;
   cell = undefined;
   row = undefined;
 
-  ready = false;
-  padding = 0;
-  length = 0;
-  data = [];
+  render = (row: number, column: Grid.Column<this>) => {
+    const { name } = column;
 
-  rowHeight = 40;
-  columns: Grid.Column<this>[] = [];
+    if(this.data){
+      const data = this.data[row];
+      
+      if(data && name in data)
+        return data[name];
+    }
+
+    return `${name} (${row})`;
+  };
 
   didEnd?: () => void = undefined;
 
   constructor(){
     super();
-
-    this.once("didMount", () => {
-      this.ready = true;
-      this.update("columns" as any);
-      this.virtual.on("end", end => {
-        if(end && this.didEnd)
-          this.didEnd();  
-      })
-    })
 
     this.effect(state => {
       const {
@@ -64,6 +68,15 @@ class Grid extends Model {
 
       virtual.length = length;
       virtual.itemSize = rowHeight;
+    });
+
+    this.once("didMount", () => {
+      this.ready = true;
+      this.update("columns" as any);
+      this.virtual.on("end", end => {
+        if(end && this.didEnd)
+          this.didEnd();  
+      })
     })
   }
 
@@ -134,19 +147,6 @@ class Grid extends Model {
       cell: props.cell
     });
   }
-
-  render(row: number, column: Grid.Column<this>){
-    const { name } = column;
-
-    if(this.data){
-      const data = this.data[row];
-      
-      if(data && name in data)
-        return data[name];
-    }
-
-    return `${name} (${row})`;
-  };
 }
 
 export { Grid }
