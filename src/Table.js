@@ -22,15 +22,18 @@ export const Table = (props) => {
 
   control.import(props, IMPORT_PROPS);
 
+  sensor: {
+    overflowY: scroll;
+  }
+
   container: {
-    style = { ...props.style, ...control.style }
     forward: className;
     gridRows: min, auto;
     overflow: hidden;
-  }
-
-  sensor: {
-    overflowY: scroll;
+    style = {
+      ...props.style,
+      ...control.style
+    }
   }
 
   <Provider of={{ control }}>

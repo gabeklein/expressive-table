@@ -24,18 +24,18 @@ declare namespace Grid {
 class Grid extends Model {
   virtual = use(Virtual);
 
+  data = [];
   length = 0;
   rowHeight = 40;
-  data = [];
 
-  ready = false;
   padding = 0;
+  ready = false;
   columns: Grid.Column<this>[] = [];
 
   header = undefined;
   head = undefined;
-  cell = undefined;
   row = undefined;
+  cell = undefined;
 
   render = (row: number, column: Grid.Column<this>) => {
     const { name } = column;
