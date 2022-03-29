@@ -77,8 +77,11 @@ const Header = ({ for: control }) => {
   if(Header)
     <Header context={control} padding={padding}>
       {control.columns.map((column, i) => {
-        const Head =
-          either(column.head, control.head, normal.HeadCell);
+        const Head = either(
+          column.head,
+          control.head,
+          normal.HeadCell
+        );
 
         if(Head)
           <Head
@@ -99,7 +102,7 @@ const Header = ({ for: control }) => {
 const Row = ({ index, offset }) => {
   const grid = Grid.tap();
   const data = grid.data && grid.data[index];
-  const Row = either(grid.row, normal.Row);
+  const Row = grid.row || normal.Row;
 
   Row: {
     display: grid;
