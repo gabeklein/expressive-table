@@ -1,8 +1,6 @@
 import Model from "@expressive/mvc";
 import { FC, ReactNode } from "react";
 
-export { Table as default, Column, Grid };
-
 declare class Virtual extends Model {
   container: Model.Ref<HTMLElement | null>;
   length: number;
@@ -162,3 +160,13 @@ declare namespace Column {
 }
 
 declare const Column: FC<Column.Props>
+declare const Cell: FC<Table.CellProps>;
+declare const Row: FC<Table.RowProps>;
+
+export {
+  Table as default,
+  Column,
+  Grid,
+  Cell,
+  Row
+};
