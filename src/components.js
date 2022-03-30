@@ -21,18 +21,14 @@ export const Row = (props) => {
 }
 
 export const Cell = (props) => {
+  forward: className;
   fontSize: 0.9;
   overflow: hidden;
   paddingR: 1.2;
+  textOverflow: ellipsis;
+  whiteSpace: nowrap;
 
-  content: {
-    whiteSpace: nowrap;
-    overflow: hidden;
-  }
-  
   <this>
-    <content>
-      {props.children}
-    </content> 
+    {props.children}
   </this>
 }
