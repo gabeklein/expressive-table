@@ -53,8 +53,9 @@ class Grid extends Model {
         // TODO: squash recursive update
         virtual.length = state.length = data.length;
       }
+      else
+        virtual.length = length;
 
-      virtual.length = length;
       virtual.itemSize = rowHeight;
     });
 
