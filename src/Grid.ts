@@ -24,7 +24,7 @@ declare namespace Grid {
 class Grid extends Model {
   virtual = use(Virtual);
 
-  data = [];
+  data?: any[] = undefined;
   length = 0;
   padding = 0;
   ready = false;

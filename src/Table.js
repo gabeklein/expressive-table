@@ -17,8 +17,14 @@ const IMPORT_PROPS = [
 
 export const Table = (props) => {
   const Control = props.for || Grid;
-  const control = Control.use();
   const Empty = props.empty;
+  const {
+    get: control,
+    style,
+    ready,
+    virtual,
+    calibrate
+  } = Control.use();
 
   control.import(props, IMPORT_PROPS);
 
@@ -32,15 +38,15 @@ export const Table = (props) => {
     overflow: hidden;
     style = {
       ...props.style,
-      ...control.style
+      ...style
     }
   }
 
   <Provider of={{ control }}>
-    <sensor ref={control.calibrate} />
+    <sensor ref={calibrate} />
     <container>
       {props.children}
-      {control.ready &&
+      {ready &&
         <Fragment>
           <Header for={control} />
           <Window for={control.virtual} component={Row}>
