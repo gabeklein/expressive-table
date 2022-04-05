@@ -110,7 +110,10 @@ class Grid extends Model {
         const key = value;
 
         if(!name)
-          name = value;
+          name = value
+            .replace(/[A-Z][a-z]+/g, m => " " + m)
+            .replace(/^[a-z]/, m => m.toUpperCase())
+            .trim();
         
         render = (row: number) => {
           if(!this.data)
