@@ -24,7 +24,7 @@ export const Cell = (props) => {
   forward: className;
   fontSize: 0.9;
   overflow: hidden;
-  paddingR: 1.2;
+  paddingH: 0.6;
   textOverflow: ellipsis;
   whiteSpace: nowrap;
 
