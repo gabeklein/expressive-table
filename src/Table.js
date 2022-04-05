@@ -50,7 +50,7 @@ export const Table = (props) => {
         <Fragment>
           <Header for={control} />
           <Window for={control.virtual} component={Row}>
-            {!control.virtual.length && Empty &&
+            {!control.length && Empty &&
               <Empty context={control} />
             }
           </Window>
