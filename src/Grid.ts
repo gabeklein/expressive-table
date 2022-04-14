@@ -24,7 +24,7 @@ declare namespace Grid {
 class Grid extends Model {
   virtual = use(Virtual);
 
-  data = set<[]>(undefined, next => {
+  data = set<[]>((): any => undefined, next => {
     if(next)
       this.length = next.length;
   });
