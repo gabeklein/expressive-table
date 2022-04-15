@@ -43,9 +43,7 @@ export const Table = (props) => {
   }
 
   <Provider of={{ control }}>
-    <sensor ref={calibrate} />
     <container>
-      {props.children}
       {ready &&
         <Fragment>
           <Header for={control} />
@@ -56,6 +54,8 @@ export const Table = (props) => {
           </Window>
         </Fragment>
       }
+      <sensor ref={calibrate} />
+      {props.children}
     </container>
   </Provider>
 }
