@@ -34,7 +34,7 @@ export const Table = (props) => {
 
   container: {
     forward: className;
-    gridRows: min, auto;
+    gridRows: min, 1.0;
     overflow: hidden;
     style = {
       ...props.style,
