@@ -17,8 +17,7 @@
   },
   "dependencies": {
     "@expressive/css": "^1.0.0-beta.90",
-    "@expressive/mvc": "^1.0.0-beta.34",
-    "rollup-plugin-dts": "^4.2.1"
+    "@expressive/mvc": "^1.0.0-beta.34"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
@@ -31,6 +30,7 @@
     "rollup": "^2.61.1",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-typescript2": "^0.31.1",
+    "rollup-plugin-dts": "^4.2.1",
     "typescript": "4.6.3"
   },
   "version": "1.0.0-beta.26"
