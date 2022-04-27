@@ -48,15 +48,15 @@ const Window = (props) => {
   </div>
 }
 
-export const Column = memo((props) => {
+export const Column = (props) => {
   const control = Grid.get();
 
   useLayoutEffect(() => {
-    control.register(props)
+    control.register(props);
   }, []);
 
   return false;
-})
+}
 
 const Header = ({ for: control, component }) => {
   const { header, head, ready, calibrate } = control.tap();
