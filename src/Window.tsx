@@ -1,51 +1,30 @@
-import React from "react";
-
 import { Provider } from '@expressive/mvc';
-import { CSSProperties, FC, memo, ReactNode, useMemo } from 'react';
+import React from 'react';
+import { CSSProperties, FC, ReactNode } from 'react';
 
 import Virtual from './Virtual';
 
-export interface Item {
-  index: number;
-  key: number;
-  offset: number;
-  size: number;
-}
+declare namespace Window {
+  interface Item {
+    index: number;
+    key: number;
+    offset: number;
+    size: number;
+  }
 
-type RenderFunction =
-  (info: Item, index: number) => ReactNode;
-
-namespace Window {
-  interface ContainerProps {
-    for: { use(): Virtual };
+  interface Props {
+    for: {
+      use(): Virtual
+    };
     children?: ReactNode;
     style?: CSSProperties;
     className?: string;
+    component: FC<Item>;
   }
-
-  export type Props =
-    | (ContainerProps & { component: FC<Item> })
-    | (ContainerProps & { render: RenderFunction })
 }
 
-const Visible = memo((props: { render: RenderFunction }) => {
-  const { size, slice, DOM } = Virtual.tap();
-
-  return (
-    <div style={{ position: "relative", [DOM.sizeX]: size }}>
-      {slice.map(props.render)}
-    </div>
-  )
-})
-
 function Window(props: Window.Props){
-  const { get: control, container } = props.for.use();
-
-  const renderRow = useMemo(() => (
-    "component" in props
-      ? (p: any) => <props.component context={control} {...p} />
-      : props.render
-  ), []);
+  const { get: control, container, slice, DOM, size } = props.for.use();
 
   return (
     <Provider of={control}>
@@ -55,7 +34,12 @@ function Window(props: Window.Props){
         style={{ ...props.style, overflowY: "auto" }}
       >
         {props.children}
-        <Visible render={renderRow} />
+        <div style={{
+          position: "relative",
+          [DOM.sizeX]: size
+        }}>
+          {slice.map((p) => <props.component {...p} />)}
+        </div>
       </div>
     </Provider>
   )
