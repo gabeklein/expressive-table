@@ -43,9 +43,11 @@ export const Column = (props) => {
 }
 
 const Window = (props) => {
-  const { container, slice, size } = props.for.use();
+  const { container, slice, size, ready } = props.for.use();
 
-  <div ref={container} style={{ overflowY: "auto" }}>
+  <div
+    ref={size ? container : undefined}
+    style={{ overflowY: "auto" }}>
     {props.children}
     <div style={{ position: "relative", height: size }}>
       {slice.map((p) => <props.component {...p} />)}
