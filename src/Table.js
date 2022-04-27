@@ -15,25 +15,19 @@ export const Table = (props) => {
 
   control.import(props);
 
-  container: {
-    style = { ...props.style, ...style };
-    forward: className;
-    gridRows: min, 1.0;
-    overflow: hidden;
-  }
+  style = { ...props.style, ...style };
+  forward: className;
+  gridRows: min, 1.0;
+  overflow: hidden;
 
   <Provider of={control}>
-    <container>
-      <Fragment>
-        <Header for={control} />
-        <Window for={virtual} component={Row}>
-          {!control.length && Empty &&
-            <Empty context={control} />
-          }
-        </Window>
-      </Fragment>
+    <Header for={control} />
+    <Window for={virtual} component={Row}>
       {props.children}
-    </container>
+      {!control.length && Empty &&
+        <Empty context={control} />
+      }
+    </Window>
   </Provider>
 }
 
