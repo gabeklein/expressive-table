@@ -3,7 +3,6 @@ import { Fragment, memo, useLayoutEffect } from 'react';
 
 import * as normal from './components';
 import Grid from './Grid';
-import Window from './Window';
 
 const IMPORT_PROPS = [
   "length",
@@ -42,7 +41,7 @@ export const Table = (props) => {
     }
   }
 
-  <Provider of={{ control }}>
+  <Provider of={control}>
     <container>
       {ready &&
         <Fragment>
@@ -58,6 +57,17 @@ export const Table = (props) => {
       {props.children}
     </container>
   </Provider>
+}
+
+const Window = (props) => {
+  const { container, slice, size } = props.for.use();
+
+  <div ref={container} style={{ overflowY: "auto" }}>
+    {props.children}
+    <div style={{ position: "relative", height: size }}>
+      {slice.map((p) => <props.component {...p} />)}
+    </div>
+  </div>
 }
 
 export const Column = memo((props) => {
