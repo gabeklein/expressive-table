@@ -4,16 +4,6 @@ import { Fragment, memo, useLayoutEffect } from 'react';
 import * as normal from './components';
 import Grid from './Grid';
 
-const IMPORT_PROPS = [
-  "length",
-  "data",
-  "didEnd",
-  "header",
-  "head",
-  "cell",
-  "row"
-]
-
 export const Table = (props) => {
   const Control = props.for || Grid;
   const Empty = props.empty;
@@ -25,7 +15,7 @@ export const Table = (props) => {
     calibrate
   } = Control.use();
 
-  control.import(props, IMPORT_PROPS);
+  control.import(props);
 
   sensor: {
     overflowY: scroll;
