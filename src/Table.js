@@ -107,11 +107,12 @@ const Row = ({ index, offset }) => {
   }
 
   <Row
+    context={grid}
     key={index}
     data={data}
     row={index}
     offset={offset}
-    context={grid}>
+    style={{ top: offset }}>
     {grid.columns.map((column, i) => {
       const Cell = either(column.cell, grid.cell, normal.Cell);
       const content = column.render(index, grid, column);
