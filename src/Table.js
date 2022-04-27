@@ -10,40 +10,28 @@ export const Table = (props) => {
   const {
     get: control,
     style,
-    ready,
-    virtual,
-    calibrate
+    virtual
   } = Control.use();
 
   control.import(props);
 
-  sensor: {
-    overflowY: scroll;
-  }
-
   container: {
+    style = { ...props.style, ...style };
     forward: className;
     gridRows: min, 1.0;
     overflow: hidden;
-    style = {
-      ...props.style,
-      ...style
-    }
   }
 
   <Provider of={control}>
     <container>
-      {ready &&
-        <Fragment>
-          <Header for={control} />
-          <Window for={control.virtual} component={Row}>
-            {!control.length && Empty &&
-              <Empty context={control} />
-            }
-          </Window>
-        </Fragment>
-      }
-      <sensor ref={calibrate} />
+      <Fragment>
+        <Header for={control} />
+        <Window for={virtual} component={Row}>
+          {!control.length && Empty &&
+            <Empty context={control} />
+          }
+        </Window>
+      </Fragment>
       {props.children}
     </container>
   </Provider>
@@ -70,11 +58,13 @@ export const Column = memo((props) => {
   return false;
 })
 
-const Header = ({ for: control }) => {
-  const Header = either(control.header, normal.Header);
+const Header = ({ for: control, component }) => {
+  const { header, head, ready, calibrate } = control.tap();
   const padding = control.tap($ => (
     $.virtual.size > $.virtual.areaX ? $.padding : 0
   ));
+
+  const Header = either(control.header, normal.Header);
 
   Header: {
     display: grid;
@@ -83,14 +73,16 @@ const Header = ({ for: control }) => {
     marginRight: (padding);
   }
 
-  if(Header)
+  sensor: {
+    overflowY: scroll;
+  }
+
+  if(!ready || !Header)
+    <sensor ref={calibrate} />
+  else
     <Header context={control} padding={padding}>
       {control.columns.map((column, i) => {
-        const Head = either(
-          column.head,
-          control.head,
-          normal.HeadCell
-        );
+        const Head = either(column.head, control.head, normal.HeadCell);
 
         if(Head)
           <Head
@@ -104,8 +96,6 @@ const Header = ({ for: control }) => {
           <div key={column.name} />
       })}
     </Header>
-  else
-    <div />
 }
 
 const Row = ({ index, offset }) => {
