@@ -31,6 +31,16 @@ export const Table = (props) => {
   </Provider>
 }
 
+export const Column = (props) => {
+  const control = Grid.get();
+
+  useLayoutEffect(() => {
+    control.register(props);
+  }, []);
+
+  return false;
+}
+
 const Window = (props) => {
   const { container, slice, size } = props.for.use();
 
@@ -40,16 +50,6 @@ const Window = (props) => {
       {slice.map((p) => <props.component {...p} />)}
     </div>
   </div>
-}
-
-export const Column = (props) => {
-  const control = Grid.get();
-
-  useLayoutEffect(() => {
-    control.register(props);
-  }, []);
-
-  return false;
 }
 
 const Header = ({ for: control }) => {
