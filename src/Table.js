@@ -52,7 +52,7 @@ export const Column = (props) => {
   return false;
 }
 
-const Header = ({ for: control, component }) => {
+const Header = ({ for: control }) => {
   const { header, head, ready, calibrate } = control.tap();
   const padding = control.tap($ => (
     $.virtual.size > $.virtual.areaX ? $.padding : 0
