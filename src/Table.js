@@ -1,5 +1,5 @@
 import Model, { Provider, ref } from '@expressive/mvc';
-import { Fragment, memo, useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
 import * as normal from './components';
 import Grid from './Grid';
@@ -7,27 +7,28 @@ import Grid from './Grid';
 export const Table = (props) => {
   const Control = props.for || Grid;
   const Empty = props.empty;
-  const {
-    get: control,
-    style,
-    virtual
-  } = Control.use();
+  const { get: control, style } = Control.use();
 
   control.import(props);
 
-  style = { ...props.style, ...style };
+  style = {
+    ...props.style,
+    ...style
+  };
+
   forward: className;
   gridRows: min, 1.0;
   overflow: hidden;
 
   <Provider of={control}>
     <Header for={control} />
-    <Window for={virtual} component={Row}>
+    <Window for={control.virtual} component={Row}>
       {props.children}
-      {!control.length && !!Empty &&
-        typeof Empty == "function" ?
-          <Empty context={control} /> : Empty
-      }
+      {!control.length && !!Empty && (
+        typeof Empty == "function"
+          ? <Empty context={control} />
+          : Empty
+      )}
     </Window>
   </Provider>
 }
