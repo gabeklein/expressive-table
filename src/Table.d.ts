@@ -1,6 +1,8 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactChild, ReactFragment, ReactNode, ReactPortal } from 'react';
 
 import Grid from './Grid';
+
+type ReactContent = ReactChild | ReactFragment | ReactPortal;
 
 declare namespace Table {
   interface Props <T = any> {
@@ -11,7 +13,7 @@ declare namespace Table {
     head?: FC<HeadProps>;
     row?: FC<RowProps>;
     cell?: FC<CellProps>;
-    empty?: FC<EmptyProps>;
+    empty?: FC<EmptyProps> | ReactContent;
 
     for?: Grid | typeof Grid;
     children: ReactNode;

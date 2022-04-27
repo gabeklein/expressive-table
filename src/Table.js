@@ -24,8 +24,9 @@ export const Table = (props) => {
     <Header for={control} />
     <Window for={virtual} component={Row}>
       {props.children}
-      {!control.length && Empty &&
-        <Empty context={control} />
+      {!control.length && !!Empty &&
+        typeof Empty == "function" ?
+          <Empty context={control} /> : Empty
       }
     </Window>
   </Provider>
