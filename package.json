@@ -34,5 +34,5 @@
     "rollup-plugin-typescript2": "^0.31.1",
     "typescript": "4.6.3"
   },
-  "version": "1.0.0-beta.26"
+  "version": "1.0.0-beta.27"
 }
