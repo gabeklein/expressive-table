@@ -85,14 +85,14 @@ class Grid extends Model {
 
     switch(typeof size){
       case "undefined":
-        size = "1fr";
+        size = "minmax(0, 1fr)";
 
       case "string":
         if(isNaN(+size))
           break;
 
       case "number":
-        size = `${size}${+size % 1 ? "fr" : "px"}`;
+        size = +size % 1 ? `minmax(0, ${size}fr)` : `${size}px`;
     }
 
     switch(typeof value){
