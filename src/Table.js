@@ -17,7 +17,7 @@ export const Table = (props) => {
   };
 
   forward: className;
-  gridRows: min, 1.0;
+  gridRows: min, "minmax(0, 1.0fr)";
   overflow: hidden;
 
   <Provider of={control}>
