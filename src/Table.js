@@ -149,6 +149,7 @@ const Row = ({ index, offset }) => {
           context={grid}
           index={i}
           name={column.name}
+          props={column.props}
           data={data}
           column={column}
           row={index}>

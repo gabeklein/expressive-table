@@ -85,6 +85,8 @@ declare namespace Column {
     cell?: FC<Table.CellProps>;
     value?: string | GetData; 
     render?: Render;
+
+    [rest: string]: any
   }
 }
 

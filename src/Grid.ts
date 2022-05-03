@@ -12,6 +12,8 @@ declare namespace Grid {
     size: string;
     name: string;
     index: number;
+
+    props: { [key: string]: any }
   
     render: (
       index: number,
@@ -81,7 +83,7 @@ class Grid extends Model {
 
   register(props: Column.Props){
     const index = this.columns.length;
-    let { size, render, value, name } = props;
+    let { size, render, value, name, head, cell } = props;
 
     switch(typeof size){
       case "undefined":
@@ -148,8 +150,9 @@ class Grid extends Model {
       size,
       index,
       render,
-      head: props.head,
-      cell: props.cell
+      head,
+      cell,
+      props
     });
   }
 }
