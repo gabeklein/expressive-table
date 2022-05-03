@@ -1,6 +1,6 @@
 {
   "name": "@expressive/table",
-  "main": "lib",
+  "main": "lib/index.js",
   "module": "lib/index.esm.js",
   "files": [
     "lib/"
