@@ -22,7 +22,11 @@ export const Table = (props) => {
 
   <Provider of={control}>
     <Header for={control} />
-    <Window for={control} component={Row}>
+    <Window
+      for={control}
+      component={Row}
+      before={props.before}
+      after={props.after}>
       {props.children}
       {!control.length && !!Empty && (
         typeof Empty == "function"
@@ -66,7 +70,7 @@ const Window = (props) => {
   <div
     ref={size ? container : undefined}
     style={{ overflowY: "auto" }}>
-    {props.children}
+    {props.before}
     <div style={{ position: "relative", height: size }}>
       {slice.map((p) => (
         <props.component
@@ -75,6 +79,8 @@ const Window = (props) => {
         />
       ))}
     </div>
+    {props.after}
+    {props.children}
   </div>
 }
 

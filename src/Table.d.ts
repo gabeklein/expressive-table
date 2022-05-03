@@ -15,6 +15,9 @@ declare namespace Table {
     cell?: FC<CellProps>;
     empty?: FC<EmptyProps> | ReactContent;
 
+    before?: ReactNode;
+    after?: ReactNode;
+
     for?: Grid | typeof Grid;
     children: ReactNode;
     className?: string;
