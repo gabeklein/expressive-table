@@ -22,7 +22,7 @@ export const Table = (props) => {
 
   <Provider of={control}>
     <Header for={control} />
-    <Window for={control.virtual} component={Row}>
+    <Window for={control} component={Row}>
       {props.children}
       {!control.length && !!Empty && (
         typeof Empty == "function"
@@ -43,15 +43,37 @@ export const Column = (props) => {
   return false;
 }
 
+const UID_CACHE = new WeakMap();
+
+function uniqueId(object){
+  if(typeof object !== "object")
+    return object;
+
+  let uid = UID_CACHE.get(object)
+
+  if(!uid)
+    UID_CACHE.set(object, uid = Math.random())
+    
+  return uid;
+}
+
 const Window = (props) => {
-  const { container, slice, size, ready } = props.for.use();
+  const {
+    data,
+    virtual: { container, slice, size, ready }
+  } = props.for.use();
 
   <div
     ref={size ? container : undefined}
     style={{ overflowY: "auto" }}>
     {props.children}
     <div style={{ position: "relative", height: size }}>
-      {slice.map((p) => <props.component {...p} />)}
+      {slice.map((p) => (
+        <props.component
+          {...p}
+          key={data ? uniqueId(data[p.index]) : p.index}
+        />
+      ))}
     </div>
   </div>
 }

@@ -60,7 +60,6 @@ class Virtual extends Model {
 
   getItem(i: number){
     return {
-      key: i,
       index: i,
       offset: i * this.itemSize,
       size: this.itemSize
