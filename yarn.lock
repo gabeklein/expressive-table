@@ -201,24 +201,24 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@expressive/babel-plugin-jsx@^1.0.0-beta.93":
-  version "1.0.0-beta.93"
-  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-jsx/-/babel-plugin-jsx-1.0.0-beta.93.tgz#4e0f052475a0858bde41aec99984b4d9092bd4b4"
-  integrity sha512-u1mRhjWYZxQS35tfy5LEzR/T27EfuB1o5RsHM0jrA4m7wG0mkWxWtQ++xeZ9T0FdOoXXNx4TJxd8hfOHeiOrAw==
+"@expressive/babel-plugin-jsx@^1.0.0-beta.95":
+  version "1.0.0-beta.95"
+  resolved "https://registry.yarnpkg.com/@expressive/babel-plugin-jsx/-/babel-plugin-jsx-1.0.0-beta.95.tgz#31c413ef0860eccdcf8666661eccd41d1771da30"
+  integrity sha512-FqR6bO/Sz/fYn/vilfHfNWjeFVcG+TexHsbbUUWbBvG2Bks9pvoMQCDKZAppGuxAZPEq+6kSAymWIlg/OoQlXg==
 
-"@expressive/babel-preset-react@^1.0.0-beta.91":
-  version "1.0.0-beta.93"
-  resolved "https://registry.yarnpkg.com/@expressive/babel-preset-react/-/babel-preset-react-1.0.0-beta.93.tgz#a9885fce9eca49cf7685163b61bb679008a3cfe4"
-  integrity sha512-/aW6A6nfegpHbMsNE9Zb4PH1417PwlDY7y827asRg0rTNecp2TOtb1haq5xF3XG+62gsJorLt70FFxcb6G/2jw==
+"@expressive/babel-preset-react@^1.0.0-beta.95":
+  version "1.0.0-beta.95"
+  resolved "https://registry.yarnpkg.com/@expressive/babel-preset-react/-/babel-preset-react-1.0.0-beta.95.tgz#26a183a6c5a9645dcca16d58888f24fb5f0e1d40"
+  integrity sha512-JEo3WEhytKumISw6k2HoH1gI7bxxZpyeXdVn4ZGjXTSxYzqZtoDh92Dw1msSwjYlriOg+nav4Vdm8wZ/OSTy5w==
   dependencies:
-    "@expressive/babel-plugin-jsx" "^1.0.0-beta.93"
+    "@expressive/babel-plugin-jsx" "^1.0.0-beta.95"
     "@expressive/macro-pseudo" "^1.0.0-canary.0"
     "@expressive/macro-style" "^1.0.0-canary.0"
 
-"@expressive/css@^1.0.0-beta.90":
-  version "1.0.0-beta.90"
-  resolved "https://registry.yarnpkg.com/@expressive/css/-/css-1.0.0-beta.90.tgz#370c1f7718fed0c38f6e6317ce3580c1bcc68bae"
-  integrity sha512-Io+zoy96pA/+GnlO8aVnJBVe7b1Nku7P+rqcX2bh697oj95LsF8zRSwwxKXdZyIbx6FrSJAp94yAoHHEKYFKgg==
+"@expressive/css@^1.0.0-beta.95":
+  version "1.0.0-beta.95"
+  resolved "https://registry.yarnpkg.com/@expressive/css/-/css-1.0.0-beta.95.tgz#3afb307450e2dca6b446dfb3b58648a106015940"
+  integrity sha512-noQnKwuuOau3bVkmwJppHVzg3pNTUzIKQQrZMWr6+9yzmdYQYpnGYVAYdHNi7ZiRNmV+3PZiA5o3kmKLRVFzRA==
 
 "@expressive/macro-pseudo@^1.0.0-canary.0":
   version "1.0.0-canary.0"
