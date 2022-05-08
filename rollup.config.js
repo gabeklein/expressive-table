@@ -4,6 +4,8 @@ import resolve from 'rollup-plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
 import dts from 'rollup-plugin-dts'
 
+import { dependencies, name } from './package.json';
+
 export default  [
   {
     input: 'src/index.ts',
@@ -27,7 +29,9 @@ export default  [
     ],
     plugins: [
       babel({
-        presets: ['@expressive/react'],
+        presets: [
+          ['@expressive/react', { module: name }]
+        ],
         babelHelpers: "bundled"
       }),
       resolve({

@@ -215,10 +215,10 @@
     "@expressive/macro-pseudo" "^1.0.0-canary.0"
     "@expressive/macro-style" "^1.0.0-canary.0"
 
-"@expressive/css@^1.0.0-beta.95":
-  version "1.0.0-beta.95"
-  resolved "https://registry.yarnpkg.com/@expressive/css/-/css-1.0.0-beta.95.tgz#3afb307450e2dca6b446dfb3b58648a106015940"
-  integrity sha512-noQnKwuuOau3bVkmwJppHVzg3pNTUzIKQQrZMWr6+9yzmdYQYpnGYVAYdHNi7ZiRNmV+3PZiA5o3kmKLRVFzRA==
+"@expressive/css@^1.0.0-beta.96":
+  version "1.0.0-beta.96"
+  resolved "https://registry.yarnpkg.com/@expressive/css/-/css-1.0.0-beta.96.tgz#97a42ac418236ac0d124eff87bdb2747b66391a1"
+  integrity sha512-DGYA8TjTrUPvZbvYdHl5HX8XyLmsmQE4Cbep8kAchJzijqIz9VeyDoOPncyyGf8IGvQ1Oe/wwamBQ3qhWgcYZw==
 
 "@expressive/macro-pseudo@^1.0.0-canary.0":
   version "1.0.0-canary.0"
