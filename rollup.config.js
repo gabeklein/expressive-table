@@ -22,11 +22,7 @@ export default  [
         sourcemap: true
       }
     ],
-    external: [
-      '@expressive/mvc',
-      '@expressive/css',
-      'react'
-    ],
+    external: Object.keys(dependencies),
     plugins: [
       babel({
         presets: [
