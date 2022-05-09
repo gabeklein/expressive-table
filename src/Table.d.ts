@@ -8,6 +8,7 @@ declare namespace Table {
   interface Props <T = any> {
     data?: readonly T[];
     length?: number;
+    didEnd?: () => void;
   
     header?: FC<HeaderProps>;
     head?: FC<HeadProps>;
@@ -22,8 +23,6 @@ declare namespace Table {
     children: ReactNode;
     className?: string;
     style?: {};
-
-    didEnd?: () => void;
   }
 
   interface EmptyProps<T extends Grid = any> {
@@ -65,14 +64,14 @@ declare const Table: FC<Table.Props>;
 
 declare namespace Column {
   type Render = (
-    index: number,
-    context: Grid,
-    column: Column.Info
-  ) => ReactNode
+    this: Column.Info,
+    data: any,
+    row: number
+  ) => ReactNode;
 
   type GetData = <T = any>(
-    data: T,
-    index: number
+    this: Column.Info,
+    data: T
   ) => ReactNode;
 
   interface Info {

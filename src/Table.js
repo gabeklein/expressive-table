@@ -78,7 +78,7 @@ const Rows = (props) => {
 
   <div style={{ position: "relative", height: size }}>
     {slice.map(({ index, offset }) => {
-      const entry = data && data[index];
+      const entry = data ? data[index] : index;
       const key = entry ? uniqueId(entry) : index;
 
       Row: {
@@ -99,7 +99,7 @@ const Rows = (props) => {
         style={{ top: offset }}>
         {columns.map((column, i) => {
           const Cell = either(column.cell, props.cell, normal.Cell);
-          const content = column.render(index, grid, column);
+          const content = column.render(entry, index);
 
           if(Cell)
             <Cell

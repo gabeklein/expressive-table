@@ -14,11 +14,16 @@ declare namespace Grid {
     index: number;
 
     props: { [key: string]: any }
+
+    value?: string | ((
+      this: Column.Info,
+      data: any
+    ) => ReactNode)
   
     render: (
-      index: number,
-      context: Grid,
-      column: Column.Info
+      this: Column.Info,
+      data: any,
+      row: number
     ) => ReactNode;
   }
 }
@@ -92,50 +97,27 @@ class Grid extends Model {
         size = +size % 1 ? `minmax(0, ${size}fr)` : `${size}px`;
     }
 
-    switch(typeof value){
-      case "function": {
-        const set = value;
+    if(typeof value == "string"){
+      const key = value;
 
-        render = (row: number) => set(
-          this.data ? this.data[row] : row, row
-        );
-
-        break;
-      }
-
-      case "string": {
-        const key = value;
-
-        if(!name)
-          name = value
-            .replace(/[A-Z][a-z]+/g, m => " " + m)
-            .replace(/^[a-z]/, m => m.toUpperCase())
-            .trim();
-        
-        render = (row: number) => {
-          if(!this.data)
-            throw new Error(
-              `Column "${name}" expects Table data but none is defined.`
-            );
-
-          return this.data[row][key];
-        }
-        break;
-      }
-
-      default: {
-        render = (row: number) => {
-          if(this.data){
-            const data = this.data[row];
-            
-            if(data && name! in data)
-              return data[name!];
-          }
+      if(!name)
+        name = value
+          .replace(/[A-Z][a-z]+/g, m => " " + m)
+          .replace(/^[a-z]/, m => m.toUpperCase())
+          .trim();
       
-          return `${name} (${row})`;
-        }
+      value = (data: any) => {
+        if(typeof data == "object")
+          return data[key];
+
+        throw new Error(
+          `Column "${name}" expects Table data but none is defined.`
+        );
       }
     }
+
+    if(!render)
+      render = value || ((_, row) => `${name} (${row})`);
 
     if(!name)
       name = String(index);
@@ -145,6 +127,7 @@ class Grid extends Model {
       size,
       index,
       render,
+      value,
       head,
       cell,
       props
