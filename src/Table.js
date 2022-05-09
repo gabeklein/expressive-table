@@ -35,12 +35,12 @@ export const Table = (props) => {
 
   <Provider of={control}>
     <container>
-      <Header />
+      <Header {...props} />
       <div
         ref={size ? container : undefined}
         style={{ overflowY: "auto" }}>
         {props.before}
-        <Rows />
+        <Rows {...props} />
         {!length && !!Empty && (
           typeof Empty == "function"
             ? <Empty context={control} />
@@ -63,24 +63,23 @@ export const Column = (props) => {
   return false;
 }
 
-const Rows = () => {
+const Rows = (props) => {
   const {
-    row,
     data,
-    get: grid,
     columns,
+    get: grid,
     virtual: {
       slice,
       size
     }
   } = Grid.tap();
 
-  const Row = row || normal.Row;
+  const Row = props.row || normal.Row;
 
   <div style={{ position: "relative", height: size }}>
     {slice.map(({ index, offset }) => {
-      const data = grid.data && grid.data[index];
-      const key = data ? uniqueId(data) : index;
+      const entry = data && data[index];
+      const key = entry ? uniqueId(entry) : index;
 
       Row: {
         display: grid;
@@ -95,11 +94,11 @@ const Rows = () => {
         context={grid}
         key={key}
         row={index}
-        data={data}
+        data={entry}
         offset={offset}
         style={{ top: offset }}>
         {columns.map((column, i) => {
-          const Cell = either(column.cell, grid.cell, normal.Cell);
+          const Cell = either(column.cell, props.cell, normal.Cell);
           const content = column.render(index, grid, column);
 
           if(Cell)
@@ -109,7 +108,7 @@ const Rows = () => {
               index={i}
               name={column.name}
               props={column.props}
-              data={data}
+              data={entry}
               column={column}
               row={index}>
               {content}
@@ -122,13 +121,21 @@ const Rows = () => {
   </div>
 }
 
-const Header = () => {
-  const { header, head, ready, calibrate, get: control } = Grid.tap();
+const Header = (props) => {
+  const {
+    header,
+    head,
+    ready,
+    calibrate,
+    columns,
+    get: control
+  } = Grid.tap();
+
   const padding = control.tap($ => (
     $.virtual.size > $.virtual.areaX ? $.padding : 0
   ));
 
-  const Header = either(control.header, normal.Header);
+  const Header = either(props.header, normal.Header);
 
   Header: {
     display: grid;
@@ -145,8 +152,8 @@ const Header = () => {
     <sensor ref={calibrate} />
   else
     <Header context={control} padding={padding}>
-      {control.columns.map((column, i) => {
-        const Head = either(column.head, control.head, normal.HeadCell);
+      {columns.map((column, i) => {
+        const Head = either(column.head, props.head, normal.HeadCell);
 
         if(Head)
           <Head

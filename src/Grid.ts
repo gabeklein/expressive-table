@@ -37,11 +37,6 @@ class Grid extends Model {
   rowHeight = 40;
   columns: Grid.Column<this>[] = [];
 
-  header = undefined;
-  head = undefined;
-  row = undefined;
-  cell = undefined;
-
   didEnd?: () => void = undefined;
 
   constructor(){
