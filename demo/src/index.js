@@ -1,19 +1,28 @@
 import Model from "@expressive/mvc";
 import { useState } from "react";
 import ReactDOM from "react-dom";
+
 import Table, { Column } from "../../src";
 
-const DATA = [
-  { letter: "A", number: "one" },
-  { letter: "B", number: "two" },
-  { letter: "C", number: "three" },
-  { letter: "D", number: "four" },
-  { letter: "E", number: "five" },
-  { letter: "F", number: "six" },
-]
+class Data extends Model {
+  data = [];
+
+  constructor(){
+    super();
+    this.effect(() => this.getMore());
+  }
+
+  getMore = async () => {
+    const res = await fetch("https://randomuser.me/api/?inc=name&nat=US&results=20");
+    const data = await res.json();
+    const names = data.results.map(x => x.name);
+
+    this.data = this.data.concat(names);
+  }
+}
 
 const App = () => {
-  const [number, setNumber] = useState(30);
+  const { data, getMore } = Data.use();
 
   Table: {
     fixed: 10;
@@ -23,17 +32,15 @@ const App = () => {
   }
   
   <Table
-    length={number}
+    data={data}
     header={Header}
     empty={NoResults}
     head={HeadCell}
     cell={Cell}
-    didEnd={() => {
-      console.log("did end!");
-      setNumber((number) => number + 20)
-    }}>
-    <Column name="number" />
-    <Column name="letter" />
+    didEnd={getMore}>
+    <Column name="title" />
+    <Column name="first" />
+    <Column name="last" />
   </Table>
 }
 
