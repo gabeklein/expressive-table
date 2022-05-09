@@ -4,36 +4,52 @@ import { useLayoutEffect } from 'react';
 import * as normal from './components';
 import Grid from './Grid';
 
+const UID_CACHE = new WeakMap();
+
 export const Table = (props) => {
   const Control = props.for || Grid;
   const Empty = props.empty;
-  const { get: control, style } = Control.use();
+  const {
+    data,
+    style,
+    length,
+    get: control,
+    virtual: {
+      container,
+      size
+    }
+  } = Control.use();
 
   control.import(props);
 
-  style = {
-    ...props.style,
-    ...style
-  };
+  container: {
+    forward: className;
+    gridRows: min, "minmax(0, 1.0fr)";
+    overflow: hidden;
 
-  forward: className;
-  gridRows: min, "minmax(0, 1.0fr)";
-  overflow: hidden;
+    style = {
+      ...props.style,
+      ...style
+    };
+  }
 
   <Provider of={control}>
-    <Header for={control} />
-    <Window
-      for={control}
-      component={Row}
-      before={props.before}
-      after={props.after}>
-      {props.children}
-      {!control.length && !!Empty && (
-        typeof Empty == "function"
-          ? <Empty context={control} />
-          : Empty
-      )}
-    </Window>
+    <container>
+      <Header />
+      <div
+        ref={size ? container : undefined}
+        style={{ overflowY: "auto" }}>
+        {props.before}
+        <Rows />
+        {!length && !!Empty && (
+          typeof Empty == "function"
+            ? <Empty context={control} />
+            : Empty
+        )}
+        {props.after}
+        {props.children}
+      </div>
+    </container>
   </Provider>
 }
 
@@ -47,45 +63,67 @@ export const Column = (props) => {
   return false;
 }
 
-const UID_CACHE = new WeakMap();
-
-function uniqueId(object){
-  if(typeof object !== "object")
-    return object;
-
-  let uid = UID_CACHE.get(object)
-
-  if(!uid)
-    UID_CACHE.set(object, uid = Math.random())
-    
-  return uid;
-}
-
-const Window = (props) => {
+const Rows = () => {
   const {
+    row,
     data,
-    virtual: { container, slice, size, ready }
-  } = props.for.use();
+    get: grid,
+    columns,
+    virtual: {
+      slice,
+      size
+    }
+  } = Grid.tap();
 
-  <div
-    ref={size ? container : undefined}
-    style={{ overflowY: "auto" }}>
-    {props.before}
-    <div style={{ position: "relative", height: size }}>
-      {slice.map((p) => (
-        <props.component
-          {...p}
-          key={data ? uniqueId(data[p.index]) : p.index}
-        />
-      ))}
-    </div>
-    {props.after}
-    {props.children}
+  const Row = row || normal.Row;
+
+  <div style={{ position: "relative", height: size }}>
+    {slice.map(({ index, offset }) => {
+      const data = grid.data && grid.data[index];
+      const key = data ? uniqueId(data) : index;
+
+      Row: {
+        display: grid;
+        position: absolute;
+        right: 0;
+        left: 0;
+        height: "var(--row-height)";
+        gridTemplateColumns: "var(--row-columns)";
+      }
+
+      <Row
+        context={grid}
+        key={key}
+        row={index}
+        data={data}
+        offset={offset}
+        style={{ top: offset }}>
+        {columns.map((column, i) => {
+          const Cell = either(column.cell, grid.cell, normal.Cell);
+          const content = column.render(index, grid, column);
+
+          if(Cell)
+            <Cell
+              key={column.name}
+              context={grid}
+              index={i}
+              name={column.name}
+              props={column.props}
+              data={data}
+              column={column}
+              row={index}>
+              {content}
+            </Cell>
+          else
+            <div key={column.name} />
+        })}
+      </Row>
+    })}
   </div>
 }
 
-const Header = ({ for: control }) => {
-  const { header, head, ready, calibrate } = control.tap();
+const Header = () => {
+  const { header, head, ready, calibrate, get: control } = Grid.tap();
   const padding = control.tap($ => (
     $.virtual.size > $.virtual.areaX ? $.padding : 0
   ));
@@ -124,49 +162,6 @@ const Header = ({ for: control }) => {
     </Header>
 }
 
-const Row = ({ index, offset }) => {
-  const grid = Grid.tap();
-  const data = grid.data && grid.data[index];
-  const Row = grid.row || normal.Row;
-
-  Row: {
-    display: grid;
-    position: absolute;
-    right: 0;
-    left: 0;
-    height: "var(--row-height)";
-    gridTemplateColumns: "var(--row-columns)";
-  }
-
-  <Row
-    context={grid}
-    key={index}
-    data={data}
-    row={index}
-    offset={offset}
-    style={{ top: offset }}>
-    {grid.columns.map((column, i) => {
-      const Cell = either(column.cell, grid.cell, normal.Cell);
-      const content = column.render(index, grid, column);
-
-      if(Cell)
-        <Cell
-          key={column.name}
-          context={grid}
-          index={i}
-          name={column.name}
-          props={column.props}
-          data={data}
-          column={column}
-          row={index}>
-          {content}
-        </Cell>
-      else
-        <div key={column.name} />
-    })}
-  </Row>
-}
-
 /** Select first value defined but bail on falsey. */
 function either(...from){
   for(const component of from){
@@ -176,4 +171,16 @@ function either(...from){
     if(typeof component == "function")
       return component;
   }
+}
+
+function uniqueId(object){
+  if(typeof object !== "object")
+    return object;
+
+  let uid = UID_CACHE.get(object)
+
+  if(!uid)
+    UID_CACHE.set(object, uid = Math.random())
+    
+  return uid;
 }
