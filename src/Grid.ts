@@ -1,4 +1,4 @@
-import Model, { from, ref, set, use } from '@expressive/mvc';
+import Model, { from, ref, use } from '@expressive/mvc';
 import { FC, ReactNode } from 'react';
 
 import { Column, Table } from './Table';
@@ -31,11 +31,7 @@ declare namespace Grid {
 class Grid extends Model {
   virtual = use(Virtual);
 
-  data = set<[]>((): any => undefined, next => {
-    if(next)
-      this.length = next.length;
-  });
-
+  data: any[] = [];
   length = 0;
   padding = 0;
   ready = false;
@@ -48,10 +44,11 @@ class Grid extends Model {
     super();
 
     this.effect(state => {
-      const { length, rowHeight } = state;
+      const { length, data, rowHeight } = state;
 
-      this.virtual.length = length;
       this.virtual.itemSize = rowHeight;
+      this.virtual.length = this.length =
+        data ? data.length : length || 0;
     });
 
     this.once("didMount", () => {
