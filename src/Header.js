@@ -4,8 +4,6 @@ import { either } from './util';
 
 const Header = (props) => {
   const {
-    header,
-    head,
     ready,
     calibrate,
     columns,

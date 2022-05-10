@@ -9,7 +9,6 @@ export const Table = (props) => {
   const Control = props.for || Grid;
   const Empty = props.empty;
   const {
-    data,
     style,
     length,
     get: control,
