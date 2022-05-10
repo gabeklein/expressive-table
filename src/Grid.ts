@@ -92,6 +92,9 @@ class Grid extends Model {
         size = +size % 1 ? `minmax(0, ${size}fr)` : `${size}px`;
     }
 
+    if(value === undefined && name)
+      value = name.toLowerCase();
+
     if(typeof value == "string"){
       const key = value;
 
