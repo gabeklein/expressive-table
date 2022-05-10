@@ -119,17 +119,13 @@ class Grid extends Model {
 
     if(!name)
       name = String(index);
+
+    const column = {
+      name, size, index, render,
+      value, head, cell, props
+    }
   
-    this.columns.push({
-      name,
-      size,
-      index,
-      render,
-      value,
-      head,
-      cell,
-      props
-    });
+    this.columns = this.columns.concat(column);
   }
 }
 
