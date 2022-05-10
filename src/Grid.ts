@@ -43,12 +43,18 @@ class Grid extends Model {
   constructor(){
     super();
 
-    this.on(key => {
-      if(key == "data" && this.data)
-        this.length = this.data.length;
+    this.effect(state => {
+      const controller = state[Model.CONTROL];
 
-      if(key == "length")
-        this.virtual.length = this.length;
+      controller.addListener(key => {
+        if(key == "data" && this.data)
+          this.length = this.data.length;
+  
+        if(key == "length")
+          this.virtual.length = this.length;
+
+        return undefined;
+      })
     })
 
     this.effect(state => {
