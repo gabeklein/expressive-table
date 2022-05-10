@@ -22,6 +22,7 @@ const Rows = (props) => {
       const entry = data ? data[index] : index;
       const key = entry ? uniqueId(entry) : index;
 
+
       Row: {
         display: grid;
         position: absolute;
@@ -40,7 +41,15 @@ const Rows = (props) => {
         style={{ top: offset }}>
         {columns.map((column, i) => {
           const Cell = either(column.cell, props.cell, normal.Cell);
-          const content = column.render(entry, index);
+          const content = (() => {
+            try {
+              return column.render(entry, index)
+            }
+            catch(err){
+              // TODO: why is this necessary?
+              return "";
+            }
+          })();
 
           if(Cell)
             <Cell
