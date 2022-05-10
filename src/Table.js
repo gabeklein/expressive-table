@@ -20,6 +20,10 @@ export const Table = (props) => {
 
   control.import(props);
 
+  useLayoutEffect(() => {
+    control.ready = true;
+  }, []);
+
   container: {
     forward: className;
     gridRows: min, "minmax(0, 1.0fr)";

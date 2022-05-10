@@ -51,9 +51,7 @@ class Grid extends Model {
         data ? data.length : length || 0;
     });
 
-    this.once("didMount", () => {
-      this.ready = true;
-      this.update("columns" as any);
+    this.effect(() => {
       this.virtual.on("end", end => {
         if(end && this.didEnd)
           this.didEnd();  
