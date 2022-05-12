@@ -1,4 +1,4 @@
-import Model, { Provider, ref } from '@expressive/mvc';
+import Model, { Provider, ref, useModel } from '@expressive/mvc';
 import { useLayoutEffect } from 'react';
 
 import Grid from './Grid';
@@ -6,7 +6,6 @@ import Header from './Header';
 import Rows from './Rows';
 
 export const Table = (props) => {
-  const Control = props.for || Grid;
   const Empty = props.empty;
   const {
     style,
@@ -16,7 +15,7 @@ export const Table = (props) => {
       container,
       size
     }
-  } = Control.use();
+  } = useModel(props.for || Grid);
 
   control.import(props);
 
