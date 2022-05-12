@@ -7,7 +7,9 @@ type ReactContent = ReactChild | ReactFragment | ReactPortal;
 
 declare namespace Table {
   interface Props <T = any> {
-    data?: readonly T[];
+    for?: Grid | typeof Grid;
+
+    rows?: readonly T[];
     length?: number;
     didEnd?: () => void;
   
@@ -19,8 +21,6 @@ declare namespace Table {
 
     before?: ReactNode;
     after?: ReactNode;
-
-    for?: Grid | typeof Grid;
     children: ReactNode;
     className?: string;
     style?: {};
