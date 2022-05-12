@@ -52,15 +52,13 @@ class Grid extends Model {
         this.length = this.rows.length;
     });
 
-    this.effect($ => {
-      this.virtual.itemSize = $.rowHeight;
-    });
+    this.effect(({ virtual, rowHeight, didEnd }) => {
+      virtual.itemSize = rowHeight;
 
-    this.effect(() => {
-      this.virtual.on("end", end => {
-        if(end && this.didEnd)
-          this.didEnd();  
-      })
+      if(didEnd)
+        return virtual.on("end", yes => {
+          yes && didEnd();
+        })
     })
   }
 
