@@ -73,7 +73,7 @@ const Rows = (props) => {
   else if(typeof Empty == "function")
     <Empty context={grid} />
   else
-    <this>{Empty}</this>
+    <this>{Empty || false}</this>
 }
 
 function uniqueId(object){
