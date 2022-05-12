@@ -80,10 +80,10 @@ function uniqueId(object){
   if(typeof object !== "object")
     return object;
 
-  let uid = UID_CACHE.get(object)
+  let uid = UID_CACHE.get(object);
 
   if(!uid)
-    UID_CACHE.set(object, uid = Math.random())
+    UID_CACHE.set(object, uid = Math.random());
     
   return uid;
 }
