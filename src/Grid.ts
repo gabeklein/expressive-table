@@ -1,7 +1,8 @@
 import Model, { from, ref, use } from '@expressive/mvc';
 import { FC, ReactNode } from 'react';
 
-import { Column, Table } from './Table';
+import Column from './Column';
+import Table from './Table';
 import Virtual from './Virtual';
 
 declare namespace Grid {

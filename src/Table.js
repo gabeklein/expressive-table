@@ -57,12 +57,4 @@ export const Table = (props) => {
   </Provider>
 }
 
-export const Column = (props) => {
-  const control = Grid.get();
-
-  useLayoutEffect(() => {
-    control.register(props);
-  }, []);
-
-  return false;
-}
+export default Table;
