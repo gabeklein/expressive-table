@@ -37,10 +37,65 @@ const Column = (props: Column.Props) => {
   const control = Grid.get();
 
   useLayoutEffect(() => {
-    control.register(props);
+    let {
+      cell,
+      head,
+      name,
+      render,
+      value
+    } = props;
+
+    const size = normalSize(props.size);
+
+    if(value === undefined && name)
+      value = name.toLowerCase();
+
+    if(typeof value == "string"){
+      if(!name)
+        name = value
+          .replace(/[A-Z][a-z]+/g, m => " " + m)
+          .replace(/^[a-z]/, m => m.toUpperCase())
+          .trim();
+
+      const key = value;
+      
+      value = (data: any) => {
+        if(typeof data == "object")
+          return data[key];
+
+        throw new Error(
+          `Column "${name}" expects Table data but none is defined.`
+        );
+      }
+    }
+
+    const index = control.columns.length;
+
+    if(!name)
+      name = String(index);
+
+    if(!render)
+      render = value || ((_, row) => `${name} (${row})`);
+
+    control.columns = control.columns.concat({
+      name, size, index, render,
+      value, head, cell, props
+    });
   }, []);
 
   return false;
+}
+
+function normalSize(size: string | number | undefined){
+  if(size === undefined)
+    return "minmax(0, 1fr)";
+
+  if(typeof size == "string" && isNaN(+size))
+    return size;
+
+  return +size % 1
+    ? `minmax(0, ${size}fr)`
+    : `${size}px`;
 }
 
 export default Column;

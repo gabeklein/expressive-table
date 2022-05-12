@@ -80,58 +80,6 @@ class Grid extends Model {
       "--row-height": $.rowHeight + "px",
     }
   })
-
-  register(props: Column.Props){
-    const index = this.columns.length;
-    let { cell, head, name, render, size, value } = props;
-
-    switch(typeof size){
-      case "undefined":
-        size = "minmax(0, 1fr)";
-
-      case "string":
-        if(isNaN(+size))
-          break;
-
-      case "number":
-        size = +size % 1 ? `minmax(0, ${size}fr)` : `${size}px`;
-    }
-
-    if(value === undefined && name)
-      value = name.toLowerCase();
-
-    if(typeof value == "string"){
-      const key = value;
-
-      if(!name)
-        name = value
-          .replace(/[A-Z][a-z]+/g, m => " " + m)
-          .replace(/^[a-z]/, m => m.toUpperCase())
-          .trim();
-      
-      value = (data: any) => {
-        if(typeof data == "object")
-          return data[key];
-
-        throw new Error(
-          `Column "${name}" expects Table data but none is defined.`
-        );
-      }
-    }
-
-    if(!render)
-      render = value || ((_, row) => `${name} (${row})`);
-
-    if(!name)
-      name = String(index);
-
-    const column = {
-      name, size, index, render,
-      value, head, cell, props
-    }
-  
-    this.columns = this.columns.concat(column);
-  }
 }
 
 export { Grid }
