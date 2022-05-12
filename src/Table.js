@@ -9,7 +9,6 @@ export const Table = (props) => {
   const Empty = props.empty;
   const {
     style,
-    length,
     get: control,
     virtual: {
       container,
@@ -51,11 +50,6 @@ export const Table = (props) => {
         style={{ overflowY: "auto" }}>
         {props.before}
         <Rows {...props} />
-        {!length && !!Empty && (
-          typeof Empty == "function"
-            ? <Empty context={control} />
-            : Empty
-        )}
         {props.after}
         {props.children}
       </div>
