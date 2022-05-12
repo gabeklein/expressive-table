@@ -1,4 +1,4 @@
-import { CSSProperties, FC, ReactChild, ReactFragment, ReactNode, ReactPortal } from 'react';
+import { CSSProperties, FC, ReactChild, ReactFragment, ReactNode, ReactPortal, VFC } from 'react';
 
 import Column from './Column';
 import Grid from './Grid';
@@ -6,6 +6,13 @@ import Grid from './Grid';
 type ReactContent = ReactChild | ReactFragment | ReactPortal;
 
 declare namespace Table {
+  interface Component extends FC<Table.Props> {
+    Cell: FC<Table.CellProps>;
+    Row: FC<Table.RowProps>;
+    Head: FC<Table.HeadProps>;
+    Header: FC<Table.HeaderProps>;
+  }
+
   interface Props <T = any> {
     for?: Grid | typeof Grid;
 
@@ -17,7 +24,7 @@ declare namespace Table {
     head?: FC<HeadProps>;
     row?: FC<RowProps>;
     cell?: FC<CellProps>;
-    empty?: FC<EmptyProps> | ReactContent;
+    empty?: VFC<EmptyProps> | ReactContent;
 
     before?: ReactNode;
     after?: ReactNode;
@@ -32,14 +39,14 @@ declare namespace Table {
 
   interface HeaderProps<T extends Grid = any> {
     context: T;
-    children: ReactNode;
   }
 
   interface HeadProps<T extends Grid = any> {
     context: T;
     index: number;
     column: Column.Props;
-    children: ReactNode;
+    name: string;
+    props: { [key: string]: any };
   }
   
   interface RowProps<T extends Grid = any> {
@@ -49,7 +56,6 @@ declare namespace Table {
     offset: number;
     className: string;
     style: CSSProperties;
-    children: ReactNode;
   }
   
   interface CellProps<T extends Grid = any> {
@@ -62,13 +68,6 @@ declare namespace Table {
   }
 }
 
-interface TableComponent extends FC<Table.Props> {
-  Cell: FC<Table.CellProps>;
-  Row: FC<Table.RowProps>;
-  Head: FC<Table.HeadProps>;
-  Header: FC<Table.HeaderProps>;
-}
-
-declare const Table: TableComponent;
+declare const Table: Table.Component;
 
 export default Table;

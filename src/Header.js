@@ -37,9 +37,11 @@ const Header = (props) => {
         if(Head)
           <Head
             key={column.name}
-            index={i}
             context={control}
-            column={column}>
+            index={i}
+            column={column}
+            name={column.name}
+            props={column.props}>
             {column.name}
           </Head>
         else
