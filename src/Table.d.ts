@@ -1,4 +1,4 @@
-import { FC, ReactChild, ReactFragment, ReactNode, ReactPortal } from 'react';
+import { CSSProperties, FC, ReactChild, ReactFragment, ReactNode, ReactPortal, StyleHTMLAttributes } from 'react';
 
 import Grid from './Grid';
 
@@ -42,21 +42,22 @@ declare namespace Table {
   }
   
   interface RowProps<T extends Grid = any> {
-    data?: { [key: string]: any };
-    className: string;
-    children: ReactNode;
     context: T;
+    index: number;
+    row?: { [key: string]: any };
     offset: number;
-    row: number;
+    className: string;
+    style: CSSProperties;
+    children: ReactNode;
   }
   
   interface CellProps<T extends Grid = any> {
-    data?: { [key: string]: any };
-    name: string;
     context: T;
-    column: Column.Info;
     index: number;
-    row: number;
+    row: number | { [key: string]: any };
+    column: Column.Info;
+    name: string;
+    props: { [key: string]: any };
   }
 }
 
@@ -65,13 +66,13 @@ declare const Table: FC<Table.Props>;
 declare namespace Column {
   type Render = (
     this: Column.Info,
-    data: any,
-    row: number
+    row: any,
+    rowIndex: number
   ) => ReactNode;
 
   type GetData = <T = any>(
     this: Column.Info,
-    data: T
+    row: T
   ) => ReactNode;
 
   interface Info {

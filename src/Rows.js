@@ -7,7 +7,7 @@ const UID_CACHE = new WeakMap();
 const Rows = (props) => {
   const {
     get: grid,
-    data,
+    rows,
     columns,
     virtual: {
       length,
@@ -22,8 +22,8 @@ const Rows = (props) => {
   if(length)
     <div style={{ position: "relative", height: size }}>
       {slice.map(({ index, offset }) => {
-        const entry = data ? data[index] : index;
-        const key = entry ? uniqueId(entry) : index;
+        const row = rows ? rows[index] : index;
+        const key = row ? uniqueId(row) : index;
 
         Row: {
           display: grid;
@@ -35,17 +35,17 @@ const Rows = (props) => {
         }
 
         <Row
-          context={grid}
           key={key}
-          row={index}
-          data={entry}
+          context={grid}
+          index={index}
+          row={row}
           offset={offset}
           style={{ top: offset }}>
           {columns.map((column, i) => {
             const Cell = either(column.cell, props.cell, normal.Cell);
             const content = (() => {
               try {
-                return column.render(entry, index)
+                return column.render(row, index)
               }
               catch(err){
                 // TODO: why is this necessary?
@@ -58,11 +58,10 @@ const Rows = (props) => {
                 key={column.name}
                 context={grid}
                 index={i}
-                name={column.name}
-                props={column.props}
-                data={entry}
+                row={row}
                 column={column}
-                row={index}>
+                name={column.name}
+                props={column.props}>
                 {content}
               </Cell>
             else
@@ -74,9 +73,7 @@ const Rows = (props) => {
   else if(typeof Empty == "function")
     <Empty context={grid} />
   else
-    <this>
-      {Empty}
-    </this>
+    <this>{Empty}</this>
 }
 
 function uniqueId(object){

@@ -31,7 +31,7 @@ declare namespace Grid {
 class Grid extends Model {
   virtual = use(Virtual);
 
-  data: any[] = [];
+  rows: any[] = [];
   length = 0;
   padding = 0;
   ready = false;
@@ -47,8 +47,8 @@ class Grid extends Model {
       if(key == "length")
         this.virtual.length = this.length;
 
-      else if(key == "data" && this.data)
-        this.length = this.data.length;
+      else if(key == "rows" && this.rows)
+        this.length = this.rows.length;
     });
 
     this.effect($ => {

@@ -4,8 +4,8 @@ import ReactDOM from "react-dom";
 
 import Table, { Column } from "../../src";
 
-class Data extends Model {
-  data = [];
+class Names extends Model {
+  names = [];
 
   constructor(){
     super();
@@ -17,12 +17,12 @@ class Data extends Model {
     const data = await res.json();
     const names = data.results.map(x => x.name);
 
-    this.data = this.data.concat(names);
+    this.names = this.names.concat(names);
   }
 }
 
 const App = () => {
-  const { data, getMore } = Data.use();
+  const { names, getMore } = Names.use();
 
   Table: {
     fixed: 10;
@@ -32,7 +32,7 @@ const App = () => {
   }
   
   <Table
-    data={data}
+    rows={names}
     header={Header}
     empty={NoResults}
     head={HeadCell}
