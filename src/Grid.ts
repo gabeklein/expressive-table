@@ -82,7 +82,7 @@ class Grid extends Model {
 
   register(props: Column.Props){
     const index = this.columns.length;
-    let { size, render, value, name, head, cell } = props;
+    let { cell, head, name, render, size, value } = props;
 
     switch(typeof size){
       case "undefined":

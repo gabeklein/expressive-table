@@ -38,16 +38,6 @@ class Virtual extends Model {
     return items as Type<this>[];
   });
 
-  DOM = MODE_DOWN;
-
-  areaX = 0;
-  areaY = 0;
-  offset = 0;
-  scrollMargin = 0;
-
-  maintain = false;
-  horizontal = false;
-
   end = from(this, state => {
     const bottom = Math.ceil(
       state.offset +
@@ -57,6 +47,16 @@ class Virtual extends Model {
     
     return bottom >= state.size;
   })
+
+  DOM = MODE_DOWN;
+
+  areaX = 0;
+  areaY = 0;
+  offset = 0;
+  scrollMargin = 0;
+
+  maintain = false;
+  horizontal = false;
 
   getItem(i: number){
     return {

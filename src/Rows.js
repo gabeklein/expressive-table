@@ -22,7 +22,6 @@ const Rows = (props) => {
       const entry = data ? data[index] : index;
       const key = entry ? uniqueId(entry) : index;
 
-
       Row: {
         display: grid;
         position: absolute;
