@@ -7,7 +7,7 @@ export const Header = (props) => {
   </this>
 }
 
-export const HeadCell = (props) => {
+export const Head = (props) => {
   <div>{props.column.name}</div>
 }
 

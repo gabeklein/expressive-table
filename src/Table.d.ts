@@ -1,4 +1,4 @@
-import { CSSProperties, FC, ReactChild, ReactFragment, ReactNode, ReactPortal, StyleHTMLAttributes } from 'react';
+import { CSSProperties, FC, ReactChild, ReactFragment, ReactNode, ReactPortal } from 'react';
 
 import Column from './Column';
 import Grid from './Grid';
@@ -62,6 +62,13 @@ declare namespace Table {
   }
 }
 
-declare const Table: FC<Table.Props>;
+interface TableComponent extends FC<Table.Props> {
+  Cell: FC<Table.CellProps>;
+  Row: FC<Table.RowProps>;
+  Head: FC<Table.HeadProps>;
+  Header: FC<Table.HeaderProps>;
+}
+
+declare const Table: TableComponent;
 
 export default Table;

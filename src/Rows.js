@@ -1,4 +1,4 @@
-import * as normal from './components';
+import * as components from './components';
 import Grid from './Grid';
 import { either } from './util';
 
@@ -16,7 +16,7 @@ const Rows = (props) => {
     }
   } = Grid.tap();
 
-  const Row = props.row || normal.Row;
+  const Row = props.row || components.Row;
   const Empty = props.empty;
 
   if(length)
@@ -42,7 +42,7 @@ const Rows = (props) => {
           offset={offset}
           style={{ top: offset }}>
           {columns.map((column, i) => {
-            const Cell = either(column.cell, props.cell, normal.Cell);
+            const Cell = either(column.cell, props.cell, components.Cell);
             const content = (() => {
               try {
                 return column.render(row, index)

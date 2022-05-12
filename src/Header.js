@@ -1,4 +1,4 @@
-import * as normal from './components';
+import * as components from './components';
 import Grid from './Grid';
 import { either } from './util';
 
@@ -14,7 +14,7 @@ const Header = (props) => {
     $.virtual.size > $.virtual.areaX ? $.padding : 0
   ));
 
-  const Header = either(props.header, normal.Header);
+  const Header = either(props.header, components.Header);
 
   Header: {
     display: grid;
@@ -32,7 +32,7 @@ const Header = (props) => {
   else
     <Header context={control} padding={padding}>
       {columns.map((column, i) => {
-        const Head = either(column.head, props.head, normal.HeadCell);
+        const Head = either(column.head, props.head, components.Head);
 
         if(Head)
           <Head

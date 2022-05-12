@@ -1,6 +1,7 @@
 import Model, { Provider, ref, useModel } from '@expressive/mvc';
 import { useLayoutEffect } from 'react';
 
+import * as components from './components';
 import Grid from './Grid';
 import Header from './Header';
 import Rows from './Rows';
@@ -56,5 +57,7 @@ export const Table = (props) => {
     </container>
   </Provider>
 }
+
+Object.assign(Table, components);
 
 export default Table;
