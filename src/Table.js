@@ -15,7 +15,20 @@ export const Table = (props) => {
       container,
       size
     }
-  } = useModel(props.for || Grid);
+  } = useModel(() => {
+    const source = props.for;
+
+    if(!source)
+      return new Grid();
+
+    if(source instanceof Grid)
+      return source;
+
+    if(Grid.isTypeof(source))
+      return new source();
+
+    throw new Error("Table expects either instance or typeof Grid.")
+  });
 
   control.import(props);
 
@@ -24,14 +37,10 @@ export const Table = (props) => {
   }, []);
 
   container: {
+    style = { ...props.style, ...style };
     forward: className;
     gridRows: min, "minmax(0, 1.0fr)";
     overflow: hidden;
-
-    style = {
-      ...props.style,
-      ...style
-    };
   }
 
   <Provider of={control}>
