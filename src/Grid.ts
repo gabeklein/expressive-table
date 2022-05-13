@@ -32,7 +32,7 @@ declare namespace Grid {
 class Grid extends Model {
   virtual = use(Virtual);
 
-  rows: any[] = [];
+  rows?: any[] = [];
   length = 0;
   padding = 0;
   ready = false;
