@@ -10,17 +10,13 @@ const Header = (props) => {
     get: control
   } = Grid.tap();
 
-  const padding = control.tap($ => (
-    $.virtual.size > $.virtual.areaX ? $.padding : 0
-  ));
-
   const Header = either(props.header, components.Header);
 
   Header: {
     display: grid;
     position: relative;
     gridTemplateColumns: "var(--row-columns)";
-    marginRight: (padding);
+    marginRight: (props.padding);
   }
 
   sensor: {
@@ -30,7 +26,7 @@ const Header = (props) => {
   if(!ready || !Header)
     <sensor ref={calibrate} />
   else
-    <Header context={control} padding={padding}>
+    <Header context={control} padding={props.padding}>
       {columns.map((column, i) => {
         const Head = either(column.head, props.head, components.Head);
 

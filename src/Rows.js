@@ -6,16 +6,9 @@ import Virtual from './Virtual';
 const UID_CACHE = new WeakMap();
 
 const Rows = (props) => {
-  const {
-    get: grid,
-    virtual: {
-      length,
-      slice,
-      size
-    }
-  } = Grid.tap();
-
-  const Empty = props.empty;
+  const grid = Grid.get();
+  const { slice, size, container, length } = Virtual.tap();
+  const { empty: Empty } = props;
 
   row: {
     position: absolute;
@@ -30,14 +23,7 @@ const Rows = (props) => {
         const key = row ? uniqueId(row) : index;
 
         <row key={key} style={{ top: offset }}>
-          <Row
-            index={index}
-            data={row}
-            columns={grid.columns}
-            context={grid}
-            row={props.row}
-            cell={props.cell}
-          />
+          <Row index={index} data={row} {...props} />
         </row>
       })}
     </div>
@@ -47,7 +33,8 @@ const Rows = (props) => {
     <this>{Empty || false}</this>
 }
 
-const Row = ({ index, data, context, columns, row, cell }) => {
+const Row = ({ index, data, row, cell }) => {
+  const { get: context, columns } = Grid.get();
   const Row = row || components.Row;
 
   Row: {

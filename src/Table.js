@@ -5,6 +5,7 @@ import * as components from './components';
 import Grid from './Grid';
 import Header from './Header';
 import Rows from './Rows';
+import Virtual from './Virtual';
 
 export const Table = (props) => {
   const control = useModel(() => {
@@ -40,25 +41,35 @@ export default Table;
 const Body = (props) => {
   const {
     style,
-    virtual: {
-      container,
-      size
-    }
+    length,
+    didEnd,
+    padding
   } = Grid.tap();
+
+  const {
+    container,
+    size,
+    areaX,
+    get: virtual
+  } = Virtual.using({ length, didEnd });
+
+  const marginOffset = size > areaX ? padding : 0;
 
   forward: className;
   gridRows: min, "minmax(0, 1.0fr)";
   overflow: hidden;
 
   <this style={{ ...props.style, ...style }}>
-    <Header {...props} />
-    <div
-      ref={size ? container : undefined}
-      style={{ overflowY: "auto" }}>
-      {props.before}
-      <Rows {...props} />
-      {props.after}
-      {props.children}
-    </div>
+    <Header {...props} padding={marginOffset} />
+    <Provider of={virtual}>
+      <div
+        ref={size ? container : undefined}
+        style={{ overflowY: "auto" }}>
+        {props.before}
+        <Rows {...props} />
+        {props.after}
+        {props.children}
+      </div>
+    </Provider>
   </this>
 }

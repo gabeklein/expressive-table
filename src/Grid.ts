@@ -1,9 +1,8 @@
-import Model, { from, ref, use } from '@expressive/mvc';
+import Model, { from, ref } from '@expressive/mvc';
 import { FC, ReactNode } from 'react';
 
 import Column from './Column';
 import Table from './Table';
-import Virtual from './Virtual';
 
 declare namespace Grid {
   interface Column<T extends Grid> {
@@ -30,7 +29,6 @@ declare namespace Grid {
 }
 
 class Grid extends Model {
-  virtual = use(Virtual);
   rows?: any[] = [];
   length = 0;
   padding = 0;
@@ -44,17 +42,9 @@ class Grid extends Model {
     super();
 
     this.on(key => {
-      if(key == "length")
-        this.virtual.length = this.length;
-
-      else if(key == "rows" && this.rows)
+      if(key == "rows" && this.rows)
         this.length = this.rows.length;
     });
-
-    this.effect(({ didEnd, rowHeight, virtual }) => {
-      virtual.itemSize = rowHeight;
-      virtual.didEnd = didEnd;
-    })
   }
 
   calibrate = ref(event => {
