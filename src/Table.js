@@ -43,7 +43,8 @@ const Body = (props) => {
     style,
     length,
     didEnd,
-    padding
+    padding,
+    calibrate
   } = Grid.tap();
 
   const {
@@ -59,6 +60,10 @@ const Body = (props) => {
   gridRows: min, "minmax(0, 1.0fr)";
   overflow: hidden;
 
+  sensor: {
+    overflowY: scroll;
+  }
+
   <this style={{ ...props.style, ...style }}>
     <Header {...props} padding={marginOffset} />
     <Provider of={virtual}>
@@ -71,5 +76,6 @@ const Body = (props) => {
         {props.children}
       </div>
     </Provider>
+    <sensor ref={calibrate} />
   </this>
 }

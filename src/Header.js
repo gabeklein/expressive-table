@@ -5,7 +5,6 @@ import { either } from './util';
 const Header = (props) => {
   const {
     ready,
-    calibrate,
     columns,
     get: control
   } = Grid.tap();
@@ -19,13 +18,7 @@ const Header = (props) => {
     marginRight: (props.padding);
   }
 
-  sensor: {
-    overflowY: scroll;
-  }
-
-  if(!ready || !Header)
-    <sensor ref={calibrate} />
-  else
+  if(ready && Header)
     <Header context={control} padding={props.padding}>
       {columns.map((column, i) => {
         const Head = either(column.head, props.head, components.Head);
