@@ -53,9 +53,7 @@ declare namespace Table {
     context: T;
     index: number;
     row?: { [key: string]: any };
-    offset: number;
     className: string;
-    style: CSSProperties;
   }
   
   interface CellProps<T extends Grid = any> {

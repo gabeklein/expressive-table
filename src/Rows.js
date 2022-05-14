@@ -1,14 +1,13 @@
 import * as components from './components';
 import Grid from './Grid';
 import { either } from './util';
+import Virtual from './Virtual';
 
 const UID_CACHE = new WeakMap();
 
 const Rows = (props) => {
   const {
     get: grid,
-    rows,
-    columns,
     virtual: {
       length,
       slice,
@@ -16,64 +15,78 @@ const Rows = (props) => {
     }
   } = Grid.tap();
 
-  const Row = props.row || components.Row;
   const Empty = props.empty;
+
+  row: {
+    position: absolute;
+    right: 0;
+    left: 0;
+  }
 
   if(length)
     <div style={{ position: "relative", height: size }}>
       {slice.map(({ index, offset }) => {
-        const row = rows ? rows[index] : index;
+        const row = grid.rows ? grid.rows[index] : index;
         const key = row ? uniqueId(row) : index;
 
-        Row: {
-          display: grid;
-          position: absolute;
-          right: 0;
-          left: 0;
-          height: "var(--row-height)";
-          gridTemplateColumns: "var(--row-columns)";
-        }
-
-        <Row
-          key={key}
-          context={grid}
-          index={index}
-          row={row}
-          offset={offset}
-          style={{ top: offset }}>
-          {columns.map((column, i) => {
-            const Cell = either(column.cell, props.cell, components.Cell);
-            const content = (() => {
-              try {
-                return column.render(row, index)
-              }
-              catch(err){
-                // TODO: why is this necessary?
-                return "";
-              }
-            })();
-
-            if(Cell)
-              <Cell
-                key={column.name}
-                context={grid}
-                index={i}
-                row={row}
-                column={column}
-                name={column.name}
-                props={column.props}>
-                {content}
-              </Cell>
-            else
-              <div key={column.name} />
-          })}
-        </Row>
+        <row key={key} style={{ top: offset }}>
+          <Row
+            index={index}
+            data={row}
+            columns={grid.columns}
+            context={grid}
+            row={props.row}
+            cell={props.cell}
+          />
+        </row>
       })}
     </div>
   else if(typeof Empty == "function")
     <Empty context={grid} />
   else
     <this>{Empty || false}</this>
+}
+
+const Row = ({ index, data, context, columns, row, cell }) => {
+  const Row = row || components.Row;
+
+  Row: {
+    display: grid;
+    gridTemplateColumns: "var(--row-columns)";
+    height: "var(--row-height)";
+  }
+
+  <Row
+    context={context}
+    index={index}
+    row={data}>
+    {columns.map((column, i) => {
+      const Cell = either(column.cell, cell, components.Cell);
+      const content = (() => {
+        try {
+          return column.render(data, index)
+        }
+        catch(err){
+          // TODO: why is this necessary?
+          return "";
+        }
+      })();
+
+      if(Cell)
+        <Cell
+          key={column.name}
+          context={context}
+          index={i}
+          row={data}
+          column={column}
+          name={column.name}
+          props={column.props}>
+          {content}
+        </Cell>
+      else
+        <div key={column.name} />
+    })}
+  </Row>
 }
 
 function uniqueId(object){
