@@ -12,11 +12,22 @@ export type Type<T extends Virtual> =
   ReturnType<T["getItem"]>;
 
 class Virtual extends Model {
+  constructor(){
+    super();
+
+    this.on("end", yes => {
+      if(yes && this.didEnd)
+        this.didEnd();
+    })
+  }
+
   container = ref(observe);
 
   length = 0;
   itemSize = 40;
   overscan = 0;
+
+  didEnd?: () => void = undefined;
 
   size = from(this, state => (
     state.itemSize * state.length

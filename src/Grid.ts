@@ -31,7 +31,6 @@ declare namespace Grid {
 
 class Grid extends Model {
   virtual = use(Virtual);
-
   rows?: any[] = [];
   length = 0;
   padding = 0;
@@ -52,13 +51,9 @@ class Grid extends Model {
         this.length = this.rows.length;
     });
 
-    this.effect(({ virtual, rowHeight, didEnd }) => {
+    this.effect(({ didEnd, rowHeight, virtual }) => {
       virtual.itemSize = rowHeight;
-
-      if(didEnd)
-        return virtual.on("end", yes => {
-          yes && didEnd();
-        })
+      virtual.didEnd = didEnd;
     })
   }
 
