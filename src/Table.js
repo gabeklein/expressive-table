@@ -52,7 +52,7 @@ const Body = (props) => {
     size,
     areaX,
     get: virtual
-  } = Virtual.using({ length, didEnd });
+  } = Virtual.use({ length, didEnd });
 
   const marginOffset = size > areaX ? padding : 0;
 
