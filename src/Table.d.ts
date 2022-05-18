@@ -19,6 +19,7 @@ declare namespace Table {
     rows?: readonly T[];
     length?: number;
     didEnd?: () => void;
+    refresh?: boolean;
   
     header?: FC<HeaderProps>;
     head?: FC<HeadProps>;
