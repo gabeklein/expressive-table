@@ -1,5 +1,5 @@
 import Model, { Provider, ref, useModel } from '@expressive/mvc';
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useMemo } from 'react';
 
 import * as components from './components';
 import Grid from './Grid';
@@ -40,6 +40,7 @@ export default Table;
 
 const Body = (props) => {
   const {
+    rows,
     style,
     length,
     didEnd,
@@ -52,9 +53,15 @@ const Body = (props) => {
     size,
     areaX,
     get: virtual
-  } = Virtual.use({ length, didEnd });
+  } = Virtual.use();
 
   const marginOffset = size > areaX ? padding : 0;
+
+  useMemo(() => {
+    virtual.didEnd = didEnd;
+    virtual.length = rows ? rows.length : length;
+    virtual.update("length");
+  }, [length, rows, didEnd]);
 
   forward: className;
   gridRows: min, "minmax(0, 1.0fr)";
