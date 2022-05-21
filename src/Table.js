@@ -1,5 +1,4 @@
 import { Provider, useModel } from '@expressive/mvc';
-import { useLayoutEffect } from 'react';
 
 import * as components from './components';
 import Grid from './Grid';
@@ -19,10 +18,6 @@ export const Table = (props) => {
       return new source();
 
     throw new Error("Table expects either an instance or typeof Grid.");
-  }, []);
-
-  useLayoutEffect(() => {
-    control.ready = true;
   }, []);
 
   control.import(props);

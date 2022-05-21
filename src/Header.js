@@ -1,25 +1,45 @@
+import { useCallback, useLayoutEffect, useState } from 'react';
+
 import * as components from './components';
 import Grid from './Grid';
 import { either } from './util';
 
 const Header = (props) => {
   const {
-    ready,
-    columns,
-    get: control
+    get: control,
+    columns
   } = Grid.tap();
 
+  const [ready, setReady] = useState();
+  const [scrollOffset, setOffset] = useState();
+  const padding = props.scrollY ? scrollOffset : 0;
+
   const Header = either(props.header, components.Header);
+  const calibrate = useCallback(event => {
+    if(event)
+      setOffset(
+        event.parentElement.scrollWidth -
+        event.scrollWidth
+      );
+  });
+
+  useLayoutEffect(() => setReady(true), []);
+
+  sensor: {
+    overflowY: scroll;
+  }
 
   Header: {
     display: grid;
     position: relative;
     gridTemplateColumns: "var(--row-columns)";
-    marginRight: (props.padding);
+    marginRight: (padding);
   }
 
-  if(ready && Header)
-    <Header context={control} padding={props.padding}>
+  if(!ready)
+    <sensor ref={calibrate} />
+  else if(Header)
+    <Header context={control} padding={padding}>
       {columns.map((column, i) => {
         const Head = either(column.head, props.head, components.Head);
 

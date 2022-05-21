@@ -31,7 +31,6 @@ declare namespace Grid {
 class Grid extends Model {
   rows?: any[] = [];
   length = 0;
-  ready = false;
   rowHeight = 40;
   columns: Grid.Column<this>[] = [];
 
