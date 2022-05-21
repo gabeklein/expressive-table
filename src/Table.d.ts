@@ -1,4 +1,4 @@
-import { CSSProperties, FC, ReactChild, ReactFragment, ReactNode, ReactPortal, VFC } from 'react';
+import { FC, ReactChild, ReactFragment, ReactNode, ReactPortal, VFC } from 'react';
 
 import Column from './Column';
 import Grid from './Grid';
