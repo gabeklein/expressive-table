@@ -1,4 +1,4 @@
-import Model, { from, ref } from '@expressive/mvc';
+import Model, { from } from '@expressive/mvc';
 import { FC, ReactNode } from 'react';
 
 import Column from './Column';
@@ -31,7 +31,6 @@ declare namespace Grid {
 class Grid extends Model {
   rows?: any[] = [];
   length = 0;
-  padding = 0;
   ready = false;
   rowHeight = 40;
   columns: Grid.Column<this>[] = [];
@@ -46,13 +45,6 @@ class Grid extends Model {
         this.length = this.rows.length;
     });
   }
-
-  calibrate = ref(event => {
-    if(event)
-      this.padding =
-        event.parentElement!.scrollWidth -
-        event.scrollWidth
-  })
 
   style = from(this, $ => {
     const template: string =

@@ -1,5 +1,5 @@
-import Model, { Provider, ref } from '@expressive/mvc';
-import { useMemo } from 'react';
+import Model, { Provider } from '@expressive/mvc';
+import { useCallback, useMemo, useState } from 'react';
 
 import Grid from './Grid';
 import Header from './Header';
@@ -7,23 +7,18 @@ import Rows from './Rows';
 import Virtual from './Virtual';
 
 const VirtualBody = (props) => {
-  const {
-    rows,
-    style,
-    length,
-    didEnd,
-    padding,
-    calibrate
-  } = Grid.tap();
+  const { rows, style, length, didEnd } = Grid.tap();
+  const { get: virtual, container, size, areaX } = Virtual.use();
 
-  const {
-    container,
-    size,
-    areaX,
-    get: virtual
-  } = Virtual.use();
-
+  const [padding, setPadding] = useState();
   const marginOffset = size > areaX ? padding : 0;
+  const calibrate = useCallback(event => {
+    if(event)
+      setPadding(
+        event.parentElement.scrollWidth -
+        event.scrollWidth
+      );
+  })
 
   useMemo(() => {
     virtual.didEnd = didEnd;
