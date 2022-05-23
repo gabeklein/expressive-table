@@ -1,4 +1,4 @@
-import { FC, ReactNode, useLayoutEffect } from 'react';
+import { FC, ReactNode, useLayoutEffect, useMemo } from 'react';
 
 import Grid from './Grid';
 import Table from './Table';
@@ -35,53 +35,63 @@ declare namespace Column {
 
 const Column = (props: Column.Props) => {
   const control = Grid.get();
+  const column = useMemo(() => ({} as Grid.Column<Grid>), []);
+
+  let {
+    cell,
+    head,
+    name,
+    render,
+    value
+  } = props;
+
+  const size = normalSize(props.size);
+
+  if(value === undefined && name)
+    value = name.toLowerCase();
+
+  if(typeof value == "string"){
+    if(!name)
+      name = value
+        .replace(/[A-Z][a-z]+/g, m => " " + m)
+        .replace(/^[a-z]/, m => m.toUpperCase())
+        .trim();
+
+    const key = value;
+    
+    value = (data: any) => {
+      if(typeof data == "object")
+        return data[key];
+
+      throw new Error(
+        `Column "${name}" expects Table data but none is defined.`
+      );
+    }
+  }
+
+  const index = control.columns.length;
+
+  if(!name)
+    name = String(index);
+
+  if(!render)
+    render = value || ((_, row) => `${name} (${row})`);
+
+  Object.assign(column, {
+    name, size, index, render,
+    value, head, cell, props
+  })
 
   useLayoutEffect(() => {
-    let {
-      cell,
-      head,
-      name,
-      render,
-      value
-    } = props;
+    const index = control.columns.push(column);
+    
+    control.update("columns");
 
-    const size = normalSize(props.size);
-
-    if(value === undefined && name)
-      value = name.toLowerCase();
-
-    if(typeof value == "string"){
-      if(!name)
-        name = value
-          .replace(/[A-Z][a-z]+/g, m => " " + m)
-          .replace(/^[a-z]/, m => m.toUpperCase())
-          .trim();
-
-      const key = value;
-      
-      value = (data: any) => {
-        if(typeof data == "object")
-          return data[key];
-
-        throw new Error(
-          `Column "${name}" expects Table data but none is defined.`
-        );
-      }
+    return () => {
+      control.columns.splice(index, 1);
+      control.update("columns");
     }
-
-    const index = control.columns.length;
-
-    if(!name)
-      name = String(index);
-
-    if(!render)
-      render = value || ((_, row) => `${name} (${row})`);
-
-    control.columns = control.columns.concat({
-      name, size, index, render,
-      value, head, cell, props
-    });
-  }, []);
+  }, [])
 
   return false;
 }
