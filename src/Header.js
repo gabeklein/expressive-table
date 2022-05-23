@@ -10,7 +10,6 @@ const Header = (props) => {
     columns
   } = Grid.tap();
 
-  const [ready, setReady] = useState();
   const [scrollOffset, setOffset] = useState();
   const padding = props.scrollY ? scrollOffset : 0;
 
@@ -23,8 +22,6 @@ const Header = (props) => {
       );
   });
 
-  useLayoutEffect(() => setReady(true), []);
-
   sensor: {
     overflowY: scroll;
   }
@@ -36,7 +33,7 @@ const Header = (props) => {
     marginRight: (padding);
   }
 
-  if(!ready)
+  if(scrollOffset === undefined)
     <sensor ref={calibrate} />
   else if(Header)
     <Header context={control} padding={padding}>
