@@ -22,7 +22,7 @@ export const Table = (props) => {
 
   control.import(props);
 
-  <Provider of={control}>
+  <Provider for={control}>
     {props.children}
     <VirtualBody {...props} />
   </Provider>

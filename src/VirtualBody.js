@@ -33,7 +33,7 @@ const VirtualBody = (props) => {
 
   <this style={{ ...props.style, ...style }}>
     <Header {...props} scrollY={size > areaX} />
-    <Provider of={virtual}>
+    <Provider for={virtual}>
       <div
         ref={size ? container : undefined}
         style={{ overflowY: "auto" }}>
