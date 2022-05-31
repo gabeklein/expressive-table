@@ -13,7 +13,7 @@
     "build": "rollup --config",
     "prebuild": "rm -rf lib/",
     "preversion": "npm run build",
-    "postversion": "npm publish"
+    "postversion": "git push & npm publish"
   },
   "dependencies": {
     "@expressive/css": "^1.0.0-beta.96",
