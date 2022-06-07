@@ -1,4 +1,10 @@
-import { FC, ReactChild, ReactFragment, ReactNode, ReactPortal, VFC } from 'react';
+import {
+  FC,
+  ReactChild,
+  ReactFragment,
+  ReactNode,
+  ReactPortal
+} from 'react';
 
 import Column from './Column';
 import Grid from './Grid';
@@ -6,13 +12,6 @@ import Grid from './Grid';
 type ReactContent = ReactChild | ReactFragment | ReactPortal;
 
 declare namespace Table {
-  interface Component extends FC<Table.Props> {
-    Cell: FC<Table.CellProps>;
-    Row: FC<Table.RowProps>;
-    Head: FC<Table.HeadProps>;
-    Header: FC<Table.HeaderProps>;
-  }
-
   interface Props <T = any> {
     for?: Grid | typeof Grid;
 
@@ -25,7 +24,7 @@ declare namespace Table {
     head?: FC<HeadProps>;
     row?: FC<RowProps>;
     cell?: FC<CellProps>;
-    empty?: VFC<EmptyProps> | ReactContent;
+    empty?: FC<EmptyProps> | ReactContent;
 
     before?: ReactNode;
     after?: ReactNode;
@@ -34,15 +33,15 @@ declare namespace Table {
     style?: {};
   }
 
-  interface EmptyProps<T extends Grid = any> {
+  interface EmptyProps<T extends Grid = Grid> {
     context: T;
   }
 
-  interface HeaderProps<T extends Grid = any> {
+  interface HeaderProps<T extends Grid = Grid> {
     context: T;
   }
 
-  interface HeadProps<T extends Grid = any> {
+  interface HeadProps<T extends Grid = Grid> {
     context: T;
     index: number;
     column: Column.Props;
@@ -50,14 +49,14 @@ declare namespace Table {
     props: { [key: string]: any };
   }
   
-  interface RowProps<T extends Grid = any> {
+  interface RowProps<T extends Grid = Grid> {
     context: T;
     index: number;
     row?: { [key: string]: any };
     className: string;
   }
   
-  interface CellProps<T extends Grid = any> {
+  interface CellProps<T extends Grid = Grid> {
     context: T;
     index: number;
     row: number | { [key: string]: any };
@@ -65,8 +64,15 @@ declare namespace Table {
     name: string;
     props: { [key: string]: any };
   }
+
+  interface Components {
+    Cell: FC<CellProps>;
+    Row: FC<RowProps>;
+    Head: FC<HeadProps>;
+    Header: FC<HeaderProps>;
+  }
 }
 
-declare const Table: Table.Component;
+declare const Table: FC<Table.Props> & Table.Components;
 
 export default Table;
