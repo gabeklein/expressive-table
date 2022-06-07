@@ -29,8 +29,12 @@ class Virtual extends Model {
 
   didEnd?: () => void = undefined;
 
-  size = from(this, state => (
-    state.itemSize * state.length
+  size = from(this, $ => (
+    $.itemSize * $.length
+  ));
+
+  end = from(this, $ => (
+    $.offset + $.areaX + $.overscan >= $.size
   ));
 
   range = from(() => this.getVisibleRange);
@@ -48,16 +52,6 @@ class Virtual extends Model {
 
     return items as Type<this>[];
   });
-
-  end = from(this, state => {
-    const bottom = Math.ceil(
-      state.offset +
-      state.areaX +
-      state.overscan
-    );
-    
-    return bottom >= state.size;
-  })
 
   DOM = MODE_DOWN;
 
