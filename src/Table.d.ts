@@ -12,22 +12,27 @@ import Grid from './Grid';
 type ReactContent = ReactChild | ReactFragment | ReactPortal;
 
 declare namespace Table {
-  interface Props <T = any> {
+  interface ControlProps <T = Grid> {
     for?: Grid | typeof Grid;
-
     rows?: readonly T[];
     length?: number;
     didEnd?: () => void;
     refresh?: boolean;
-  
+  }
+
+  interface ComponentProps {
     header?: FC<HeaderProps>;
     head?: FC<HeadProps>;
     row?: FC<RowProps>;
     cell?: FC<CellProps>;
     empty?: FC<EmptyProps> | ReactContent;
-
     before?: ReactNode;
     after?: ReactNode;
+  }
+
+  interface Props <T = Grid>
+    extends ControlProps<T>, ComponentProps {
+      
     children: ReactNode;
     className?: string;
     style?: {};
