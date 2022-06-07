@@ -21,6 +21,11 @@ const VirtualBody = (props) => {
     areaX
   } = Virtual.use();
 
+  const style = {
+    ...props.style,
+    "--row-columns": template
+  }
+
   useMemo(() => {
     virtual.didEnd = didEnd;
     virtual.length = rows ? rows.length : length;
@@ -31,10 +36,7 @@ const VirtualBody = (props) => {
   gridRows: min, "minmax(0, 1.0fr)";
   overflow: hidden;
 
-  <this style={{
-    ...props.style,
-    "--row-columns": template
-  }}>
+  <this style={style}>
     <Header {...props} scrollY={size > areaX} />
     <Provider for={virtual}>
       <div
