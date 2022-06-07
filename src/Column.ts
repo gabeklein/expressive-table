@@ -34,17 +34,10 @@ declare namespace Column {
 }
 
 const Column = (props: Column.Props) => {
+  let { cell, head, name, render, value } = props;
+
   const control = Grid.get();
   const column = useMemo(() => ({} as Grid.Column<Grid>), []);
-
-  let {
-    cell,
-    head,
-    name,
-    render,
-    value
-  } = props;
-
   const size = normalSize(props.size);
 
   if(value === undefined && name)
