@@ -39,9 +39,10 @@ class Grid extends Model {
   constructor(){
     super();
 
-    this.on(key => {
-      if(key == "rows" && this.rows)
-        this.length = this.rows.length;
+    // TODO: remove
+    this.effect(({ rows }) => {
+      if(rows)
+        this.length = rows.length;
     });
   }
 
