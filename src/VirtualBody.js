@@ -9,7 +9,7 @@ import Virtual from './Virtual';
 const VirtualBody = (props) => {
   const {
     rows,
-    style,
+    template,
     length,
     didEnd
   } = Grid.tap();
@@ -31,7 +31,10 @@ const VirtualBody = (props) => {
   gridRows: min, "minmax(0, 1.0fr)";
   overflow: hidden;
 
-  <this style={{ ...props.style, ...style }}>
+  <this style={{
+    ...props.style,
+    "--row-columns": template
+  }}>
     <Header {...props} scrollY={size > areaX} />
     <Provider for={virtual}>
       <div

@@ -31,7 +31,6 @@ declare namespace Grid {
 class Grid extends Model {
   rows?: any[] = [];
   length = 0;
-  rowHeight = 40;
   columns: Grid.Column<this>[] = [];
 
   didEnd?: () => void = undefined;
@@ -46,14 +45,8 @@ class Grid extends Model {
     });
   }
 
-  style = from(this, $ => {
-    const template: string =
-      $.columns.map(x => x.size || "1.0fr").join(" ");
-    
-    return {
-      "--row-columns": template,
-      "--row-height": $.rowHeight + "px",
-    }
+  template: string = from(this, $ => {
+    return $.columns.map(x => x.size || "1.0fr").join(" ")
   })
 }
 
