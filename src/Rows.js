@@ -1,9 +1,8 @@
 import * as components from './components';
 import Grid from './Grid';
-import { either } from './util';
+import { either, uniqueId } from './util';
 import Virtual from './Virtual';
 
-const UID_CACHE = new WeakMap();
 
 const Rows = (props) => {
   const grid = Grid.get();
@@ -74,18 +73,6 @@ const Row = ({ index, data, row, cell }) => {
         <div key={column.name} />
     })}
   </Row>
-}
-
-function uniqueId(object){
-  if(typeof object !== "object")
-    return object;
-
-  let uid = UID_CACHE.get(object);
-
-  if(!uid)
-    UID_CACHE.set(object, uid = Math.random());
-    
-  return uid;
 }
 
 export default Rows;
