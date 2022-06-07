@@ -2,9 +2,10 @@ import { Provider, useModel } from '@expressive/mvc';
 
 import * as components from './components';
 import Grid from './Grid';
-import VirtualBody from './VirtualBody';
+import Virtual from './virtual/Body';
 
 export const Table = (props) => {
+  const Body = props.body || Virtual;
   const control = useModel(() => {
     const source = props.for;
 
@@ -24,7 +25,7 @@ export const Table = (props) => {
 
   <Provider for={control}>
     {props.children}
-    <VirtualBody {...props} />
+    <Body {...props} />
   </Provider>
 }
 

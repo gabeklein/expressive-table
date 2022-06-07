@@ -5,11 +5,11 @@ import Grid from './Grid';
 import { either } from './util';
 
 const Header = (props) => {
+  const [ scrollOffset, setOffset ] = useState();
   const { is: control, columns } = Grid.tap();
+
   const padding = props.scrollY ? scrollOffset : 0;
   const Header = either(props.header, components.Header);
-
-  const [ scrollOffset, setOffset ] = useState();
   const calibrate = useCallback(event => {
     if(event)
       setOffset(

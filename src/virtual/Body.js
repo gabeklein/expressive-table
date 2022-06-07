@@ -1,12 +1,12 @@
 import Model, { Provider } from '@expressive/mvc';
 import { useMemo } from 'react';
 
-import Grid from './Grid';
-import Header from './Header';
+import Grid from '../Grid';
+import Header from '../Header';
 import Rows from './Rows';
 import Virtual from './Virtual';
 
-const VirtualBody = (props) => {
+const Body = (props) => {
   const {
     rows,
     template,
@@ -50,4 +50,4 @@ const VirtualBody = (props) => {
   </this>
 }
 
-export default VirtualBody;
+export default Body;
