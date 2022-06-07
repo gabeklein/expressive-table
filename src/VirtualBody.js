@@ -15,7 +15,7 @@ const VirtualBody = (props) => {
   } = Grid.tap();
 
   const {
-    get: virtual,
+    is: virtual,
     container,
     size,
     areaX

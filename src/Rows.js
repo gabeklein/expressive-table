@@ -34,7 +34,7 @@ const Rows = (props) => {
 }
 
 const Row = ({ index, data, row, cell }) => {
-  const { get: context, columns } = Grid.get();
+  const { is: context, columns } = Grid.get();
   const Row = row || components.Row;
 
   Row: {

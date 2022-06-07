@@ -6,11 +6,11 @@ import { either } from './util';
 
 const Header = (props) => {
   const {
-    get: control,
+    is: control,
     columns
   } = Grid.tap();
 
-  const [scrollOffset, setOffset] = useState();
+  const [ scrollOffset, setOffset ] = useState();
   const padding = props.scrollY ? scrollOffset : 0;
 
   const Header = either(props.header, components.Header);
