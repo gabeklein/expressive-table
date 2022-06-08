@@ -1,8 +1,8 @@
 import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
+import resolve from '@rollup/plugin-node-resolve';
+import dts from 'rollup-plugin-dts';
 import typescript from 'rollup-plugin-typescript2';
-import dts from 'rollup-plugin-dts'
 
 import { dependencies, name } from './package.json';
 
