@@ -1,11 +1,9 @@
 import { Provider, useModel } from '@expressive/mvc';
+import { useMemo } from 'react';
 
-import * as components from './components';
 import Grid from './Grid';
-import Virtual from './virtual/Body';
 
-export const Table = (props) => {
-  const Body = props.body || Virtual;
+export const Core = (props) => {
   const control = useModel(() => {
     const source = props.for;
 
@@ -25,10 +23,7 @@ export const Table = (props) => {
 
   <Provider for={control}>
     {props.children}
-    <Body {...props} />
   </Provider>
 }
 
-Object.assign(Table, components);
-
-export default Table;
+export default Core;

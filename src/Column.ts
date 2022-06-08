@@ -1,7 +1,7 @@
 import { FC, ReactNode, useLayoutEffect, useMemo } from 'react';
 
 import Grid from './Grid';
-import Table from './Table';
+import Core from './Core';
 
 declare namespace Column {
   type Render = (
@@ -24,8 +24,8 @@ declare namespace Column {
   interface Props {
     name?: string;
     size?: string | number;
-    head?: FC<Table.HeadProps>;
-    cell?: FC<Table.CellProps>;
+    head?: FC<Core.HeadProps>;
+    cell?: FC<Core.CellProps>;
     value?: string | GetData; 
     render?: Render;
 
@@ -34,11 +34,11 @@ declare namespace Column {
 }
 
 const Column = (props: Column.Props) => {
-  let { cell, head, name, render, value } = props;
+  let { cell, head, name, render, size, value } = props;
 
   const control = Grid.get();
   const column = useMemo(() => ({} as Grid.Column<Grid>), []);
-  const size = normalSize(props.size);
+  size = normalSize(size);
 
   if(value === undefined && name)
     value = name.toLowerCase();

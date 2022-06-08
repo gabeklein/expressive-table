@@ -2,12 +2,12 @@ import Model, { from } from '@expressive/mvc';
 import { FC, ReactNode } from 'react';
 
 import Column from './Column';
-import Table from './Table';
+import Core from './Core';
 
 declare namespace Grid {
   interface Column<T extends Grid> {
-    head?: FC<Table.HeadProps<T>>;
-    cell?: FC<Table.CellProps<T>>;
+    head?: FC<Core.HeadProps<T>>;
+    cell?: FC<Core.CellProps<T>>;
   
     size: string;
     name: string;

@@ -1,10 +1,9 @@
-import * as components from './components';
 import Grid from './Grid';
 import { either } from './util';
 
 const Row = ({ index, data, row, cell }) => {
   const { is: context, columns } = Grid.get();
-  const Row = row || components.Row;
+  const Row = row;
 
   Row: {
     display: grid;
@@ -17,7 +16,7 @@ const Row = ({ index, data, row, cell }) => {
     index={index}
     row={data}>
     {columns.map((column, i) => {
-      const Cell = either(column.cell, cell, components.Cell);
+      const Cell = either(column.cell, cell);
       const content = (() => {
         try {
           return column.render(data, index)

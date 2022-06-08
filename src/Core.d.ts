@@ -1,41 +1,15 @@
-import {
-  FC,
-  ReactChild,
-  ReactFragment,
-  ReactNode,
-  ReactPortal
-} from 'react';
+import { FC } from 'react';
 
 import Column from './Column';
 import Grid from './Grid';
 
-type ReactContent = ReactChild | ReactFragment | ReactPortal;
-
-declare namespace Table {
+declare namespace Core {
   interface ControlProps <T = Grid> {
     for?: Grid | typeof Grid;
-    rows?: readonly T[];
+    rows?: T[];
     length?: number;
     didEnd?: () => void;
     refresh?: boolean;
-  }
-
-  interface ComponentProps {
-    header?: FC<HeaderProps>;
-    head?: FC<HeadProps>;
-    row?: FC<RowProps>;
-    cell?: FC<CellProps>;
-    empty?: FC<EmptyProps> | ReactContent;
-    before?: ReactNode;
-    after?: ReactNode;
-  }
-
-  interface Props <T = Grid>
-    extends ControlProps<T>, ComponentProps {
-      
-    children: ReactNode;
-    className?: string;
-    style?: {};
   }
 
   interface EmptyProps<T extends Grid = Grid> {
@@ -78,6 +52,6 @@ declare namespace Table {
   }
 }
 
-declare const Table: FC<Table.Props> & Table.Components;
+declare const Core: FC<Core.ControlProps>;
 
-export default Table;
+export default Core;
