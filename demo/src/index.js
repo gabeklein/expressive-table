@@ -9,7 +9,7 @@ class Names extends Model {
 
   constructor(){
     super();
-    this.effect(() => this.getMore());
+    this.effect(this.getMore);
   }
 
   getMore = async () => {
