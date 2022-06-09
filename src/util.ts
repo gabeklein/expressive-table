@@ -2,7 +2,7 @@
 export function either(...from: any[]){
   for(const component of from){
     if(component === false)
-      return null;
+      return false;
 
     if(typeof component == "function")
       return component;

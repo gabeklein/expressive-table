@@ -7,7 +7,6 @@ export const Table = (props) => {
   <Core {...rest}>
     {children}
     <Body
-      head={Head}
       header={Header}
       cell={Cell}
       row={Row}
@@ -23,10 +22,6 @@ const Header = (props) => {
   <this>
     {props.children}
   </this>
-}
-
-const Head = (props) => {
-  <div>{props.name}</div>
 }
 
 const Row = ({ offset, children }) => {
@@ -53,7 +48,6 @@ const Cell = ({ children }) => {
 
 Object.assign(Table, {
   Header,
-  Head,
   Row,
   Cell
 });

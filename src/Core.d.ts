@@ -47,7 +47,6 @@ declare namespace Core {
   interface Components {
     Cell: FC<CellProps>;
     Row: FC<RowProps>;
-    Head: FC<HeadProps>;
     Header: FC<HeaderProps>;
   }
 }

@@ -46,7 +46,9 @@ const Header = (props) => {
             {column.name}
           </Head>
         else
-          <div key={column.name} />
+          <div key={column.name}>
+            {Head !== false && column.name}
+          </div>
       })}
     </Header>
 }
