@@ -1,3 +1,4 @@
+import { from, Model, ref } from '@expressive/mvc';
 import { useCallback, useLayoutEffect, useState } from 'react';
 
 import Grid from './Grid';
@@ -9,8 +10,10 @@ const Header = (props) => {
 
   Header: {
     display: grid;
-    position: relative;
+    gridGap: "1em";
     gridTemplateColumns: "var(--row-columns)";
+    position: relative;
+    paddingH: 1.0;
     marginRight: (padding);
   }
 

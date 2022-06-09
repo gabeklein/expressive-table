@@ -17,7 +17,6 @@ export const Table = (props) => {
 
 const Header = (props) => {
   forward: className;
-  padding: 0, 10;
 
   <this>
     {props.children}
@@ -26,7 +25,6 @@ const Header = (props) => {
 
 const Row = (props) => {
   forward: className;
-  padding: 0, 10;
   minHeight: 2.5;
 
   <this>
@@ -37,7 +35,6 @@ const Row = (props) => {
 const Cell = (props) => {
   forward: className;
   fontSize: 0.9;
-  paddingH: 0.6;
 
   <this>
     {props.children}
