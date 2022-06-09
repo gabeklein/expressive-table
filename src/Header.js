@@ -14,6 +14,10 @@ const Header = (props) => {
     marginRight: (padding);
   }
 
+  Head: {
+    overflow: hidden;
+  }
+
   if(Header)
     <Header context={control} padding={padding}>
       {columns.map((column, i) => {

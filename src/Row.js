@@ -8,7 +8,9 @@ const Row = ({ index, data, row, cell }) => {
   Row: {
     display: grid;
     gridTemplateColumns: "var(--row-columns)";
-    height: "var(--row-height)";
+
+  Cell: {
+    overflow: hidden;
   }
 
   <Row
