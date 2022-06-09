@@ -43,12 +43,6 @@ declare namespace Core {
     name: string;
     props: { [key: string]: any };
   }
-
-  interface Components {
-    Cell: FC<CellProps>;
-    Row: FC<RowProps>;
-    Header: FC<HeaderProps>;
-  }
 }
 
 declare const Core: FC<Core.ControlProps>;

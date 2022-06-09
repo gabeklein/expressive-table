@@ -41,10 +41,4 @@ const Cell = (props) => {
   </this>
 }
 
-Object.assign(Table, {
-  Header,
-  Row,
-  Cell
-});
-
 export default Table;

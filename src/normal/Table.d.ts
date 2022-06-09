@@ -22,6 +22,6 @@ declare namespace Table {
   }
 }
 
-declare const Table: FC<Table.Props> & Core.Components;
+declare const Table: FC<Table.Props>;
 
 export default Table;

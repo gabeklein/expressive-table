@@ -46,10 +46,4 @@ const Cell = ({ children }) => {
   </this>
 }
 
-Object.assign(Table, {
-  Header,
-  Row,
-  Cell
-});
-
 export default Table;
