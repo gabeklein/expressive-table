@@ -10,7 +10,6 @@ const Header = (props) => {
 
   Header: {
     display: grid;
-    gridGap: "1em";
     gridTemplateColumns: "var(--row-columns)";
     position: relative;
     marginRight: (padding);
