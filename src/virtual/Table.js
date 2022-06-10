@@ -7,7 +7,6 @@ export const Table = (props) => {
   <Core {...rest}>
     {children}
     <Body
-      header={Header}
       cell={Cell}
       row={Row}
       {...rest} 
@@ -15,18 +14,8 @@ export const Table = (props) => {
   </Core>
 }
 
-const Header = (props) => {
+const Row = ({ children, offset }) => {
   forward: className;
-  padding: 0, 10;
-
-  <this>
-    {props.children}
-  </this>
-}
-
-const Row = ({ offset, children }) => {
-  forward: className;
-  padding: 0, 10;
 
   <this style={{ top: offset }}>
     {children}
@@ -36,7 +25,6 @@ const Row = ({ offset, children }) => {
 const Cell = ({ children }) => {
   forward: className;
   fontSize: 0.9;
-  paddingH: 0.6;
   overflow: hidden;
   textOverflow: ellipsis;
   whiteSpace: nowrap;

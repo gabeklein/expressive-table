@@ -7,7 +7,6 @@ export const Table = (props) => {
   <Core {...rest}>
     {children}
     <Body
-      header={Header}
       cell={Cell}
       row={Row}
       {...rest} 
@@ -15,29 +14,21 @@ export const Table = (props) => {
   </Core>
 }
 
-const Header = (props) => {
-  forward: className;
-
-  <this>
-    {props.children}
-  </this>
-}
-
-const Row = (props) => {
+const Row = ({ children }) => {
   forward: className;
   minHeight: 2.5;
 
   <this>
-    {props.children}
+    {children}
   </this>
 }
 
-const Cell = (props) => {
+const Cell = ({ children }) => {
   forward: className;
   fontSize: 0.9;
 
   <this>
-    {props.children}
+    {children}
   </this>
 }
 
