@@ -29,7 +29,7 @@ const Body = (props) => {
     return rows || Array.from({ length }, i => i);
   }, [length, rows]);
 
-  const [ padding, calibrate ] = usePadding(entries.length);
+  const [ padding, calibrate ] = usePadding(length);
 
   forward: className;
   gridRows: min, "minmax(0, 1.0fr)";

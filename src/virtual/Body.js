@@ -21,6 +21,11 @@ const Body = (props) => {
     areaX
   } = Virtual.use();
 
+  const [
+    offset,
+    setOffset
+  ] = useState();
+
   const style = {
     ...props.style,
     "--row-columns": template
@@ -32,12 +37,22 @@ const Body = (props) => {
     virtual.update("length");
   }, [length, rows, didEnd]);
 
+  useLayoutEffect(() => {
+    const element = container.current;
+
+    if(element)
+      setOffset(
+        element.parentElement.scrollWidth -
+        element.scrollWidth
+      )
+  }, [length]);
+
   forward: className;
   gridRows: min, "minmax(0, 1.0fr)";
   overflow: hidden;
 
   <this style={style}>
-    <Header {...props} scrollY={size > areaX} />
+    <Header {...props} padding={padding} />
     <Provider for={virtual}>
       <div
         ref={size ? container : undefined}
