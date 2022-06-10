@@ -9,7 +9,6 @@ const Row = ({ index, data, row, cell }) => {
     display: grid;
     gridGap: "1em";
     gridTemplateColumns: "var(--row-columns)";
-    paddingH: 1.0;
   }
 
   Cell: {
