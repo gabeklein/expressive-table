@@ -22,7 +22,8 @@ const Row = ({ index, data, row, cell }) => {
     row={data}>
     {columns.map((column, i) => {
       const Cell = either(column.cell, cell);
-      const content = (() => {
+
+      const content = Cell !== false && (() => {
         try {
           return column.render(data, index)
         }
@@ -44,7 +45,9 @@ const Row = ({ index, data, row, cell }) => {
           {content}
         </Cell>
       else
-        <div key={column.name} />
+        <div key={column.name}>
+          {content}
+        </div>
     })}
   </Row>
 }
