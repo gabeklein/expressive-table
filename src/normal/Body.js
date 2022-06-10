@@ -5,15 +5,8 @@ import Header from '../Header';
 import Row from '../Row';
 import { uniqueId } from '../util';
 
-const Body = (props) => {
-  const { rows, template, length } = Grid.tap();
-
+const usePadding = (length) => {
   const calibrate = useRef(null);
-
-  const entries = useMemo(() => {
-    return rows || Array.from({ length }, i => i);
-  }, [length, rows]);
-
   const [offset, setOffset] = useState();
 
   useLayoutEffect(() => {
@@ -24,7 +17,19 @@ const Body = (props) => {
         element.parentElement.scrollWidth -
         element.scrollWidth
       )
-  }, [entries.length]);
+  }, [length]);
+
+  return [offset, calibrate];
+}
+
+const Body = (props) => {
+  const { rows, template, length } = Grid.tap();
+
+  const entries = useMemo(() => {
+    return rows || Array.from({ length }, i => i);
+  }, [length, rows]);
+
+  const [ padding, calibrate ] = usePadding(entries.length);
 
   forward: className;
   gridRows: min, "minmax(0, 1.0fr)";
@@ -34,8 +39,8 @@ const Body = (props) => {
     "--row-columns": template,
     ...props.style
   }}>
-    <Header {...props} padding={offset} />
-    <div style={{ overflowY: "auto" }} ref={calibrate}>
+    <Header {...props} padding={padding} />
+    <div ref={calibrate} style={{ overflowY: "auto" }}>
       {entries.map((row, index) => {
         const key = props.refresh
           ? Math.random()
