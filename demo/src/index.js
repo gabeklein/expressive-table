@@ -2,7 +2,7 @@ import Model from "@expressive/mvc";
 import { useState } from "react";
 import ReactDOM from "react-dom";
 
-import Table, { Column } from "../../src";
+import { Virtual, Column } from "../../src";
 
 class Names extends Model {
   names = [];
@@ -24,14 +24,14 @@ class Names extends Model {
 const App = () => {
   const { names, getMore } = Names.use();
 
-  Table: {
+  Virtual: {
     fixed: 10;
     outline: blue;
     textAlign: center;
     font: sans-serif;
   }
   
-  <Table
+  <Virtual
     rows={names}
     header={Header}
     empty={NoResults}
@@ -41,7 +41,7 @@ const App = () => {
     <Column name="title" />
     <Column name="first" />
     <Column name="last" />
-  </Table>
+  </Virtual>
 }
 
 const Cell = ({ children }) => {

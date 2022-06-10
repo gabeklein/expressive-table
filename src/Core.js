@@ -17,9 +17,7 @@ export const Core = (props) => {
       return new source();
 
     throw new Error("Table expects either an instance or typeof Grid.");
-  }, []);
-
-  control.import(props);
+  }, props);
 
   <Provider for={control}>
     {props.children}
