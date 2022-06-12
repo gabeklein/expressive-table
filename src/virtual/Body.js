@@ -52,8 +52,8 @@ const Body = (props) => {
   overflow: hidden;
 
   <this style={style}>
-    <Header {...props} padding={padding} />
     <Provider for={virtual}>
+      <Header {...props} padding={padding} />
       <div
         ref={size ? container : undefined}
         style={{ overflowY: "auto" }}>
