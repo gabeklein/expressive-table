@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { Children, forwardRef, useCallback, useLayoutEffect, useRef, useState } from 'react';
 
 import Header from './Header';
 
@@ -20,7 +20,9 @@ const Body = forwardRef((props, ref) => {
         element.parentElement.scrollWidth -
         element.scrollWidth
       )
-  }, []);
+  }, [
+    Children.toArray(props.children).length
+  ]);
 
   forward: className;
   gridRows: min, "minmax(0, 1.0fr)";
