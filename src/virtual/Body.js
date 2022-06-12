@@ -1,7 +1,8 @@
 import Model, { Provider } from '@expressive/mvc';
 import { useLayoutEffect, useMemo, useState } from 'react';
 
-import Grid, { Header } from '../Grid';
+import { Header } from '../Body';
+import Grid from '../Grid';
 import Rows from './Rows';
 import Virtual from './Virtual';
 

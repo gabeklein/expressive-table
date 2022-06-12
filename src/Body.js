@@ -1,21 +1,17 @@
 import { ref } from '@expressive/mvc';
-import { Children, forwardRef, useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { Children, useLayoutEffect, useRef, useState } from 'react';
 
 import Grid from './Grid';
 import { either } from './util';
 
-const Body = forwardRef((props, ref) => {
-  const calibrate = useRef(null);
-  const [offset, setOffset] = useState();
-  const refCallback = useCallback(element => {
-    if(ref)
-      ref(element);
+const useCalibrate = (children, ref) => {
+  if(!ref)
+    ref = useRef();
 
-    calibrate.current = element;
-  })
+  const [offset, setOffset] = useState();
 
   useLayoutEffect(() => {
-    const element = calibrate.current;
+    const element = ref.current;
 
     if(element)
       setOffset(
@@ -23,23 +19,30 @@ const Body = forwardRef((props, ref) => {
         element.scrollWidth
       )
   }, [
-    Children.toArray(props.children).length
+    Children.toArray(children).length
   ]);
+
+  return [offset, ref];
+}
+
+const Body = (props) => {
+  const { children, style, template } = props;
+  const [offset, ref] = useCalibrate(children);
 
   forward: className;
   gridRows: min, "minmax(0, 1.0fr)";
   overflow: hidden;
 
   <this style={{
-    "--row-columns": props.template,
-    ...props.style
+    "--row-columns": template,
+    ...style
   }}>
     <Header {...props} padding={offset} />
-    <div ref={refCallback} style={{ overflowY: "auto" }}>
-      {props.children}
+    <div ref={ref} style={{ overflowY: "auto" }}>
+      {children}
     </div>
   </this>
-})
+}
 
 export const Header = (props) => {
   const { header: Header, padding } = props;
