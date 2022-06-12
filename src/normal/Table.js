@@ -11,7 +11,11 @@ export const Table = (props) => {
 
   <Core {...rest}>
     {children}
-    <Body row={DefaultRow} {...rest} />
+    <Body
+      row={DefaultRow}
+      header={DefaultHeader}
+      {...rest}
+    />
   </Core>
 }
 
@@ -37,9 +41,18 @@ const Body = (props) => {
   </GenericBody>
 }
 
+const DefaultHeader = ({ children }) => {
+  padding: 0, 10;
+
+  <this>
+    {children}
+  </this>
+}
+
 const DefaultRow = ({ children }) => {
   forward: className;
   minHeight: 2.5;
+  padding: 0, 10;
 
   <this>
     {children}
