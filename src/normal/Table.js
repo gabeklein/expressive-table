@@ -28,14 +28,10 @@ const Body = (props) => {
 
   <GenericBody {...props} template={template}>
     {entries.map((row, index) => {
-      const key = props.refresh
-        ? Math.random()
-        : uniqueId(row);
-
       <Row {...props}
+        key={props.refresh ? Math.random() : uniqueId(row)}
         index={index}
         data={row}
-        key={key}
       />
     })}
   </GenericBody>
