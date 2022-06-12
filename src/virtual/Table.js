@@ -1,17 +1,19 @@
-import Core from '../Core';
+import { Provider } from '@expressive/mvc';
+
+import { useGrid } from '../Grid';
 import Body from './Body';
 
 export const Table = (props) => {
-  const { children, ...rest } = props;
+  const control = useGrid(props);
 
-  <Core {...rest}>
+  <Provider for={control}>
     {children}
     <Body
       cell={Cell}
       row={Row}
-      {...rest} 
+      {...props} 
     />
-  </Core>
+  </Provider>
 }
 
 const Row = ({ children, offset }) => {

@@ -1,22 +1,22 @@
+import { Provider } from '@expressive/mvc';
 import { useMemo } from 'react';
 
 import GenericBody from '../Body';
-import Core from '../Core';
-import Grid from '../Grid';
+import Grid, { useGrid } from '../Grid';
 import Row from '../Row';
 import { uniqueId } from '../util';
 
 export const Table = (props) => {
-  const { children, ...rest } = props;
+  const control = useGrid(props);
 
-  <Core {...rest}>
-    {children}
+  <Provider for={control}>
+    {props.children}
     <Body
       row={DefaultRow}
       header={DefaultHeader}
-      {...rest}
+      {...props}
     />
-  </Core>
+  </Provider>
 }
 
 const Body = (props) => {
