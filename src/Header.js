@@ -8,11 +8,11 @@ const Header = (props) => {
   const { header: Header, padding } = props;
   const { is: control, columns } = Grid.tap();
 
-  Header: {
+  row: {
     display: grid;
     gridTemplateColumns: "var(--row-columns)";
     position: relative;
-    marginRight: (padding);
+    minHeight: fill;
   }
 
   Head: {
@@ -20,25 +20,27 @@ const Header = (props) => {
   }
 
   if(Header)
-    <Header context={control} padding={padding}>
-      {columns.map((column, i) => {
-        const Head = either(column.head, props.head);
+    <Header context={control}>
+      <row style={{ marginRight: padding }}>
+        {columns.map((column, i) => {
+          const Head = either(column.head, props.head);
 
-        if(Head)
-          <Head
-            key={column.name}
-            context={control}
-            index={i}
-            column={column}
-            name={column.name}
-            props={column.props}>
-            {column.name}
-          </Head>
-        else
-          <div key={column.name}>
-            {Head !== false && column.name}
-          </div>
-      })}
+          if(Head)
+            <Head
+              key={column.name}
+              context={control}
+              index={i}
+              column={column}
+              name={column.name}
+              props={column.props}>
+              {column.name}
+            </Head>
+          else
+            <div key={column.name}>
+              {Head !== false && column.name}
+            </div>
+        })}
+      </row>
     </Header>
 }
 
