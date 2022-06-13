@@ -7,7 +7,8 @@ const Row = ({ index, data, row, cell }) => {
 
   row: {
     display: grid;
-    gridTemplateColumns: "var(--row-columns)";
+    columnGap: "var(--table-grid-gap)";
+    gridTemplateColumns: "var(--table-row-columns)";
     minHeight: fill;
   }
 

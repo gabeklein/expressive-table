@@ -7,6 +7,7 @@ declare namespace Core {
   interface ControlProps <T = Grid> {
     for?: Grid | typeof Grid;
     rows?: T[];
+    gap?: string | number;
     length?: number;
     didEnd?: () => void;
     refresh?: boolean;

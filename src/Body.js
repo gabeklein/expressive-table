@@ -1,46 +1,28 @@
-import { ref } from '@expressive/mvc';
-import { Children, useLayoutEffect, useRef, useState } from 'react';
+import { Children, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import Header from './Header';
-
-const useCalibrate = (children, ref) => {
-  if(!ref)
-    ref = useRef();
-
-  const [offset, setOffset] = useState();
-
-  useLayoutEffect(() => {
-    const element = ref.current;
-
-    if(element)
-      setOffset(
-        element.parentElement.scrollWidth -
-        element.scrollWidth
-      )
-  }, [
-    Children.toArray(children).length
-  ]);
-
-  return [offset, ref];
-}
+import { useGap, usePadding } from './hooks';
 
 const Body = (props) => {
-  const { children, style, template } = props;
-  const [offset, ref] = useCalibrate(children);
+  const container = useRef(null);
+  const offset = usePadding(props.children, container);
+  const gridGap = useGap(props.gap);
 
   forward: className;
   gridRows: min, "minmax(0, 1.0fr)";
   overflow: hidden;
 
   <this style={{
-    "--row-columns": template,
-    ...style
+    "--table-row-columns": props.template,
+    "--table-grid-gap": gridGap,
+    ...props.style
   }}>
     <Header {...props} padding={offset} />
-    <div ref={ref} style={{ overflowY: "auto" }}>
-      {children}
+    <div ref={container} style={{ overflowY: "auto" }}>
+      {props.children}
     </div>
   </this>
 }
 
+export { useGap };
 export default Body;
