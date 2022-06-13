@@ -7,7 +7,7 @@ export const Table = (props) => {
   const control = useGrid(props);
 
   <Provider for={control}>
-    {children}
+    {props.children}
     <Body
       cell={Cell}
       row={Row}
