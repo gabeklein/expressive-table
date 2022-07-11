@@ -1,4 +1,4 @@
-import Model, { from, useModel } from '@expressive/mvc';
+import Model, { get, useModel } from '@expressive/mvc';
 import { FC, ReactNode } from 'react';
 
 import Column from './Column';
@@ -45,7 +45,7 @@ class Grid extends Model {
     });
   }
 
-  template: string = from(this, $ => {
+  template: string = get(this, $ => {
     return $.columns.map(x => x.size || "1.0fr").join(" ")
   })
 }
