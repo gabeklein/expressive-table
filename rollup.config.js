@@ -4,7 +4,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import dts from 'rollup-plugin-dts';
 import typescript from 'rollup-plugin-typescript2';
 
-import { dependencies, name } from './package.json';
+import { peerDependencies, name } from './package.json';
 
 export default  [
   {
@@ -22,7 +22,7 @@ export default  [
         sourcemap: true
       }
     ],
-    external: Object.keys(dependencies),
+    external: Object.keys(peerDependencies),
     plugins: [
       babel({
         presets: [
