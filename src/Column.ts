@@ -38,7 +38,6 @@ const Column = (props: Column.Props) => {
 
   const control = Grid.get();
   const column = useMemo(() => ({} as Grid.Column<Grid>), []);
-  const size = normalSize(props.size);
 
   if(value === undefined && name)
     value = name.toLowerCase();
@@ -71,9 +70,13 @@ const Column = (props: Column.Props) => {
     render = value || ((_, row) => `${name} (${row})`);
 
   Object.assign(column, {
-    name, size, index, render,
+    name, index, render,
     value, head, cell, props
   })
+
+  useLayoutEffect(() => {
+    column.size = normalSize(props.size);
+  }, [props.size]);
 
   useLayoutEffect(() => {
     const index = control.columns.push(column);
