@@ -1,8 +1,9 @@
 import { Provider } from '@expressive/mvc';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 
-import GenericBody from '../Body';
 import Grid, { useGrid } from '../Grid';
+import Header from '../Header';
+import { useGap, usePadding } from '../hooks';
 import Row from '../Row';
 import { uniqueId } from '../util';
 
@@ -21,20 +22,36 @@ export const Table = (props) => {
 
 const Body = (props) => {
   const { rows, template, length } = Grid.tap();
+  const container = useRef(null);
+  const offset = usePadding(props.children, container);
+  const gridGap = useGap(props.gap);
 
   const entries = useMemo(() => {
     return rows || Array.from({ length }, i => i);
   }, [length, rows]);
 
-  <GenericBody {...props} template={template}>
-    {entries.map((row, index) => {
-      <Row {...props}
-        key={props.refresh ? Math.random() : uniqueId(row)}
-        index={index}
-        data={row}
-      />
-    })}
-  </GenericBody>
+  container: {
+    forward: className;
+    gridRows: min, "minmax(0, 1.0fr)";
+    overflow: hidden;
+  }
+
+  <container style={{
+    "--table-row-columns": template,
+    "--table-grid-gap": gridGap,
+    ...props.style
+  }}>
+    <Header {...props} padding={offset} />
+    <div ref={container} style={{ overflowY: "auto" }}>
+      {entries.map((row, index) => {
+        <Row {...props}
+          key={props.refresh ? Math.random() : uniqueId(row)}
+          index={index}
+          data={row}
+        />
+      })}
+    </div>
+  </container>
 }
 
 const DefaultHeader = ({ children }) => {
