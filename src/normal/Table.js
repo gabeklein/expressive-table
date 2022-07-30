@@ -21,19 +21,19 @@ export const Table = (props) => {
 }
 
 const Body = (props) => {
-  const { rows, template, length } = Grid.tap();
+  const { template } = Grid.tap();
   const container = useRef(null);
   const offset = usePadding(props.children, container);
   const gridGap = useGap(props.gap);
-
-  const entries = useMemo(() => {
-    return rows || Array.from({ length }, i => i);
-  }, [length, rows]);
 
   container: {
     forward: className;
     gridRows: min, "minmax(0, 1.0fr)";
     overflow: hidden;
+  }
+
+  inner: {
+    position: relative;
   }
 
   <container style={{
@@ -42,7 +42,22 @@ const Body = (props) => {
     ...props.style
   }}>
     <Header {...props} padding={offset} />
-    <div ref={container} style={{ overflowY: "auto" }}>
+    <inner ref={container} style={{ overflowY: "auto" }}>
+      <Rows {...props} />
+    </inner>
+  </container>
+}
+
+const Rows = (props) => {
+  const { empty: Empty } = props;
+  const { rows, length, is: grid } = Grid.tap();
+
+  const entries = useMemo(() => {
+    return rows || Array.from({ length }, i => i);
+  }, [length, rows]);
+  
+  if(length)
+    <this>
       {entries.map((row, index) => {
         <Row {...props}
           key={props.refresh ? Math.random() : uniqueId(row)}
@@ -50,8 +65,11 @@ const Body = (props) => {
           data={row}
         />
       })}
-    </div>
-  </container>
+    </this>
+  else if(typeof Empty == "function")
+    <Empty context={grid} />
+  else
+    <this>{Empty || false}</this>
 }
 
 const DefaultHeader = ({ children }) => {
