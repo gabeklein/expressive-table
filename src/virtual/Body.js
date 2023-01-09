@@ -18,8 +18,7 @@ const Body = (props) => {
   const {
     is: virtual,
     container,
-    size,
-    areaX
+    size
   } = Virtual.use();
 
   const gridGap = useGap(props.gap);
