@@ -225,10 +225,10 @@
   dependencies:
     "@babel/types" "7.10.3"
 
-"@expressive/mvc@^0.7.1":
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/@expressive/mvc/-/mvc-0.7.1.tgz#ee2aed78824af7cba2ff9709bf021340686a42f4"
-  integrity sha512-3NNeDNqKAsgr5ClMflOgLYQ10YOH8JiRs/CuZoxd4De+XV8zT0C5xlkVc+KS6MbMmo+jGhk5HFar1NdhXHlRlQ==
+"@expressive/mvc@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@expressive/mvc/-/mvc-0.9.0.tgz#8f63cdb2054f1bbf3f57ee271a36ec16faaf5402"
+  integrity sha512-i1SPsih/weiecj875BubgkZYBxnuX5YGr6TnsIai7HJVvSKJb+INYr3FKrZ9bNbaCaq2yrw0sGfB1q0ALzbYmQ==
 
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"

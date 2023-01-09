@@ -39,7 +39,7 @@ class Grid extends Model {
     super();
 
     // TODO: remove
-    this.effect(({ rows }) => {
+    this.on(({ rows }) => {
       if(rows)
         this.length = rows.length;
     });
