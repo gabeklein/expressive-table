@@ -27,7 +27,7 @@ const Body = (props) => {
   useMemo(() => {
     virtual.didEnd = didEnd;
     virtual.length = rows ? rows.length : length;
-    virtual.update("length");
+    virtual.set("length");
   }, [length, rows, didEnd]);
 
   forward: className;

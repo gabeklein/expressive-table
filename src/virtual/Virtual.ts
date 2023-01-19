@@ -12,15 +12,6 @@ export type Type<T extends Virtual> =
   ReturnType<T["getItem"]>;
 
 class Virtual extends Model {
-  constructor(){
-    super();
-
-    this.on("end", yes => {
-      if(yes && this.didEnd)
-        this.didEnd();
-    })
-  }
-
   container = ref(observe);
 
   length = 0;
@@ -29,15 +20,19 @@ class Virtual extends Model {
 
   didEnd?: () => void = undefined;
 
-  size = get(this, $ => (
-    $.itemSize * $.length
-  ));
-
-  end = get(this, $ => (
-    $.offset + $.areaX + $.overscan >= $.size
-  ));
+  size = get(this, $ => $.itemSize * $.length);
 
   range = get(() => this.getVisibleRange);
+
+  bottom = get(this, $ => {
+    const frame = $.offset + $.areaX + $.overscan;
+    const bottom = frame >= $.size;
+
+    if(bottom && this.didEnd)
+      this.didEnd();
+
+    return bottom;
+  });
 
   slice = get(this, state => {
     const [ start, end ] = state.range;

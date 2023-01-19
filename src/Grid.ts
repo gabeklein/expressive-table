@@ -1,4 +1,4 @@
-import Model, { get, useModel } from '@expressive/mvc';
+import Model, { get, useNew } from '@expressive/mvc';
 import { FC, ReactNode } from 'react';
 
 import Column from './Column';
@@ -51,7 +51,7 @@ class Grid extends Model {
 }
 
 function useGrid(props: Core.ControlProps){
-  return useModel(() => {
+  return useNew(() => {
     const source = props.for;
 
     if(!source)

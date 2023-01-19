@@ -81,11 +81,11 @@ const Column = (props: Column.Props) => {
   useLayoutEffect(() => {
     const index = control.columns.push(column);
     
-    control.update("columns");
+    control.set("columns");
 
     return () => {
       control.columns.splice(index, 1);
-      control.update("columns");
+      control.set("columns");
     }
   }, [])
 
