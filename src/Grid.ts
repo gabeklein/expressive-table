@@ -15,16 +15,9 @@ declare namespace Grid {
 
     props: { [key: string]: any }
 
-    value?: string | ((
-      this: Column.Info,
-      data: any
-    ) => ReactNode)
+    value?: string | ((this: Column.Info, data: any) => ReactNode);
   
-    render: (
-      this: Column.Info,
-      data: any,
-      row: number
-    ) => ReactNode;
+    render: (this: Column.Info, data: any, row: number) => ReactNode;
   }
 }
 
@@ -45,8 +38,8 @@ class Grid extends Model {
     });
   }
 
-  template: string = get(this, $ => {
-    return $.columns.map(x => x.size || "1.0fr").join(" ")
+  template = get(this, ($): string => {
+    return $.columns.map(x => x.size || "1.0fr").join(" ");
   })
 }
 
