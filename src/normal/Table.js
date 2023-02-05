@@ -1,14 +1,27 @@
 import { Provider } from '@expressive/mvc';
 import { useMemo, useRef } from 'react';
 
-import Grid, { useGrid } from '../Grid';
+import Grid from '../Grid';
 import Header from '../Header';
 import { useGap, usePadding } from '../hooks';
 import Row from '../Row';
 import { uniqueId } from '../util';
 
 export const Table = (props) => {
-  const control = useGrid(props);
+  const control = useNew(() => {
+    const source = props.for;
+
+    if(!source)
+      return new Grid();
+
+    if(source instanceof Grid)
+      return source;
+
+    if(Grid.isTypeof(source))
+      return new source();
+
+    throw new Error("Table expects either an instance or typeof Grid.");
+  }, props);
 
   <Provider for={control}>
     {props.children}
