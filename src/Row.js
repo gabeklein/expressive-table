@@ -1,4 +1,4 @@
-import Grid from './Grid';
+import { Grid } from './Grid';
 import { either } from './util';
 
 const Row = ({ index, data, row, cell }) => {
@@ -54,4 +54,4 @@ const Row = ({ index, data, row, cell }) => {
   </Row>
 }
 
-export default Row;
+export { Row };

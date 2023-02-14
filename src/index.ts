@@ -1,8 +1,5 @@
-import Table from './normal/Table';
-import Virtual from './virtual/Table';
+export { Table, Table as default } from './normal/Table';
+export { Table as Virtual } from './virtual/Table';
 
-export { default as Column } from "./Column";
-export { default as Grid } from "./Grid";
-
-export default Table;
-export { Table, Virtual };
+export { Column } from "./Column";
+export { Grid } from "./Grid";

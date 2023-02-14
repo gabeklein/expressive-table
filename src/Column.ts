@@ -1,7 +1,7 @@
 import { FC, ReactNode, useLayoutEffect, useMemo } from 'react';
 
-import Grid from './Grid';
-import Core from './Core';
+import { Grid } from './Grid';
+import { Core } from './Core';
 
 declare namespace Column {
   type Render = (
@@ -104,4 +104,4 @@ function normalSize(size: string | number | undefined){
     : `${size}px`;
 }
 
-export default Column;
+export { Column };

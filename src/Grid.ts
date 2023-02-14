@@ -1,8 +1,8 @@
 import Model, { get, useNew } from '@expressive/mvc';
 import { FC, ReactNode } from 'react';
 
-import Column from './Column';
-import Core from './Core';
+import { Column } from './Column';
+import { Core } from './Core';
 
 declare namespace Grid {
   interface Column<T extends Grid> {

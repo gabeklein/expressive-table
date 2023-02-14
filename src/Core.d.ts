@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import Column from './Column';
-import Grid from './Grid';
+import { Column } from './Column';
+import { Grid } from './Grid';
 
 declare namespace Core {
   interface ControlProps <T = Grid> {
@@ -48,4 +48,4 @@ declare namespace Core {
 
 declare const Core: FC<Core.ControlProps>;
 
-export default Core;
+export { Core };

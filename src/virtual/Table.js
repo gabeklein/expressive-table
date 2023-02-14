@@ -1,7 +1,7 @@
 import { Provider } from '@expressive/mvc';
 
 import { useGrid } from '../Grid';
-import Body from './Body';
+import { Body } from './Body';
 
 export const Table = (props) => {
   const control = useGrid(props);
@@ -36,4 +36,4 @@ const Cell = ({ children }) => {
   </this>
 }
 
-export default Table;
+export { Table };

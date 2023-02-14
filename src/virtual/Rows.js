@@ -1,7 +1,7 @@
-import Grid from '../Grid';
-import Row from '../Row';
+import { Grid } from '../Grid';
+import { Row } from '../Row';
 import { uniqueId } from '../util';
-import Virtual from './Virtual';
+import { Virtual } from './Virtual';
 
 const Rows = (props) => {
   const grid = Grid.get();
@@ -36,4 +36,4 @@ const Rows = (props) => {
     <this>{Empty || false}</this>
 }
 
-export default Rows;
+export { Rows };

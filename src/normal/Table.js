@@ -2,9 +2,9 @@ import { Provider } from '@expressive/mvc';
 import { useMemo, useRef } from 'react';
 
 import { Grid, useGrid } from '../Grid';
-import Header from '../Header';
+import { Header } from '../Header';
 import { useGap, usePadding } from '../hooks';
-import Row from '../Row';
+import { Row } from '../Row';
 import { uniqueId } from '../util';
 
 export const Table = (props) => {
@@ -90,4 +90,4 @@ const DefaultRow = ({ children }) => {
   </this>
 }
 
-export default Table;
+export { Table };

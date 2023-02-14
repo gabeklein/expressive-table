@@ -1,11 +1,11 @@
 import Model, { Provider } from '@expressive/mvc';
 import { useLayoutEffect, useMemo, useState } from 'react';
 
-import Grid from '../Grid';
-import Header from '../Header';
-import { usePadding, useGap } from '../hooks';
-import Rows from './Rows';
-import Virtual from './Virtual';
+import { Grid } from '../Grid';
+import { Header } from '../Header';
+import { useGap, usePadding } from '../hooks';
+import { Rows } from './Rows';
+import { Virtual } from './Virtual';
 
 const Body = (props) => {
   const {
@@ -52,4 +52,4 @@ const Body = (props) => {
   </this>
 }
 
-export default Body;
+export { Body };

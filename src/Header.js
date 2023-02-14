@@ -1,4 +1,4 @@
-import Grid from './Grid';
+import { Grid } from './Grid';
 import { either } from './util';
 
 const Header = (props) => {
@@ -42,4 +42,4 @@ const Header = (props) => {
     </Header>
 }
 
-export default Header;
+export { Header };

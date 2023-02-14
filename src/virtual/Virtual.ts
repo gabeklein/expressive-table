@@ -130,4 +130,4 @@ function observe(
   }
 }
 
-export default Virtual;
+export { Virtual };

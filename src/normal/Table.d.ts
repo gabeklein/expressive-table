@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
-import Core from "../Core";
-import Grid from "../Grid";
+import { Core } from "../Core";
+import { Grid } from "../Grid";
 
 declare namespace Table {
   interface ComponentProps {
@@ -24,4 +24,4 @@ declare namespace Table {
 
 declare const Table: FC<Table.Props>;
 
-export default Table;
+export { Table };
