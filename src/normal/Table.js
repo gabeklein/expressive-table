@@ -7,7 +7,7 @@ import { useGap, usePadding } from '../hooks';
 import { Row } from '../Row';
 import { uniqueId } from '../util';
 
-export const Table = (props) => {
+const Table = (props) => {
   const control = useGrid(props);
 
   <Provider for={control}>
@@ -19,6 +19,8 @@ export const Table = (props) => {
     />
   </Provider>
 }
+
+export { Table };
 
 const Body = (props) => {
   const { template } = Grid.tap();
@@ -89,5 +91,3 @@ const DefaultRow = ({ children }) => {
     {children}
   </this>
 }
-
-export { Table };
