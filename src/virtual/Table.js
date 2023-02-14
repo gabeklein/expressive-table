@@ -3,7 +3,7 @@ import { Provider } from '@expressive/mvc';
 import { useGrid } from '../Grid';
 import { Body } from './Body';
 
-export const Table = (props) => {
+const Table = (props) => {
   const control = useGrid(props);
 
   <Provider for={control}>
@@ -15,6 +15,8 @@ export const Table = (props) => {
     />
   </Provider>
 }
+
+export { Table };
 
 const Row = ({ children, offset }) => {
   forward: className;
@@ -35,5 +37,3 @@ const Cell = ({ children }) => {
     {children}
   </this>
 }
-
-export { Table };
