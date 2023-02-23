@@ -11,6 +11,7 @@ declare namespace Table {
     empty?: FC<Core.EmptyProps> | ReactNode;
     before?: ReactNode;
     after?: ReactNode;
+    fallback?: ReactNode;
   }
 
   interface Props <T = Grid>

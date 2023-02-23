@@ -1,5 +1,5 @@
 import { Provider } from '@expressive/mvc';
-import { useMemo, useRef } from 'react';
+import { Suspense, useMemo, useRef } from 'react';
 
 import { Grid, useGrid } from '../Grid';
 import { Header } from '../Header';
@@ -9,14 +9,19 @@ import { uniqueId } from '../util';
 
 const Table = (props) => {
   const control = useGrid(props);
+  const fallback = props.fallback ?? (
+    <div className={props.className} />
+  );
 
   <Provider for={control}>
     {props.children}
-    <Body
-      row={DefaultRow}
-      header={DefaultHeader}
-      {...props}
-    />
+    <Suspense fallback={fallback}>
+      <Body
+        row={DefaultRow}
+        header={DefaultHeader}
+        {...props}
+      />
+    </Suspense>
   </Provider>
 }
 
