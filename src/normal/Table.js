@@ -57,16 +57,16 @@ const Rows = (props) => {
   const entries = useMemo(() => {
     return rows || Array.from({ length }, i => i);
   }, [length, rows]);
-  
+
   if(length)
     <this>
-      {entries.map((row, index) => {
+      {entries.map((row, index) => (
         <Row {...props}
           key={props.refresh ? Math.random() : uniqueId(row)}
           index={index}
           data={row}
         />
-      })}
+      ))}
     </this>
   else if(typeof Empty == "function")
     <Empty context={grid} />
