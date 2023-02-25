@@ -33,7 +33,7 @@ declare namespace Column {
   }
 }
 
-const Column = (props: Column.Props) => {
+const Column: FC<Column.Props> = (props) => {
   let { cell, head, name, render, value } = props;
 
   const control = Grid.get();
@@ -87,9 +87,9 @@ const Column = (props: Column.Props) => {
       control.columns.splice(index, 1);
       control.set("columns");
     }
-  }, [])
+  }, []);
 
-  return false;
+  return null;
 }
 
 function normalSize(size: string | number | undefined){
