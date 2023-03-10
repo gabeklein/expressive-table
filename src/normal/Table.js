@@ -1,28 +1,25 @@
 import { Provider } from '@expressive/mvc';
 import { Suspense, useMemo, useRef } from 'react';
 
-import { Grid, useGrid } from '../Grid';
+import { Grid } from '../Grid';
 import { Header } from '../Header';
 import { useGap, usePadding } from '../hooks';
 import { Row } from '../Row';
 import { uniqueId } from '../util';
 
 const Table = (props) => {
-  const control = useGrid(props);
-  const fallback = props.fallback ?? (
-    <div className={props.className} />
-  );
-
-  <Provider for={control}>
+  <this>
     {props.children}
-    <Suspense fallback={fallback}>
+    <Suspense fallback={props.fallback ?? (
+      <div className={props.className} />
+    )}>
       <Body
         row={DefaultRow}
         header={DefaultHeader}
         {...props}
       />
     </Suspense>
-  </Provider>
+  </this>
 }
 
 export { Table };

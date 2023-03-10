@@ -1,4 +1,4 @@
-import Model, { get, useNew } from '@expressive/mvc';
+import Model, { get } from '@expressive/mvc';
 import { FC, ReactNode } from 'react';
 
 import { Column } from './Column';
@@ -43,22 +43,5 @@ class Grid extends Model {
   })
 }
 
-function useGrid(props: Core.ControlProps){
-  return useNew(() => {
-    const source = props.for;
-
-    if(!source)
-      return new Grid();
-
-    if(source instanceof Grid)
-      return source;
-
-    if(Grid.isTypeof(source))
-      return new source();
-
-    throw new Error("Table expects either an instance or typeof Grid.");
-  }, props);
-}
-
-export { Grid, useGrid }
+export { Grid }
 export default Grid;

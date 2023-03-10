@@ -1,19 +1,16 @@
 import { Provider } from '@expressive/mvc';
 
-import { useGrid } from '../Grid';
 import { Body } from './Body';
 
 const Table = (props) => {
-  const control = useGrid(props);
-
-  <Provider for={control}>
+  <this>
     {props.children}
     <Body
       cell={Cell}
       row={Row}
       {...props} 
     />
-  </Provider>
+  </this>
 }
 
 export { Table };
