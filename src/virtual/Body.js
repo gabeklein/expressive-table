@@ -1,4 +1,4 @@
-import Model, { Provider } from '@expressive/mvc';
+import Model, { Provider } from '@expressive/react';
 import { useLayoutEffect, useMemo, useState } from 'react';
 
 import { Grid } from '../Grid';
@@ -13,7 +13,7 @@ const Body = (props) => {
     template,
     length,
     didEnd
-  } = Grid.tap();
+  } = Grid.get();
 
   const {
     is: virtual,

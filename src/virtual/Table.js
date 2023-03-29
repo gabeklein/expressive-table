@@ -1,5 +1,3 @@
-import { Provider } from '@expressive/mvc';
-
 import { Body } from './Body';
 
 const Table = (props) => {

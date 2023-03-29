@@ -1,4 +1,4 @@
-import Model, { get, ref } from "@expressive/mvc";
+import Model, { get, ref } from "@expressive/react";
 
 const MODE_DOWN = Object.freeze({
   sizeX: "height",

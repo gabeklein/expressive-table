@@ -5,7 +5,7 @@ import { Virtual } from './Virtual';
 
 const Rows = (props) => {
   const grid = Grid.get();
-  const { slice, size, length } = Virtual.tap();
+  const { slice, size, length } = Virtual.get();
   const { empty: Empty } = props;
 
   row: {

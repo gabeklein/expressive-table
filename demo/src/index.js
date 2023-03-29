@@ -1,4 +1,4 @@
-import Model from "@expressive/mvc";
+import Model from "@expressive/react";
 import { useState } from "react";
 import ReactDOM from "react-dom";
 

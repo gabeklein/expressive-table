@@ -1,4 +1,4 @@
-import { Provider } from '@expressive/mvc';
+import { Provider } from '@expressive/react';
 import { Suspense, useMemo, useRef } from 'react';
 
 import { Grid } from '../Grid';
@@ -25,7 +25,7 @@ const Table = (props) => {
 export { Table };
 
 const Body = (props) => {
-  const { template } = Grid.tap();
+  const { template } = Grid.get();
   const container = useRef(null);
   const offset = usePadding(props.children, container);
   const gridGap = useGap(props.gap);
@@ -54,7 +54,7 @@ const Body = (props) => {
 
 const Rows = (props) => {
   const { empty: Empty } = props;
-  const { rows, length, is: grid } = Grid.tap();
+  const { rows, length, is: grid } = Grid.get();
 
   const entries = useMemo(() => {
     return rows || Array.from({ length }, i => i);

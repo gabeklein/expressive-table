@@ -26,7 +26,7 @@ module.exports = {
     alias: {
       "react": require.resolve("react"),
       "react-dom": require.resolve("react-dom"),
-      "@expressive/mvc": require.resolve("@expressive/mvc"),
+      "@expressive/react": require.resolve("@expressive/react"),
       "@expressive/css": require.resolve("@expressive/css"),
     },
   },

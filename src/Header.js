@@ -3,7 +3,7 @@ import { either } from './util';
 
 const Header = (props) => {
   const { header: Header, padding } = props;
-  const { is: control, columns } = Grid.tap();
+  const { is: control, columns } = Grid.get();
 
   row: {
     display: grid;
