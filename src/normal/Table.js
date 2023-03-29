@@ -1,5 +1,5 @@
 import { Provider } from '@expressive/react';
-import { Suspense, useMemo, useRef } from 'react';
+import { Suspense, useRef } from 'react';
 
 import { Grid } from '../Grid';
 import { Header } from '../Header';
@@ -54,13 +54,12 @@ const Body = (props) => {
 
 const Rows = (props) => {
   const { empty: Empty } = props;
-  const { rows, length, is: grid } = Grid.get();
+  const entries = Grid.get($ => {
+    const { rows, length } = $;
+    return rows || Array.from({ length }, i => i)
+  });
 
-  const entries = useMemo(() => {
-    return rows || Array.from({ length }, i => i);
-  }, [length, rows]);
-
-  if(length)
+  if(entries.length)
     <this>
       {entries.map((row, index) => (
         <Row {...props}
