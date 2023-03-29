@@ -13,31 +13,20 @@ declare namespace Core {
     refresh?: boolean;
   }
 
-  interface EmptyProps<T extends Grid = Grid> {
-    context: T;
-  }
-
-  interface HeaderProps<T extends Grid = Grid> {
-    context: T;
-  }
-
-  interface HeadProps<T extends Grid = Grid> {
-    context: T;
+  interface HeadProps {
     index: number;
     column: Column.Props;
     name: string;
     props: { [key: string]: any };
   }
   
-  interface RowProps<T extends Grid = Grid> {
-    context: T;
+  interface RowProps {
     index: number;
     row?: { [key: string]: any };
     className: string;
   }
   
-  interface CellProps<T extends Grid = Grid> {
-    context: T;
+  interface CellProps {
     index: number;
     row: number | { [key: string]: any };
     column: Column.Info;

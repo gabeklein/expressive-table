@@ -71,7 +71,7 @@ const Rows = (props) => {
       ))}
     </this>
   else if(typeof Empty == "function")
-    <Empty context={grid} />
+    <Empty />
   else
     <this>{Empty || false}</this>
 }

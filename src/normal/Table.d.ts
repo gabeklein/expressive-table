@@ -4,11 +4,11 @@ import { Grid } from "../Grid";
 
 declare namespace Table {
   interface ComponentProps {
-    header?: FC<Core.HeaderProps>;
+    header?: FC;
     head?: FC<Core.HeadProps>;
     row?: FC<Core.RowProps>;
     cell?: FC<Core.CellProps>;
-    empty?: FC<Core.EmptyProps> | ReactNode;
+    empty?: FC | ReactNode;
     before?: ReactNode;
     after?: ReactNode;
     fallback?: ReactNode;
