@@ -37,7 +37,7 @@ const Column: FC<Column.Props> = (props) => {
   let { cell, head, name, render, value } = props;
 
   const control = Grid.get();
-  const column = useMemo(() => ({} as Grid.Column<Grid>), []);
+  const column = useMemo(() => ({} as Grid.Column), []);
 
   if(value === undefined && name)
     value = name.toLowerCase();
