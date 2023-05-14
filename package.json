@@ -19,7 +19,7 @@
     "@babel/core": "^7.18.2",
     "@expressive/babel-preset-react": "^1.0.0-beta.103",
     "@expressive/css": "^1.0.0-beta.96",
-    "@expressive/react": "^0.21.1",
+    "@expressive/react": "^0.21.6",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
