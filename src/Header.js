@@ -7,8 +7,8 @@ const Header = (props) => {
 
   row: {
     display: grid;
-    gridTemplateColumns: "var(--table-row-columns)";
-    columnGap: "var(--table-grid-gap)";
+    gridTemplateColumns: $tableRowColumns;
+    columnGap: $tableGridGap;
     position: relative;
     minHeight: fill;
   }

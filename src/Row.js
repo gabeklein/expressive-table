@@ -7,8 +7,8 @@ const Row = ({ index, data, row, cell }) => {
 
   row: {
     display: grid;
-    columnGap: "var(--table-grid-gap)";
-    gridTemplateColumns: "var(--table-row-columns)";
+    columnGap: $tableGridGap;
+    gridTemplateColumns: $tableRowColumns;
     minHeight: fill;
   }
 
