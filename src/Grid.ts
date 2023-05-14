@@ -1,4 +1,4 @@
-import Model, { get } from '@expressive/react';
+import Model, { get } from '@expressive/mvc';
 import { FC, ReactNode } from 'react';
 
 import { Column } from './Column';
