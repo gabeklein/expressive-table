@@ -5,7 +5,7 @@ import { Virtual } from './Virtual';
 
 const Rows = (props) => {
   const grid = Grid.get();
-  const { slice, size, length } = Virtual.get();
+  const { slice, size, empty } = Virtual.get();
   const { empty: Empty } = props;
 
   row: {
@@ -14,7 +14,7 @@ const Rows = (props) => {
     left: 0;
   }
 
-  if(length)
+  if(!empty)
     <div style={{ position: "relative", height: size }}>
       {slice.map(({ index, offset }) => {
         const row = grid.rows
@@ -33,7 +33,7 @@ const Rows = (props) => {
   else if(typeof Empty == "function")
     <Empty context={grid} />
   else
-    <this>{Empty || false}</this>
+    <Fragment>{Empty || false}</Fragment>
 }
 
 export { Rows };

@@ -8,8 +8,7 @@ const MODE_DOWN = Object.freeze({
   scrollX: "scrollTop"
 } as const);
 
-export type Type<T extends Virtual> =
-  ReturnType<T["getItem"]>;
+export type Type<T extends Virtual> = ReturnType<T["getItem"]>;
 
 class Virtual extends Model {
   container = ref(observe);
@@ -23,6 +22,8 @@ class Virtual extends Model {
   size = get(this, $ => $.itemSize * $.length);
 
   range = get(() => this.getVisibleRange);
+
+  empty = get(this, $ => $.length === 0);
 
   bottom = get(this, $ => {
     const frame = $.offset + $.areaX + $.overscan;
