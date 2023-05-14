@@ -28,7 +28,7 @@ export const useGap = (gap: string | number) => {
     if(isNaN(gap as any))
       return gap;
 
-    if(gap as number % 1 || gap < 10)
+    if(gap as number % 1 || Number(gap) < 10)
       return gap + "em";
 
     return gap + "px";
