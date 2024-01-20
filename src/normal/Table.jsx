@@ -1,4 +1,4 @@
-import { Provider } from '@expressive/mvc';
+import { Provider } from '@expressive/react';
 import { Suspense, useRef } from 'react';
 
 import { Grid } from '../Grid';

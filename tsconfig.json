@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-      "outDir": "lib/",
+      "outDir": "lib",
+      "baseUrl": "src",
       "target": "ES6",
       "jsx": "react",
       "moduleResolution": "node",

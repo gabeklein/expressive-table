@@ -1,4 +1,4 @@
-import Model, { get } from '@expressive/mvc';
+import Model, { get } from '@expressive/react';
 import { FC, ReactNode } from 'react';
 
 import { Column } from './Column';
@@ -29,7 +29,7 @@ class Grid extends Model {
     super();
 
     // TODO: remove
-    this.on(({ rows }) => {
+    this.get(({ rows }) => {
       if(rows)
         this.length = rows.length;
     });

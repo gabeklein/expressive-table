@@ -1,15 +1,16 @@
-import Model from "@expressive/react";
-import { useState } from "react";
-import ReactDOM from "react-dom";
+import Model from '@expressive/react';
+import { useState } from 'react';
+import { createRoot } from 'react-dom/client';
 
-import { Virtual, Column } from "../../src";
+import { Column, Table } from '../../src';
 
 class Names extends Model {
   names = [];
 
   constructor(){
-    super();
-    this.on(this.getMore);
+    super(() => {
+      this.getMore();
+    });
   }
 
   getMore = async () => {
@@ -24,14 +25,14 @@ class Names extends Model {
 const App = () => {
   const { names, getMore } = Names.use();
 
-  Virtual: {
+  Table: {
     fixed: 10;
     outline: blue;
     textAlign: center;
     font: sans-serif;
   }
   
-  <Virtual
+  <Table
     rows={names}
     header={Header}
     empty={NoResults}
@@ -41,7 +42,7 @@ const App = () => {
     <Column name="title" />
     <Column name="first" />
     <Column name="last" />
-  </Virtual>
+  </Table>
 }
 
 const Cell = ({ children }) => {
@@ -77,7 +78,7 @@ const NoResults = () => {
 }
 
 window.addEventListener("load", () => {
-  ReactDOM.render(<App />,
-    document.getElementById("react-root")
-  );
+  createRoot(
+    document.getElementById('react-root')
+  ).render(<App />);
 });

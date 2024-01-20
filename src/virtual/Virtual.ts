@@ -1,4 +1,4 @@
-import Model, { get, ref } from "@expressive/mvc";
+import Model, { get, ref } from "@expressive/react";
 
 const MODE_DOWN = Object.freeze({
   sizeX: "height",
@@ -20,10 +20,9 @@ class Virtual extends Model {
   didEnd?: () => void = undefined;
 
   size = get(this, $ => $.itemSize * $.length);
-
-  range = get(() => this.getVisibleRange);
-
   empty = get(this, $ => $.length === 0);
+
+  range = get(this.getVisibleRange);
 
   bottom = get(this, $ => {
     const frame = $.offset + $.areaX + $.overscan;
@@ -35,11 +34,11 @@ class Virtual extends Model {
     return bottom;
   });
 
-  slice = get(this, state => {
-    const [ start, end ] = state.range;
+  slice = get(this, $ => {
+    const [ start, end ] = $.range;
     const items = [];
 
-    if(state.length === 0)
+    if($.length === 0)
       return [];
 
     if(end >= start)
