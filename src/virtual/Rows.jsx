@@ -17,13 +17,8 @@ const Rows = (props) => {
   if(!empty)
     <div style={{ position: "relative", height: size }}>
       {slice.map(({ index, offset }) => {
-        const row = grid.rows
-          ? grid.rows[index]
-          : index;
-
-        const key = props.refresh
-          ? Math.random()
-          : uniqueId(row);
+        const row = grid.rows ? grid.rows[index] : index;
+        const key = props.refresh ? Math.random() : uniqueId(row);
 
         <row key={key} style={{ top: offset }}>
           <Row index={index} data={row} {...props} />

@@ -13,7 +13,7 @@ class Names extends Model {
     });
   }
 
-  getMore = async () => {
+  async getMore(){
     const res = await fetch("https://randomuser.me/api/?inc=name&nat=US&results=20");
     const data = await res.json();
     const names = data.results.map(x => x.name);
@@ -35,9 +35,9 @@ const App = () => {
   <Table
     rows={names}
     header={Header}
-    empty={NoResults}
     head={HeadCell}
     cell={Cell}
+    empty={NoResults}
     didEnd={getMore}>
     <Column name="title" />
     <Column name="first" />
