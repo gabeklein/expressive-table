@@ -1,10 +1,10 @@
 import jsx from '@expressive/vite-plugin-jsx';
 import react from '@vitejs/plugin-react';
-import Vite from 'vite';
+import { defineConfig } from 'vite';
 
-export default <Vite.UserConfig> {
+export default defineConfig({
   plugins: [
     react(),
     jsx()
   ]
-}
+})

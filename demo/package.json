@@ -1,15 +1,17 @@
 {
+  "name": "demo",
+  "private": true,
   "scripts": {
     "dev": "vite"
   },
   "dependencies": {
-    "@expressive/react": "^0.50.0"
+    "@expressive/react": "^0.53.4"
   },
   "devDependencies": {
-    "@expressive/vite-plugin-jsx": "^1.7.3",
-    "@vitejs/plugin-react": "^4.2.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "vite": "^4.5.0"
+    "@expressive/vite-plugin-jsx": "^2.1.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^4.5.9"
   }
 }
