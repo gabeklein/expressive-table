@@ -1,4 +1,4 @@
-import Model, { get } from '@expressive/react';
+import Model, { get, set } from '@expressive/react';
 import { FC, ReactNode } from 'react';
 
 import { Column } from './Column';
@@ -19,7 +19,15 @@ declare namespace Grid {
 }
 
 class Grid extends Model {
-  rows?: any[] = [];
+  rows = set([], ({ length }) => {
+    this.length = length;
+    return () => this.length = 0;
+  });
+
+  template = get(this, ({ columns }) => {
+    return columns.map(x => x.size || "1.0fr").join(" ");
+  })
+
   length = 0;
   columns: Grid.Column[] = [];
 
@@ -34,10 +42,6 @@ class Grid extends Model {
         this.length = rows.length;
     });
   }
-
-  template = get(this, ($): string => {
-    return $.columns.map(x => x.size || "1.0fr").join(" ");
-  })
 }
 
 export { Grid }

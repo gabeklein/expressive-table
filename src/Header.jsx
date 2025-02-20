@@ -2,44 +2,45 @@ import { Grid } from './Grid';
 import { either } from './util';
 
 const Header = (props) => {
-  const { header: Header, padding } = props;
-  const { is: control, columns } = Grid.get();
-
-  row: {
-    display: grid;
-    gridTemplateColumns: $tableRowColumns;
-    columnGap: $tableGridGap;
-    position: relative;
-    minHeight: fill;
-  }
+  const { header: Header } = props;
+  const { columns } = Grid.get();
 
   Head: {
     overflow: hidden;
   }
 
   if(Header)
-    <Header context={control} padding={padding}>
-      <row style={padding ? { marginRight: padding } : undefined}>
+    <Header>
+      <Row>
         {columns.map((column, i) => {
           const Head = either(column.head, props.head);
 
-          if(Head)
+          return Head ? (
             <Head
               key={column.name}
-              context={control}
               index={i}
               column={column}
               name={column.name}
               props={column.props}>
               {column.name}
             </Head>
-          else
+          ) : (
             <div key={column.name}>
-              {Head !== false && column.name}
+              {column.name}
             </div>
+          )
         })}
-      </row>
+      </Row>
     </Header>
+}
+
+const Row = () => {
+  display: grid;
+  gridTemplateColumns: $tableRowColumns;
+  marginRight: $headerMarginRight;
+  columnGap: $tableGridGap;
+  position: relative;
+  minHeight: fill;
 }
 
 export { Header };

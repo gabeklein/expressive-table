@@ -4,7 +4,7 @@ import { Grid } from "../Grid";
 
 declare namespace Table {
   interface ComponentProps {
-    header?: FC;
+    header?: FC | false;
     head?: FC<Core.HeadProps>;
     row?: FC<Core.RowProps>;
     cell?: FC<Core.CellProps>;

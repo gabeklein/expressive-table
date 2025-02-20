@@ -8,8 +8,7 @@ class Names extends Model {
   names = [];
 
   constructor(){
-    super();
-    this.getMore();
+    super(() => this.getMore());
   }
 
   async getMore(){
@@ -34,9 +33,9 @@ export function App(){
   
   <Virtual
     rows={names}
-    header={Header}
-    head={HeadCell}
-    cell={Cell}
+    // header={Header}
+    // head={HeadCell}
+    // cell={Cell}
     empty={NoResults}
     didEnd={getMore}>
     <Column name="title" />

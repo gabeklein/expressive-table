@@ -1,4 +1,5 @@
-import Model, { get, ref } from "@expressive/react";
+import Model, { get, ref, use } from "@expressive/react";
+import Grid from "../Grid";
 
 const MODE_DOWN = Object.freeze({
   sizeX: "height",
@@ -11,6 +12,11 @@ const MODE_DOWN = Object.freeze({
 export type Type<T extends Virtual> = ReturnType<T["getItem"]>;
 
 class Virtual extends Model {
+  grid = use(Grid, grid => {
+    this.length = grid.rows ? grid.rows.length : grid.length;
+    this.didEnd = grid.didEnd;
+  })
+  
   container = ref(observe);
 
   length = 0;

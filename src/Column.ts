@@ -34,7 +34,7 @@ declare namespace Column {
 }
 
 const Column: FC<Column.Props> = (props) => {
-  let { cell, head, name, render, value } = props;
+  let { cell, head, name, render, value, size } = props;
 
   const control = Grid.get();
   const column = useMemo(() => ({} as Grid.Column), []);
@@ -70,13 +70,12 @@ const Column: FC<Column.Props> = (props) => {
     render = value || ((_, row) => `${name} (${row})`);
 
   Object.assign(column, {
-    name, index, render,
-    value, head, cell, props
+    cell, head, index, name, props, render, value
   })
 
   useLayoutEffect(() => {
-    column.size = normalSize(props.size);
-  }, [props.size]);
+    column.size = normalSize(size);
+  }, [size]);
 
   useLayoutEffect(() => {
     const index = control.columns.push(column);

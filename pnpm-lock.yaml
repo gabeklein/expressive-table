@@ -10,7 +10,7 @@ importers:
     devDependencies:
       '@expressive/react':
         specifier: ^0.53.4
-        version: 0.53.4(react@18.3.1)
+        version: link:../mvc/packages/react
       '@types/react':
         specifier: ^18.3.18
         version: 18.3.18
@@ -28,7 +28,7 @@ importers:
     dependencies:
       '@expressive/react':
         specifier: ^0.53.4
-        version: 0.53.4(react@18.3.1)
+        version: link:../../mvc/packages/react
     devDependencies:
       '@expressive/vite-plugin-jsx':
         specifier: ^2.1.1
@@ -764,20 +764,6 @@ packages:
       - supports-color
     dev: true
 
-  /@expressive/mvc@0.53.3:
-    resolution: {integrity: sha512-mu1jeoUKDVH8VuE986yT6a8ZmYNhF2ka+TrimhQ+K74BBGVYv4SmS0W/XwMMPZwDkG55JkxUXMTMojWYO84Rsg==}
-
-  /@expressive/react@0.53.4(react@18.3.1):
-    resolution: {integrity: sha512-h6Xmfmythji6GQY9zbh5U6BNl2aEt44L7lzIkNyFR0U8OyqoY/YfkCzSYwOOotpE38dhxnpYBkKNB4Jwt6zILw==}
-    peerDependencies:
-      react: '>=16.8.0 <19.0.0'
-    peerDependenciesMeta:
-      react:
-        optional: true
-    dependencies:
-      '@expressive/mvc': 0.53.3
-      react: 18.3.1
-
   /@expressive/vite-plugin-jsx@2.1.1(vite@4.5.9):
     resolution: {integrity: sha512-7fxG7i3Tv1TeQZSwGlf1A29sv0Wduzt2DBlTdoGtEDJ6a4egK51Qqyvkl+osXCra7urKAhotZk67hJjclR7mOQ==}
     peerDependencies:
@@ -1344,6 +1330,7 @@ packages:
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
+    dev: true
 
   /jsesc@3.1.0:
     resolution: {integrity: sha512-/sM3dO2FOzXjKQhJuo0Q173wf2KOo8t4I8vHy6lF9poUp7bKT0/NHE8fPX23PwfhnykfqnC2xRxOnVw5XuGIaA==}
@@ -1380,6 +1367,7 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
+    dev: true
 
   /lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
@@ -1516,6 +1504,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
+    dev: true
 
   /readdirp@4.1.1:
     resolution: {integrity: sha512-h80JrZu/MHUZCyHu5ciuoI0+WxsCxzxJTILn6Fs8rxSnFPh+UVHYfeIxK1nVGugMqkfC4vJcBOYbkfkwYK0+gw==}
