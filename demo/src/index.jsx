@@ -1,9 +1,9 @@
 import { createRoot } from 'react-dom/client';
 
-import { App } from './App';
+import Demo from './Demo';
 
 window.addEventListener("load", () => {
   createRoot(
     document.getElementById('react-root')
-  ).render(<App />);
+  ).render(<Demo />);
 });
