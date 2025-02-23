@@ -39,6 +39,6 @@ export const DefaultCell = ({ column, data }) => {
   color: '#4b5563';
 
   <this>
-    {column.key === 'price' ? `$${data[column.key]}` : data[column.key]}
+    {data[column.key]}
   </this>
 }

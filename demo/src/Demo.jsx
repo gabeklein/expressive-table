@@ -8,6 +8,16 @@ const data = Array.from({ length: 200 }, (_, i) => ({
   stock: Math.floor(Math.random() * 50) + 1
 }));
 
+/** @type React.FC<ITable.CellProps> */
+export const Price = ({ column, data }) => {
+  padding: '16px';
+  color: '#4b5563';
+
+  <this>
+    ${data[column.key]}
+  </this>
+}
+
 const Demo = () => {
   width: fill;
   maxWidth: '1000px';
@@ -28,7 +38,7 @@ const Demo = () => {
     <Column name="ID" />
     <Column name="Name" />
     <Column name="Category" />
-    <Column name="Price" />
+    <Column name="Price" Cell={Price} />
     <Column name="Stock" />
   </Table>
 };

@@ -25,8 +25,8 @@ class ITable extends Model {
   Header?: React.FC = undefined;
 
   columns = [] as IColumn[];
-
   data = [];
+
   scrollTop = 0;
   rowHeight = 53;
   fullHeight = 0;
@@ -105,8 +105,8 @@ class ITable extends Model {
   }
 
   static setup(props: Model.Assign<ITable>){
-    const self = this.use(props, true).is;
-    INDEX.delete(self);
+    const self = this.use(props, true);
+    INDEX.delete(self.is);
     return self;
   }
 }
@@ -120,8 +120,8 @@ class IColumn extends Model {
 
   key = set(() => this.name.toLowerCase());
 
-  Cell = set(() => this.table.Cell);
-  Head = set(() => this.table.Head);
+  Cell = undefined;
+  Head = undefined;
 
   // TODO: this does not work as a normal method
   protected register = () => {
