@@ -27,8 +27,8 @@ importers:
   demo:
     dependencies:
       '@expressive/react':
-        specifier: ^0.53.4
-        version: 0.53.4(react@18.3.1)
+        specifier: ^0.53.5
+        version: 0.53.5(react@18.3.1)
     devDependencies:
       '@expressive/vite-plugin-jsx':
         specifier: ^2.1.1
@@ -764,25 +764,8 @@ packages:
       - supports-color
     dev: true
 
-  /@expressive/mvc@0.53.3:
-    resolution: {integrity: sha512-mu1jeoUKDVH8VuE986yT6a8ZmYNhF2ka+TrimhQ+K74BBGVYv4SmS0W/XwMMPZwDkG55JkxUXMTMojWYO84Rsg==}
-    dev: false
-
   /@expressive/mvc@0.53.5:
     resolution: {integrity: sha512-dWPc1rIzulrwKPtdICrOHEtp+MfD6fFPYQMtolXpEn6qMTur6XOWb6IWhP9Fe7L1vwSPshxdjV2f9X6wNRxiLA==}
-    dev: true
-
-  /@expressive/react@0.53.4(react@18.3.1):
-    resolution: {integrity: sha512-h6Xmfmythji6GQY9zbh5U6BNl2aEt44L7lzIkNyFR0U8OyqoY/YfkCzSYwOOotpE38dhxnpYBkKNB4Jwt6zILw==}
-    peerDependencies:
-      react: '>=16.8.0 <19.0.0'
-    peerDependenciesMeta:
-      react:
-        optional: true
-    dependencies:
-      '@expressive/mvc': 0.53.3
-      react: 18.3.1
-    dev: false
 
   /@expressive/react@0.53.5(react@18.3.1):
     resolution: {integrity: sha512-vTGWLRRuyyiEyJAeqvEsaUxfbX2H36Z6Gy/AvaZqHHg/s24kvK3wmGBpPNmjie0B9LuQ+HkPGEoyMQjOB26cBg==}
@@ -794,7 +777,6 @@ packages:
     dependencies:
       '@expressive/mvc': 0.53.5
       react: 18.3.1
-    dev: true
 
   /@expressive/vite-plugin-jsx@2.1.1(vite@4.5.9):
     resolution: {integrity: sha512-7fxG7i3Tv1TeQZSwGlf1A29sv0Wduzt2DBlTdoGtEDJ6a4egK51Qqyvkl+osXCra7urKAhotZk67hJjclR7mOQ==}

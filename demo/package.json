@@ -5,7 +5,7 @@
     "dev": "vite"
   },
   "dependencies": {
-    "@expressive/react": "^0.53.4"
+    "@expressive/react": "^0.53.5"
   },
   "devDependencies": {
     "@expressive/vite-plugin-jsx": "^2.1.1",
