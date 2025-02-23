@@ -9,14 +9,6 @@ const data = Array.from({ length: 200 }, (_, i) => ({
 }));
 
 const Demo = () => {
-  const columns = [
-    { key: 'id', header: 'ID' },
-    { key: 'name', header: 'Name' },
-    { key: 'category', header: 'Category' },
-    { key: 'price', header: 'Price' },
-    { key: 'stock', header: 'Stock' }
-  ];
-
   width: fill;
   maxWidth: '1000px';
   margin: '20px auto';
@@ -30,7 +22,6 @@ const Demo = () => {
 
   <Table
     data={data}
-    columns={columns}
     rowHeight={53}
     bufferItems={5}
   >
