@@ -1,8 +1,8 @@
 import Model, { Provider } from '@expressive/react';
 import React from 'react';
 
-import { IColumn, ITable } from './Control';
 import { Body } from './Body';
+import { IColumn, ITable } from './Control';
 
 declare namespace Table {
   interface Props extends Model.Assign<ITable> {
@@ -13,13 +13,13 @@ declare namespace Table {
 }
 
 const Table = (props: Table.Props) => {
-  const { style, className, children, ...rest } = props;
+  const { children, ...rest } = props;
   const control = ITable.setup(rest);
 
   return (
     <Provider for={control}>
       {children}
-      <Body style={style} className={className} />
+      <Body {...rest} />
     </Provider>
   )
 };
