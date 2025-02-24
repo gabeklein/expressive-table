@@ -30,13 +30,17 @@ const Demo = () => {
     height: 400;
   }
 
+  name: {
+    color: blue;
+  }
+
   <Table
     data={data}
     rowHeight={53}
     bufferItems={5}
   >
     <Column name="ID" />
-    <Column name="Name" />
+    <Column name name="Name" />
     <Column name="Category" />
     <Column name="Price" Cell={Price} />
     <Column name="Stock" />

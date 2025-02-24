@@ -118,6 +118,8 @@ class IColumn extends Model {
   size?: string | number = 1;
   index: number = -1;
 
+  className = "";
+
   key = set(() => this.name.toLowerCase());
 
   Cell = undefined;

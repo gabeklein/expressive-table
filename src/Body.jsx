@@ -42,7 +42,12 @@ export const Body = ({
         {data.slice(...range).map((data) => {
           <Row gridRow key={data.id}>
             {columns.map(column =>
-              createElement(column.Cell || Cell, { key: column.key, column, data })
+              createElement(column.Cell || Cell, {
+                key: column.key,
+                className: column.className,
+                column,
+                data,
+              })
             )}
           </Row>
         })}
