@@ -123,9 +123,13 @@ class IColumn extends Model {
   Cell = undefined;
   Head = undefined;
 
-  // TODO: this does not work as a normal method
-  protected register = () => {
-    const { index, table } = this;
+  static setup(props: Model.Assign<IColumn>){
+    const column = this.use(() => () => {
+      column.table.columns.splice(column.index, 1);
+      column.table.set("cols");
+    });
+
+    const { index, table } = column.is;
     const now = INDEX.get(table) || 0;
 
     INDEX.set(table, now + 1);
@@ -133,18 +137,10 @@ class IColumn extends Model {
     if(index === now)
       return;
 
-    this.index = now;
-    table.columns[now] = this;
+    column.index = now;
+    table.columns[now] = column.is;
     table.set("cols");
-  }
 
-  static setup(props: Model.Assign<IColumn>){
-    const column = this.use(() => () => {
-      column.table.columns.splice(column.index, 1);
-      column.table.set("cols");
-    });
-
-    column.register();
     column.set(props);
 
     return null;
