@@ -1,4 +1,4 @@
-import { Column, Table } from "../../src";
+import { Column, Table } from "../src";
 
 const data = Array.from({ length: 200 }, (_, i) => ({
   id: i + 1,

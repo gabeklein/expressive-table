@@ -8,17 +8,15 @@ class Names extends Model {
   names = [];
 
   constructor(){
-    super();
-    this.getMore();
+    super(() => this.getMore());
   }
 
   async getMore(){
-    const data = await fetch(GET_USER).then(x => x.json());
+    const data = await fetch(GET_USER)
+      .then(x => x.json())
+      .then(x => x.results.map(x => x.name));
 
-    this.names = [
-      ...this.names,
-      ...data.results.map(x => x.name)
-    ]
+    this.names = this.names.concat(data);
   }
 }
 

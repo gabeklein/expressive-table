@@ -16,7 +16,7 @@ const Table = (props: Table.Props) => {
   const { children, ...rest } = props;
 
   return (
-    <Provider for={ITable} set={{ ...rest, hasColumns: [] }}>
+    <Provider for={ITable} set={rest}>
       <Reset />
       {Children.map(children, (child) => {
         if(isValidElement(child) && child.key == null)

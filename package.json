@@ -9,18 +9,21 @@
     "access": "public"
   },
   "scripts": {
-    "dev": "npm --prefix demo run dev",
+    "dev": "vite",
     "build": "tsup src/index.ts --dts --format cjs,esm",
-    "prebuild": "rm -rf lib/",
     "preversion": "npm run build",
     "postversion": "git push & npm publish"
   },
   "devDependencies": {
     "@expressive/react": "0.54.3",
+    "@expressive/vite-plugin-jsx": "^2.1.1",
     "@types/react": "^18.3.18",
+    "@vitejs/plugin-react": "^4.3.4",
+    "react-dom": "^18.3.1",
     "react": "^18.3.1",
     "tsup": "^8.3.6",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vite": "^4.5.9"
   },
   "peerDependencies": {
     "@expressive/react": ">=0.54.3 <1.0.0",
