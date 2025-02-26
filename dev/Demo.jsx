@@ -58,6 +58,11 @@ const Status = ({ data }) => {
   margin: 0, 20;
   fontSize: 12;
 
+  if(active)
+    $color: green;
+  else
+    $color: red;
+
   inner: {
     radius: round;
     padding: 3, 10;
@@ -67,7 +72,6 @@ const Status = ({ data }) => {
     position: relative;
     overflow: hidden;
     width: 50;
-  
   }
 
   bg: {
@@ -76,9 +80,7 @@ const Status = ({ data }) => {
     opacity: 0.1;
   }
 
-  <this style={{
-    "--color": active ? "green" : "red",
-  }}>
+  <this>
     <inner>
       {active ? "Active" : "Closed"}
       <bg />
