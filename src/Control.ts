@@ -54,23 +54,18 @@ class ITable extends Model {
   inner = ref<HTMLDivElement>((element) => {
     const { style } = element;
 
-    const done1 = this.get(({ data, rowHeight }) => {
+    this.get(({ data, rowHeight }) => {
       style.height = `${data.length * rowHeight}px`;
     });
 
-    const done2 = this.get(({ columns }) => {
+    this.get(({ columns }) => {
       const template = columns.map(() => '1fr').join(' ');
       style.setProperty("--table-row-columns", template);
     });
-
-    return () => {
-      done1();
-      done2();
-    }
   });
 
   body = ref<HTMLDivElement>((element) => {
-    return this.get(({ rowHeight, range }) => {
+    this.get(({ rowHeight, range }) => {
       element.style.setProperty(
         "transform", `translateY(${range[0] * rowHeight}px)`
       );
