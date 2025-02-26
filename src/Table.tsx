@@ -12,7 +12,7 @@ declare namespace Table {
   }
 }
 
-const Table = (props: Table.Props) => {
+const Grid = (props: Table.Props) => {
   const { children, ...rest } = props;
 
   return (
@@ -43,4 +43,4 @@ const Column = (props: Column.Props) => {
   return null;
 }
 
-export { Table, Column };
+export { Grid, Column };
