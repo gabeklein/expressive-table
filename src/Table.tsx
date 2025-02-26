@@ -1,5 +1,5 @@
 import Model, { Provider } from '@expressive/react';
-import React from 'react';
+import React, { Children, isValidElement, cloneElement } from 'react';
 
 import { Body } from './Body';
 import { IColumn, ITable } from './Control';
@@ -14,14 +14,24 @@ declare namespace Table {
 
 const Table = (props: Table.Props) => {
   const { children, ...rest } = props;
-  const control = ITable.setup(rest);
 
   return (
-    <Provider for={control}>
-      {children}
+    <Provider for={ITable} set={{ ...rest, hasColumns: [] }}>
+      <Reset />
+      {Children.map(children, (child) => {
+        if(isValidElement(child) && child.key == null)
+          return cloneElement(child, {
+            key: child.props.id || child.props.name
+          });     
+      })}
       <Body {...rest} />
     </Provider>
   )
+};
+
+const Reset = () => {
+  ITable.get().columns = [];
+  return null;
 };
 
 declare namespace Column {

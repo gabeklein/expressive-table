@@ -5,33 +5,25 @@ const data = Array.from({ length: 200 }, (_, i) => ({
   name: `Item ${i + 1}`,
   category: `Category ${(i % 4) + 1}`,
   price: Math.floor(Math.random() * 1000) + 100,
-  stock: Math.floor(Math.random() * 50) + 1
+  stock: Math.floor(Math.random() * 50) + 1,
+  active: Math.random() > 0.5,
 }));
-
-/** @type React.FC<ITable.CellProps> */
-export const Price = ({ column, data }) => {
-  padding: '16px';
-  color: '#4b5563';
-
-  <this>
-    ${data[column.key]}
-  </this>
-}
 
 const Demo = () => {
   width: fill;
+  height: 500;
   maxWidth: '1000px';
   margin: '20px auto';
-  boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)';
-  borderRadius: '8px';
-  backgroundColor: '#ffffff';
+  backgroundColor: 0xffffff;
+  radius: 8;
+  overflow: hidden;
+  border: 0xeee;
 
   Table: {
-    height: 400;
-  }
-
-  name: {
-    color: blue;
+    height: fill;
+    margin: -1;
+    fontFamily: "sans-serif";
+    fontSize: 14;
   }
 
   <Table
@@ -40,11 +32,58 @@ const Demo = () => {
     bufferItems={5}
   >
     <Column name="ID" />
-    <Column name name="Name" />
+    <Column name="Name" />
     <Column name="Category" />
-    <Column name="Price" Cell={Price} />
     <Column name="Stock" />
+    <Column name="Price" Cell={Price} />
+    <Column name="Claim Status" id="active" Cell={Status} />
   </Table>
 };
+
+/** @type React.FC<ITable.CellProps> */
+export const Price = ({ column, data }) => {
+  padding: '16px';
+  color: '#4b5563';
+
+  <this>
+    ${data[column.id]}
+  </this>
+}
+
+const Status = ({ data }) => {
+  const { active } = data;
+
+  display: flex;
+  alignItems: center;
+  margin: 0, 20;
+  fontSize: 12;
+
+  inner: {
+    radius: round;
+    padding: 3, 10;
+    color: $color;
+    textAlign: center;
+    border: $color;
+    position: relative;
+    overflow: hidden;
+    width: 50;
+  
+  }
+
+  bg: {
+    absolute: fill;
+    background: $color;
+    opacity: 0.1;
+  }
+
+  <this style={{
+    "--color": active ? "green" : "red",
+  }}>
+    <inner>
+      {active ? "Active" : "Closed"}
+      <bg />
+    </inner>
+  </this>
+}
 
 export default Demo;

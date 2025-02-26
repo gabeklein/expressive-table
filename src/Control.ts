@@ -1,7 +1,5 @@
 import Model, { get, ref, set } from '@expressive/react';
 
-const INDEX = new Map<ITable, number>();
-
 declare namespace ITable {
   interface CellProps {
     column: IColumn;
@@ -103,12 +101,6 @@ class ITable extends Model {
 
     return [start, end];
   }
-
-  static setup(props: Model.Assign<ITable>){
-    const self = this.use(props, true);
-    INDEX.delete(self.is);
-    return self;
-  }
 }
 
 class IColumn extends Model {
@@ -120,31 +112,18 @@ class IColumn extends Model {
 
   className = "";
 
-  key = set(() => this.name.toLowerCase());
+  id = set(() => this.name.toLowerCase());
 
   Cell = undefined;
   Head = undefined;
 
+  register(){
+    this.index = this.table.columns.push(this) - 1;
+  }
+
   static setup(props: Model.Assign<IColumn>){
-    const column = this.use(() => () => {
-      column.table.columns.splice(column.index, 1);
-      column.table.set("cols");
-    });
-
-    const { index, table } = column.is;
-    const now = INDEX.get(table) || 0;
-
-    INDEX.set(table, now + 1);
-
-    if(index === now)
-      return;
-
-    column.index = now;
-    table.columns[now] = column.is;
-    table.set("cols");
-
-    column.set(props);
-
+    const x = this.use(props, true)
+    x.register();
     return null;
   }
 }
