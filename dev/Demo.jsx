@@ -19,14 +19,14 @@ const Demo = () => {
   overflow: hidden;
   border: 0xeee;
 
-  Table: {
+  Grid: {
     height: fill;
     margin: -1;
     fontFamily: "sans-serif";
     fontSize: 14;
   }
 
-  <Table
+  <Grid
     data={data}
     rowHeight={53}
     bufferItems={5}
@@ -37,7 +37,7 @@ const Demo = () => {
     <Column name="Stock" />
     <Column name="Price" Cell={Price} />
     <Column name="Claim Status" id="active" Cell={Status} />
-  </Table>
+  </Grid>
 };
 
 /** @type React.FC<ITable.CellProps> */
