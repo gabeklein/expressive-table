@@ -1,6 +1,6 @@
 import Model from '@expressive/react';
 
-import { Column, Virtual } from '../../src';
+import { Column, Grid } from "../src";
 
 const GET_USER = "https://randomuser.me/api/?inc=name&nat=US&results=20";
 
@@ -14,54 +14,39 @@ class Names extends Model {
   async getMore(){
     const data = await fetch(GET_USER)
       .then(x => x.json())
-      .then(x => x.results.map(x => x.name));
+      .then(x => x.results;
 
     this.names = this.names.concat(data);
   }
 }
 
-export function App(){
-  const { names, getMore } = Names.use();
+const Demo = () => {
+  const { names } = Names.use();
 
-  Virtual: {
-    fixed: 10;
-    outline: blue;
-    textAlign: center;
-    font: sans-serif;
+  width: fill;
+  height: 500;
+  maxWidth: 1000;
+  margin: '20px auto';
+  backgroundColor: 0xffffff;
+  radius: 8;
+  overflow: hidden;
+  border: 0xeee;
+
+  Grid: {
+    height: fill;
+    margin: -1;
+    fontFamily: "sans-serif";
+    fontSize: 14;
   }
-  
-  <Virtual
-    rows={names}
-    header={Header}
-    head={HeadCell}
-    cell={Cell}
-    empty={NoResults}
-    didEnd={getMore}>
-    <Column name="title" />
-    <Column name="first" />
-    <Column name="last" />
-  </Virtual>
+
+  <Grid
+    data={names}
+    rowHeight={50}
+    bufferItems={5}
+  >
+    <Column name="First Name" id="first" />
+    <Column name="Last Name" id="last" />
+  </Grid>
 }
 
-function Cell(){
-  flexAlign: center;
-}
-
-function Header() {
-  padding: 20, 10;
-  font: 20;
-}
-
-function HeadCell() {
-  color: navy;
-  outline: grey;
-}
-
-function NoResults(){
-  textAlign: center;
-  height: fill;
-  flexAlign: center;
-  color: 0x888;
-
-  <this>- No Results -</this>
-}
+export default Demo;
