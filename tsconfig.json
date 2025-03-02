@@ -2,9 +2,10 @@
   "compilerOptions": {
       "outDir": "lib",
       "target": "ES6",
-      "jsx": "react",
+      "jsx": "react-jsx",
+      "jsxImportSource": "@expressive/react",
       "allowJs": true,
-      "moduleResolution": "node",
+      "moduleResolution": "bundler",
       "noUnusedLocals": true,
       "strict": true,
       "noEmit": true,
