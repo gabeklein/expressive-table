@@ -18,12 +18,11 @@ const Grid = (props: Table.Props) => {
   return (
     <Provider for={ITable} set={rest}>
       <Reset />
-      {Children.map(children, (child) => {
-        if(isValidElement(child) && child.key == null)
-          return cloneElement(child, {
-            key: child.props.id || child.props.name
-          });     
-      })}
+      {Children.map(children, (child) => (
+        isValidElement(child) && child.key == null
+          ? cloneElement(child, { key: child.props.id || child.props.name })
+          : child
+      ))}
       <Body {...rest} />
     </Provider>
   )

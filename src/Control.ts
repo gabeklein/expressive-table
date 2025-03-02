@@ -26,9 +26,9 @@ class ITable extends Model {
   data = [];
 
   scrollTop = 0;
-  rowHeight = 53;
+  rowHeight = 50;
   fullHeight = 0;
-  bufferItems = 2;
+  bufferItems = 3;
 
   range = get(this.getRange);
 
