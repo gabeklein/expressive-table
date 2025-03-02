@@ -26,11 +26,7 @@ const Demo = () => {
     fontSize: 14;
   }
 
-  <Grid
-    data={data}
-    rowHeight={53}
-    bufferItems={5}
-  >
+  <Grid data={data}>
     <Column name="ID" />
     <Column name="Name" />
     <Column name="Category" />
