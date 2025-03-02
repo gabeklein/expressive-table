@@ -117,9 +117,7 @@ class IColumn extends Model {
   }
 
   static setup(props: Model.Assign<IColumn>){
-    const x = this.use(props, true)
-    x.register();
-    return null;
+    this.use(props, true).register();
   }
 }
 
