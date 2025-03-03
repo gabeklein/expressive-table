@@ -1,8 +1,8 @@
 import Model, { get, ref, set } from '@expressive/react';
-import { Children, cloneElement, isValidElement } from 'react';
+import { Children, cloneElement, createElement, Fragment, isValidElement } from 'react';
 
 import { Body } from './Body';
-import { DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './Defaults';
+import { DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './components';
 
 declare namespace Grid {
   interface CellProps {
@@ -49,16 +49,14 @@ class Grid extends Model {
 
     this.columns = [];
 
-    return (
-      <>
-        {Children.map(children, (child) => (
-          isValidElement(child) && child.key == null
-            ? cloneElement(child, { key: child.props.id || child.props.name })
-            : child
-        ))}
-        <Body {...rest} />
-      </>
-    )
+    return createElement(Fragment, null,
+      Children.map(children, (child) => (
+        isValidElement(child) && child.key == null
+          ? cloneElement(child, { key: child.props.id || child.props.name })
+          : child
+      )),
+      createElement(Body, rest)
+    );
   }
 
   outer = ref<HTMLDivElement>((element) => {

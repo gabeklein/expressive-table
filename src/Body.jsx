@@ -1,5 +1,5 @@
 import { createElement, memo } from 'react';
-import { DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './Defaults';
+import { DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './components';
 import { Grid } from './Control';
 
 /** @type React.FC<Grid.BodyProps> */
