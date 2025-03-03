@@ -1,6 +1,6 @@
 import { createElement, memo } from 'react';
-import { DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './components';
-import { Grid } from './Control';
+
+import { Grid } from './Grid';
 
 /** @type React.FC<Grid.BodyProps> */
 export const Body = ({ style, className }) => {

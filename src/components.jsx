@@ -1,4 +1,4 @@
-import { Grid } from "./Control";
+import { Grid } from "./Grid";
 
 /** @type React.FC */
 export const DefaultHeader = () => {

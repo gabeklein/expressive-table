@@ -126,14 +126,12 @@ class Grid extends Model {
 
 class Column extends Model {
   table = get(Grid);
+  id = set(() => this.name.toLowerCase());
 
   name: string = "";
+  className = "";
   size?: string | number = 1;
   index: number = -1;
-
-  className = "";
-
-  id = set(() => this.name.toLowerCase());
 
   Cell = undefined;
   Head = undefined;
@@ -144,4 +142,4 @@ class Column extends Model {
   }
 }
 
-export { Grid as Grid, Column };
+export { Grid, Column };
