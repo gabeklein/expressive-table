@@ -1,4 +1,4 @@
-import { ITable } from "./Control";
+import { Grid } from "./Control";
 
 /** @type React.FC */
 export const DefaultHeader = () => {
@@ -8,7 +8,7 @@ export const DefaultHeader = () => {
   top: 0;
 }
 
-/** @type React.FC<ITable.HeadProps> */
+/** @type React.FC<Grid.HeadProps> */
 export const DefaultHead = ({ column }) => {
   padding: '16px';
   textAlign: 'left';
@@ -33,7 +33,7 @@ export const DefaultRow = () => {
   <this />
 }
 
-/** @type React.FC<ITable.CellProps> */
+/** @type React.FC<Grid.CellProps> */
 export const DefaultCell = ({ column, data }) => {
   padding: '16px';
   color: '#4b5563';

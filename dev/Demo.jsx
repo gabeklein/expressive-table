@@ -36,7 +36,7 @@ const Demo = () => {
   </Grid>
 };
 
-/** @type React.FC<ITable.CellProps> */
+/** @type React.FC<Grid.CellProps> */
 export const Price = ({ column, data }) => {
   padding: '16px';
   color: '#4b5563';

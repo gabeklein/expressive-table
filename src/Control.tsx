@@ -1,36 +1,65 @@
 import Model, { get, ref, set } from '@expressive/react';
+import { Children, cloneElement, isValidElement } from 'react';
 
-declare namespace ITable {
+import { Body } from './Body';
+import { DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './Defaults';
+
+declare namespace Grid {
   interface CellProps {
-    column: IColumn;
+    column: Column;
     data: { [key: string]: any };
   }
 
   interface HeadProps {
-    column: IColumn;
+    column: Column;
   }
 
   interface RowProps {
     data: { [key: string]: any };
     index: number;
   }
+
+  interface BodyProps {
+    children?: React.ReactNode;
+    style?: React.CSSProperties;
+    className?: string;
+  }
 }
 
-class ITable extends Model {
-  Row?: React.FC<ITable.RowProps> = undefined;
-  Cell?: React.FC<ITable.CellProps> = undefined;
-  Head?: React.FC<ITable.HeadProps> = undefined;
-  Header?: React.FC = undefined;
+class Grid extends Model {
+  Body: React.FC<Grid.BodyProps> = Body;
+  Row: React.FC<Grid.RowProps> = DefaultRow;
+  Cell: React.FC<Grid.CellProps> = DefaultCell;
+  Head: React.FC<Grid.HeadProps> = DefaultHead;
+  Header: React.FC = DefaultHeader;
 
-  columns = [] as IColumn[];
+  columns = [] as Column[];
   data = [];
 
   scrollTop = 0;
   rowHeight = 50;
   fullHeight = 0;
-  bufferItems = 3;
+  bufferItems = 5;
 
   range = get(this.getRange);
+
+  render(props: Grid.BodyProps) {
+    const { Body } = this;
+    const { children, ...rest } = props;
+
+    this.columns = [];
+
+    return (
+      <>
+        {Children.map(children, (child) => (
+          isValidElement(child) && child.key == null
+            ? cloneElement(child, { key: child.props.id || child.props.name })
+            : child
+        ))}
+        <Body {...rest} />
+      </>
+    )
+  }
 
   outer = ref<HTMLDivElement>((element) => {
     const resizeObserver = new ResizeObserver(() => {
@@ -41,9 +70,8 @@ class ITable extends Model {
       this.scrollTop = element.scrollTop;
     }
 
-    resizeObserver.observe(element);
-    
     element.addEventListener('scroll', onScroll);
+    resizeObserver.observe(element);
 
     return () => {
       element.removeEventListener('scroll', onScroll);
@@ -98,8 +126,8 @@ class ITable extends Model {
   }
 }
 
-class IColumn extends Model {
-  table = get(ITable);
+class Column extends Model {
+  table = get(Grid);
 
   name: string = "";
   size?: string | number = 1;
@@ -112,13 +140,10 @@ class IColumn extends Model {
   Cell = undefined;
   Head = undefined;
 
-  register(){
+  render(){
     this.index = this.table.columns.push(this) - 1;
-  }
-
-  static setup(props: Model.Assign<IColumn>){
-    this.use(props, true).register();
+    return null;
   }
 }
 
-export { ITable, IColumn };
+export { Grid as Grid, Column };

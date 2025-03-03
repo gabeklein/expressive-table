@@ -1,10 +1,10 @@
 import { createElement, memo } from 'react';
-import { DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './components';
-import { ITable } from './Control';
+import { DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './Defaults';
+import { Grid } from './Control';
 
-/** @type React.FC<{ style?: React.CSSProperties, className?: string }> */
+/** @type React.FC<Grid.BodyProps> */
 export const Body = ({ style, className }) => {
-  const { body, inner, outer } = ITable.get();
+  const { body, inner, outer } = Grid.get();
 
   container: {
     position: 'relative';
@@ -27,37 +27,32 @@ export const Body = ({ style, className }) => {
   </container>
 }
 
+/** @type React.FC<{ className: string }> */
 const Header = ({ className }) => {
-  const {
-    columns: hasColumns,
-    Head = DefaultHead,
-    Header = DefaultHeader
-  } = ITable.get();
+  const { columns, Head, Header } = Grid.get();
 
   <Header className={className}>
-    {hasColumns.map(column =>
+    {columns.map(column =>
       createElement(column.Head || Head, { key: column.id, column })
     )}
   </Header>
 }
 
+/** @type React.FC<Grid.RowProps> */
 const Rows = (props) => {
-  return ITable.get(({ data, range }) => {
+  return Grid.get(({ data, range }) => {
     return data.slice(...range).map(data => 
       createElement(Row, { ...props, key: data.id, data })
     )
   });
 }
 
+/** @type React.FC<Grid.RowProps> */
 const Row = memo(({ data, className }) => {
-  const {
-    columns: hasColumns,
-    Cell = DefaultCell,
-    Row = DefaultRow,
-  } = ITable.get();
+  const { columns, Cell, Row } = Grid.get();
 
   <Row className={className} key={data.id}>
-    {hasColumns.map(column =>
+    {columns.map(column =>
       createElement(column.Cell || Cell, {
         key: column.id,
         className: column.className,
