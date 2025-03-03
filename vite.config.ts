@@ -5,7 +5,9 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   root: 'dev',
   plugins: [
-    react(),
-    jsx()
+    jsx(),
+    react({
+      jsxImportSource: '@expressive/react'
+    })
   ]
 })
