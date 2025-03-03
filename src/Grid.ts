@@ -2,7 +2,7 @@ import Model, { get, set, use } from '@expressive/react';
 import { Children, cloneElement, createElement, Fragment, isValidElement } from 'react';
 
 import { Body } from './Body';
-import { DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './components';
+import { DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './Defaults';
 import { Virtual } from './Virtual';
 
 declare namespace Grid {

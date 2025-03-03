@@ -7,7 +7,8 @@ export default defineConfig({
   plugins: [
     jsx(),
     react({
-      jsxImportSource: '@expressive/react'
+      jsxImportSource: '@expressive/react',
+      jsxRuntime: 'automatic'
     })
   ]
 })

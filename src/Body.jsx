@@ -30,11 +30,11 @@ export const Body = ({ style, className }) => {
 
 /** @type React.FC<{ className: string }> */
 const Header = ({ className }) => {
-  const { columns, Head, Header } = Grid.get();
+  const { columns, Header, Head: Default } = Grid.get();
 
   <Header className={className}>
-    {columns.map(column =>
-      createElement(column.Head || Head, { key: column.id, column })
+    {columns.map(({ is: column, id, Head = Default }) =>
+      <Head key={id} column={column} />
     )}
   </Header>
 }
@@ -43,23 +43,18 @@ const Header = ({ className }) => {
 const Rows = (props) => {
   const { slice } = Virtual.get();
 
-  return slice.map(data => (
-    <Row {...props} key={data.id} data={data} />
-  ))
+  return slice.map(data =>
+    <Row key={data.id} data={data} {...props} />
+  )
 }
 
 /** @type React.FC<Grid.RowProps> */
 const Row = memo(({ data, className }) => {
-  const { columns, Cell, Row } = Grid.get();
+  const { columns, Row, Cell: Default } = Grid.get();
 
   <Row className={className} key={data.id}>
-    {columns.map(column =>
-      createElement(column.Cell || Cell, {
-        key: column.id,
-        className: column.className,
-        column,
-        data,
-      })
+    {columns.map(({ Cell = Default, id, className, is: column }) =>
+      <Cell key={id} className={className} column={column} data={data} />
     )}
   </Row>
 })

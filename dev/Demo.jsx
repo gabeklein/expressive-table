@@ -1,13 +1,15 @@
 import { Column, Grid } from '../src';
 
-const data = Array.from({ length: 200 }, (_, i) => ({
-  id: i + 1,
-  name: `Item ${i + 1}`,
-  category: `Category ${(i % 4) + 1}`,
-  price: Math.floor(Math.random() * 1000) + 100,
-  stock: Math.floor(Math.random() * 50) + 1,
-  active: Math.random() > 0.5,
-}));
+class Table extends Grid {
+  data = Array.from({ length: 200 }, (_, i) => ({
+    id: i + 1,
+    name: `Item ${i + 1}`,
+    category: `Category ${(i % 4) + 1}`,
+    price: Math.floor(Math.random() * 1000) + 100,
+    stock: Math.floor(Math.random() * 50) + 1,
+    active: Math.random() > 0.5,
+  }))
+}
 
 const Demo = () => {
   width: fill;
@@ -19,21 +21,21 @@ const Demo = () => {
   overflow: hidden;
   border: 0xeee;
 
-  Grid: {
+  Table: {
     height: fill;
     margin: -1;
     fontFamily: "sans-serif";
     fontSize: 14;
   }
 
-  <Grid data={data}>
+  <Table>
     <Column name="ID" />
     <Column name="Name" />
     <Column name="Category" />
     <Column name="Stock" />
     <Column name="Price" Cell={Price} />
     <Column name="Claim Status" id="active" Cell={Status} />
-  </Grid>
+  </Table>
 };
 
 /** @type React.FC<Grid.CellProps> */

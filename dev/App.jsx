@@ -4,8 +4,8 @@ import { Column, Grid } from "../src";
 
 const GET_USER = "https://randomuser.me/api/?inc=name&nat=US&results=20";
 
-class Names extends Model {
-  names = [];
+class Names extends Grid {
+  data = [] as { first: string; last: string }[];
 
   constructor(){
     super(() => this.getMore());
@@ -16,13 +16,11 @@ class Names extends Model {
       .then(x => x.json())
       .then(x => x.results;
 
-    this.names = this.names.concat(data);
+    this.data = this.data.concat(data);
   }
 }
 
 const Demo = () => {
-  const { names } = Names.use();
-
   width: fill;
   height: 500;
   maxWidth: 1000;
@@ -32,21 +30,17 @@ const Demo = () => {
   overflow: hidden;
   border: 0xeee;
 
-  Grid: {
+  Names: {
     height: fill;
     margin: -1;
     fontFamily: "sans-serif";
     fontSize: 14;
   }
 
-  <Grid
-    data={names}
-    rowHeight={50}
-    bufferItems={5}
-  >
+  <Names>
     <Column name="First Name" id="first" />
     <Column name="Last Name" id="last" />
-  </Grid>
+  </Names>
 }
 
 export default Demo;
