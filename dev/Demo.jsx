@@ -1,4 +1,4 @@
-import { Column, Grid } from "../src";
+import { Column, Grid } from '../src';
 
 const data = Array.from({ length: 200 }, (_, i) => ({
   id: i + 1,
@@ -12,8 +12,8 @@ const data = Array.from({ length: 200 }, (_, i) => ({
 const Demo = () => {
   width: fill;
   height: 500;
-  maxWidth: '1000px';
-  margin: '20px auto';
+  maxWidth: 1000;
+  margin: 20, auto;
   backgroundColor: 0xffffff;
   radius: 8;
   overflow: hidden;

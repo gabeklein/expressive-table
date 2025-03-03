@@ -1,8 +1,9 @@
-import Model, { get, ref, set } from '@expressive/react';
+import Model, { get, set, use } from '@expressive/react';
 import { Children, cloneElement, createElement, Fragment, isValidElement } from 'react';
 
 import { Body } from './Body';
 import { DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './components';
+import { Virtual } from './Virtual';
 
 declare namespace Grid {
   interface CellProps {
@@ -27,6 +28,8 @@ declare namespace Grid {
 }
 
 class Grid extends Model {
+  virtual = use(Virtual);
+
   Body: React.FC<Grid.BodyProps> = Body;
   Row: React.FC<Grid.RowProps> = DefaultRow;
   Cell: React.FC<Grid.CellProps> = DefaultCell;
@@ -35,13 +38,6 @@ class Grid extends Model {
 
   columns = [] as Column[];
   data = [];
-
-  scrollTop = 0;
-  rowHeight = 50;
-  fullHeight = 0;
-  bufferItems = 5;
-
-  range = get(this.getRange);
 
   render(props: Grid.BodyProps) {
     const { Body } = this;
@@ -57,70 +53,6 @@ class Grid extends Model {
       )),
       createElement(Body, rest)
     );
-  }
-
-  outer = ref<HTMLDivElement>((element) => {
-    const resizeObserver = new ResizeObserver(() => {
-      this.fullHeight = element.clientHeight;
-    });
-
-    const onScroll = () => {
-      this.scrollTop = element.scrollTop;
-    }
-
-    element.addEventListener('scroll', onScroll);
-    resizeObserver.observe(element);
-
-    return () => {
-      element.removeEventListener('scroll', onScroll);
-      resizeObserver.disconnect();
-    }
-  });
-
-  inner = ref<HTMLDivElement>((element) => {
-    const { style } = element;
-
-    this.get(({ data, rowHeight }) => {
-      style.height = `${data.length * rowHeight}px`;
-    });
-
-    this.get(({ columns }) => {
-      const template = columns.map(() => '1fr').join(' ');
-      style.setProperty("--table-row-columns", template);
-    });
-  });
-
-  body = ref<HTMLDivElement>((element) => {
-    this.get(({ rowHeight, range }) => {
-      element.style.setProperty(
-        "transform", `translateY(${range[0] * rowHeight}px)`
-      );
-    })
-  });
-
-  getRange(): [number, number] {
-    const {
-      is: { range },
-      bufferItems,
-      data,
-      fullHeight,
-      rowHeight,
-      scrollTop,
-    } = this;
-
-    const start = Math.max(0,
-      Math.floor(scrollTop / rowHeight) - bufferItems
-    );
-
-    const end = Math.min(
-      data.length,
-      Math.ceil((scrollTop + fullHeight) / rowHeight) + bufferItems
-    )
-
-    if(range && range[0] == start && range[1] == end)
-      return range;
-
-    return [start, end];
   }
 }
 

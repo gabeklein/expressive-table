@@ -1,10 +1,11 @@
 import { createElement, memo } from 'react';
 
 import { Grid } from './Grid';
+import { Virtual } from './Virtual';
 
 /** @type React.FC<Grid.BodyProps> */
 export const Body = ({ style, className }) => {
-  const { body, inner, outer } = Grid.get();
+  const { body, inner, outer } = Virtual.get();
 
   container: {
     position: 'relative';
@@ -40,11 +41,11 @@ const Header = ({ className }) => {
 
 /** @type React.FC<Grid.RowProps> */
 const Rows = (props) => {
-  return Grid.get(({ data, range }) => {
-    return data.slice(...range).map(data => 
-      createElement(Row, { ...props, key: data.id, data })
-    )
-  });
+  const { slice } = Virtual.get();
+
+  return slice.map(data => (
+    <Row {...props} key={data.id} data={data} />
+  ))
 }
 
 /** @type React.FC<Grid.RowProps> */
