@@ -9,10 +9,12 @@ declare namespace Grid {
   interface CellProps {
     column: Column;
     data: { [key: string]: any };
+    children?: React.ReactNode;
   }
 
   interface HeadProps {
     column: Column;
+    children?: React.ReactNode;
   }
 
   interface RowProps {
@@ -67,6 +69,14 @@ class Column extends Model {
 
   Cell = undefined;
   Head = undefined;
+
+  cell(row: Record<string, any>) {
+    return row[this.id];
+  }
+
+  head() {
+    return this.name;
+  }
 
   render(){
     this.index = this.table.columns.push(this) - 1;

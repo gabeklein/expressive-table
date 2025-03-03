@@ -34,7 +34,9 @@ const Header = ({ className }) => {
 
   <Header className={className}>
     {columns.map(({ is: column, id, Head = Default }) =>
-      <Head key={id} column={column} />
+      <Head key={id} column={column}>
+        {column.head()}
+      </Head>
     )}
   </Header>
 }
@@ -54,7 +56,9 @@ const Row = memo(({ data, className }) => {
 
   <Row className={className} key={data.id}>
     {columns.map(({ Cell = Default, id, className, is: column }) =>
-      <Cell key={id} className={className} column={column} data={data} />
+      <Cell key={id} className={className} column={column} data={data}>
+        {column.cell(data)}
+      </Cell>
     )}
   </Row>
 })
