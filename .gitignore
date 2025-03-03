@@ -1,4 +1,3 @@
 /node_modules
-/lib
-/old
+/dist
 .DS_Store
