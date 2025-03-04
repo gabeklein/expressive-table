@@ -1,5 +1,5 @@
 import Model, { get, set, use } from '@expressive/react';
-import { Children, cloneElement, createElement, Fragment, isValidElement } from 'react';
+import { Children, cloneElement, Fragment, isValidElement, memo } from 'react';
 
 import { Body } from './Body';
 import { DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './Defaults';
@@ -15,17 +15,27 @@ declare namespace Grid {
   interface RowProps {
     index: number;
     data: { [key: string]: any };
+    className?: string;
+    children?: React.ReactNode;
+  }
+
+  interface HeaderProps {
+    children?: React.ReactNode;
+    className?: string;
   }
 
   interface HeadProps {
     column: Column;
     children?: React.ReactNode;
+    index: number;
   }
 
   interface CellProps {
     column: Column;
     data: { [key: string]: any };
     children?: React.ReactNode;
+    className?: string;
+    index: number;
   }
 }
 
@@ -36,7 +46,7 @@ class Grid extends Model {
   Row: React.FC<Grid.RowProps> = DefaultRow;
   Cell: React.FC<Grid.CellProps> = DefaultCell;
   Head: React.FC<Grid.HeadProps> = DefaultHead;
-  Header: React.FC = DefaultHeader;
+  Header: React.FC<Grid.HeaderProps> = DefaultHeader;
 
   data = [];
   columns = [] as Column[];
@@ -53,14 +63,16 @@ class Grid extends Model {
 
     this.columns = [];
 
-    return createElement(Fragment, null,
-      Children.map(children, (child) => (
-        isValidElement(child) && child.key == null
-          ? cloneElement(child, { key: child.props.id || child.props.name })
-          : child
-      )),
-      createElement(Body, rest)
-    );
+    return (
+      <Fragment>
+        {Children.map(children, (child) => (
+          isValidElement(child) && child.key == null
+            ? cloneElement(child, { key: child.props.id || child.props.name })
+            : child
+        ))}
+        <Body {...rest} />
+      </Fragment>
+    )
   }
 }
 
@@ -89,5 +101,34 @@ class Column extends Model {
     return null;
   }
 }
+
+export const Header = (props: { className: string }) => {
+  const { columns, Header, Head: Default } = Grid.get();
+
+  return (
+    <Header {...props}>
+      {columns.map(({ is: column, id, Head = Default }, i) =>
+        <Head key={id} column={column} index={i}>
+          {column.head()}
+        </Head>
+      )}
+    </Header>
+  )
+}
+
+export const Row = memo((props: Grid.RowProps) => {
+  const { columns, Row, Cell: Default } = Grid.get();
+  const { data } = props;
+
+  return (
+    <Row {...props} key={data.id}>
+      {columns.map(({ Cell = Default, id, className, is: column }, i) =>
+        <Cell key={id} className={className} data={data} column={column} index={i}>
+          {column.cell(data)}
+        </Cell>
+      )}
+    </Row>
+  )
+})
 
 export { Grid, Column };
