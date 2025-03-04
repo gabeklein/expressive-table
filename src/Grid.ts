@@ -59,7 +59,7 @@ class Grid extends Model {
 }
 
 class Column extends Model {
-  table = get(Grid);
+  grid = get(Grid);
   id = set(() => this.name.toLowerCase());
 
   name: string = "";
@@ -79,7 +79,7 @@ class Column extends Model {
   }
 
   render(){
-    this.index = this.table.columns.push(this) - 1;
+    this.index = this.grid.columns.push(this) - 1;
     return null;
   }
 }

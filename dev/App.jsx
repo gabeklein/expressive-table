@@ -4,7 +4,7 @@ import { Column, Grid } from "../src";
 
 const GET_USER = "https://randomuser.me/api/?inc=name&nat=US&results=20";
 
-class Names extends Grid {
+class Table extends Grid {
   data = [] as { first: string; last: string }[];
 
   constructor(){
@@ -30,17 +30,17 @@ const Demo = () => {
   overflow: hidden;
   border: 0xeee;
 
-  Names: {
+  Table: {
     height: fill;
     margin: -1;
     fontFamily: "sans-serif";
     fontSize: 14;
   }
 
-  <Names>
+  <Table>
     <Column name="First Name" id="first" />
     <Column name="Last Name" id="last" />
-  </Names>
+  </Table>
 }
 
 export default Demo;

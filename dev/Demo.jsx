@@ -1,6 +1,6 @@
-import { Column, Virtual } from '../src';
+import { Column, Grid } from '../src';
 
-class Table extends Virtual {
+class Table extends Grid {
   data = Array.from({ length: 100 }, (_, i) => ({
     id: i + 1,
     name: `Item ${i + 1}`,

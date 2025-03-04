@@ -32,7 +32,7 @@ export const Body = ({ style, className }) => {
 const Header = (props) => {
   const { columns, Header, Head: Default } = Grid.get();
 
-  <Header {...prop}>
+  <Header {...props}>
     {columns.map(({ is: column, id, Head = Default }) =>
       <Head key={id} column={column}>
         {column.head()}
@@ -45,9 +45,9 @@ const Header = (props) => {
 const Rows = (props) => {
   const { slice } = Virtual.get();
 
-  return slice.map(data =>
-    <Row {...props} key={data.id} data={data} />
-  )
+  return slice.map(data => (
+    createElement(Row, { ...props, key: data.id, data })
+  ))
 }
 
 /** @type React.FC<Grid.RowProps> */
