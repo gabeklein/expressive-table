@@ -11,6 +11,7 @@ export class Virtual extends Grid {
   fullHeight = 0;
   bufferItems = 5;
 
+  gap = 10;
   range = get(this.getRange);
   length = get(this.getLength);
   slice = get(this.getSlice);
@@ -34,9 +35,10 @@ export class Virtual extends Grid {
   });
 
   inner = ref<HTMLDivElement>(element => {
-    this.get(({ length, rowHeight, template }) => {
+    this.get(({ length, rowHeight, template, gap }) => {
       element.style.setProperty("height", `${length * rowHeight}px`);
-      element.style.setProperty("--table-row-columns", template.join(' '));
+      element.style.setProperty("--table-columns", template.join(' '));
+      element.style.setProperty("--table-gap", `${gap}px`);
     });
   });
 

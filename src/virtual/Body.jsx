@@ -14,8 +14,8 @@ export const Body = ({ style, className }) => {
 
   gridRow: {
     display: grid;
-    gridTemplateColumns: $tableRowColumns;
-    columnGap: $tableGridGap;
+    gridTemplateColumns: $tableColumns;
+    columnGap: $tableGap;
   }
 
   <container ref={outer} style={style} className={className}>
