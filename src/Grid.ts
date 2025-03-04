@@ -38,8 +38,14 @@ class Grid extends Model {
   Head: React.FC<Grid.HeadProps> = DefaultHead;
   Header: React.FC = DefaultHeader;
 
-  columns = [] as Column[];
   data = [];
+  columns = [] as Column[];
+
+  template = get(this, ({ columns }) => (
+    columns.map(({ size }) => (
+      typeof size == 'string' ? size : `${size || 1}fr`
+    ))
+  ));
 
   render(props: Grid.BodyProps) {
     const { Body } = this;

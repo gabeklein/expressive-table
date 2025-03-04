@@ -29,7 +29,7 @@ const Demo = () => {
   }
 
   <Table>
-    <Column name="ID" />
+    <Column name="ID" size={0.5} />
     <Column name="Name" />
     <Column name="Category" />
     <Column name="Stock" />

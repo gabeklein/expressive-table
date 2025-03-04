@@ -45,9 +45,8 @@ export class Virtual extends Model {
       style.height = `${length * rowHeight}px`;
     });
 
-    this.grid.get(({ columns }) => {
-      const template = columns.map(() => '1fr').join(' ');
-      style.setProperty("--table-row-columns", template);
+    this.grid.get(({ template }) => {
+      style.setProperty("--table-row-columns", template.join(' '));
     });
   });
 
