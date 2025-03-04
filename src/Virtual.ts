@@ -11,14 +11,8 @@ export class Virtual extends Model {
   bufferItems = 5;
 
   range = get(this.getRange);
-
-  length = get(this, ({ grid }) => {
-    return grid.data.length;
-  });
-
-  slice = get(this, ({ range, grid }) => {
-    return grid.data.slice(...range);
-  })
+  length = get(this.getLength);
+  slice = get(this.getSlice);
 
   outer = ref<HTMLDivElement>((element) => {
     const resizeObserver = new ResizeObserver(() => {
@@ -57,6 +51,14 @@ export class Virtual extends Model {
       );
     })
   });
+
+  getSlice() {
+    return this.grid.data.slice(...this.range);
+  }
+
+  getLength() {
+    return this.grid.data.length;
+  }
 
   getRange(): [number, number] {
     const {
