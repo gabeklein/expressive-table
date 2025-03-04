@@ -15,7 +15,7 @@ export class Virtual extends Grid {
   length = get(this.getLength);
   slice = get(this.getSlice);
 
-  outer = ref<HTMLDivElement>((element) => {
+  outer = ref<HTMLDivElement>(element => {
     const resizeObserver = new ResizeObserver(() => {
       this.fullHeight = element.clientHeight;
     });
@@ -33,23 +33,16 @@ export class Virtual extends Grid {
     }
   });
 
-  inner = ref<HTMLDivElement>((element) => {
-    const { style } = element;
-
-    this.get(({ length, rowHeight }) => {
-      style.height = `${length * rowHeight}px`;
-    });
-
-    this.get(({ template }) => {
-      style.setProperty("--table-row-columns", template.join(' '));
+  inner = ref<HTMLDivElement>(element => {
+    this.get(({ length, rowHeight, template }) => {
+      element.style.setProperty("height", `${length * rowHeight}px`);
+      element.style.setProperty("--table-row-columns", template.join(' '));
     });
   });
 
-  body = ref<HTMLDivElement>((element) => {
-    this.get(({ rowHeight, range }) => {
-      element.style.setProperty(
-        "transform", `translateY(${range[0] * rowHeight}px)`
-      );
+  body = ref<HTMLDivElement>(element => {
+    this.get(({ range, rowHeight }) => {
+      element.style.setProperty("transform", `translateY(${range[0] * rowHeight}px)`);
     })
   });
 
@@ -65,8 +58,8 @@ export class Virtual extends Grid {
     const {
       is: { range },
       bufferItems,
-      length,
       fullHeight,
+      length,
       rowHeight,
       scrollTop,
     } = this;
