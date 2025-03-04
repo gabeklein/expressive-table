@@ -6,10 +6,15 @@ import { DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './Defaults'
 import { Virtual } from './Virtual';
 
 declare namespace Grid {
-  interface CellProps {
-    column: Column;
-    data: { [key: string]: any };
+  interface BodyProps {
     children?: React.ReactNode;
+    style?: React.CSSProperties;
+    className?: string;
+  }
+
+  interface RowProps {
+    index: number;
+    data: { [key: string]: any };
   }
 
   interface HeadProps {
@@ -17,15 +22,10 @@ declare namespace Grid {
     children?: React.ReactNode;
   }
 
-  interface RowProps {
+  interface CellProps {
+    column: Column;
     data: { [key: string]: any };
-    index: number;
-  }
-
-  interface BodyProps {
     children?: React.ReactNode;
-    style?: React.CSSProperties;
-    className?: string;
   }
 }
 
@@ -70,12 +70,12 @@ class Column extends Model {
   Cell = undefined;
   Head = undefined;
 
-  cell(row: Record<string, any>) {
-    return row[this.id];
-  }
-
   head() {
     return this.name;
+  }
+
+  cell(row: Record<string, any>) {
+    return row[this.id];
   }
 
   render(){
