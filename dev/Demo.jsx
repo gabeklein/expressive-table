@@ -1,7 +1,7 @@
-import { Column, Grid } from '../src';
+import { Column, Virtual } from '../src';
 
-class Table extends Grid {
-  data = Array.from({ length: 200 }, (_, i) => ({
+class Table extends Virtual {
+  data = Array.from({ length: 100 }, (_, i) => ({
     id: i + 1,
     name: `Item ${i + 1}`,
     category: `Category ${(i % 4) + 1}`,
@@ -39,13 +39,9 @@ const Demo = () => {
 };
 
 /** @type React.FC<Grid.CellProps> */
-export const Price = ({ column, data }) => {
-  padding: '16px';
-  color: '#4b5563';
-
-  <this>
-    ${data[column.id]}
-  </this>
+export const Price = () => {
+  padding: 16;
+  color: 0x4b5563;
 }
 
 const Status = ({ data }) => {
