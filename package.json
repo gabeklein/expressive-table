@@ -16,7 +16,7 @@
     "postversion": "git push & npm publish"
   },
   "devDependencies": {
-    "@expressive/react": "0.57.0",
+    "@expressive/react": "0.57.1",
     "@expressive/vite-plugin": "^0.2.5",
     "@types/react": "^18.3.18",
     "@vitejs/plugin-react": "^4.3.4",
