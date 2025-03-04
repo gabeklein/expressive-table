@@ -1,2 +1,2 @@
 export { Grid, Column } from "./Grid";
-export { Virtual } from "./Virtual";
+export { Virtual } from "./virtual/Virtual";

@@ -1,9 +1,10 @@
-import Model, { get, ref } from '@expressive/react';
+import { get, ref } from '@expressive/react';
 
-import { Grid } from './Grid';
+import { Grid } from '../Grid';
+import { Body } from './Body';
 
-export class Virtual extends Model {
-  grid = get(Grid);
+export class Virtual extends Grid {
+  Body = Body;
 
   scrollTop = 0;
   rowHeight = 50;
@@ -39,7 +40,7 @@ export class Virtual extends Model {
       style.height = `${length * rowHeight}px`;
     });
 
-    this.grid.get(({ template }) => {
+    this.get(({ template }) => {
       style.setProperty("--table-row-columns", template.join(' '));
     });
   });
@@ -53,11 +54,11 @@ export class Virtual extends Model {
   });
 
   getSlice() {
-    return this.grid.data.slice(...this.range);
+    return this.data.slice(...this.range);
   }
 
   getLength() {
-    return this.grid.data.length;
+    return this.data.length;
   }
 
   getRange(): [number, number] {

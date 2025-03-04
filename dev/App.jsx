@@ -1,10 +1,10 @@
 import Model from '@expressive/react';
 
-import { Column, Grid } from "../src";
+import { Column, Virtual } from "../src";
 
 const GET_USER = "https://randomuser.me/api/?inc=name&nat=US&results=20";
 
-class Table extends Grid {
+class Table extends Virtual {
   data = [] as { first: string; last: string }[];
 
   constructor(){

@@ -1,9 +1,7 @@
-import Model, { get, set, use } from '@expressive/react';
+import Model, { get, set } from '@expressive/react';
 import { Children, cloneElement, Fragment, isValidElement, memo } from 'react';
 
-import { Body } from './Body';
-import { DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './Defaults';
-import { Virtual } from './Virtual';
+import { DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './defaults';
 
 declare namespace Grid {
   interface BodyProps {
@@ -40,9 +38,7 @@ declare namespace Grid {
 }
 
 class Grid extends Model {
-  virtual = use(Virtual);
-
-  Body: React.FC<Grid.BodyProps> = Body;
+  Body: React.FC<Grid.BodyProps> = () => null;
   Row: React.FC<Grid.RowProps> = DefaultRow;
   Cell: React.FC<Grid.CellProps> = DefaultCell;
   Head: React.FC<Grid.HeadProps> = DefaultHead;
@@ -102,7 +98,7 @@ class Column extends Model {
   }
 }
 
-export const Header = (props: { className: string }) => {
+const Header = (props: { className: string }) => {
   const { columns, Header, Head: Default } = Grid.get();
 
   return (
@@ -116,7 +112,7 @@ export const Header = (props: { className: string }) => {
   )
 }
 
-export const Row = memo((props: Grid.RowProps) => {
+const Row = memo((props: Grid.RowProps) => {
   const { columns, Row, Cell: Default } = Grid.get();
   const { data } = props;
 
@@ -131,4 +127,4 @@ export const Row = memo((props: Grid.RowProps) => {
   )
 })
 
-export { Grid, Column };
+export { Grid, Column, Header, Row };
