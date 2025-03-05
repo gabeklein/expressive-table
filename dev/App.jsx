@@ -24,7 +24,7 @@ const Demo = () => {
   width: fill;
   height: 500;
   maxWidth: 1000;
-  margin: '20px auto';
+  margin: 20, auto;
   backgroundColor: 0xffffff;
   radius: 8;
   overflow: hidden;
