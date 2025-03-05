@@ -10,9 +10,9 @@ declare namespace Grid {
     className?: string;
   }
 
-  interface RowProps {
+  interface RowProps<T = any> {
     index: number;
-    data: { [key: string]: any };
+    data: T;
     className?: string;
     children?: React.ReactNode;
   }
@@ -28,23 +28,23 @@ declare namespace Grid {
     index: number;
   }
 
-  interface CellProps {
+  interface CellProps<T = any> {
     column: Column;
-    data: { [key: string]: any };
+    data: T;
     children?: React.ReactNode;
     className?: string;
     index: number;
   }
 }
 
-class Grid extends Model {
+class Grid<T extends { [key: string]: any } = any> extends Model {
   Body: React.FC<Grid.BodyProps> = () => null;
-  Row: React.FC<Grid.RowProps> = DefaultRow;
-  Cell: React.FC<Grid.CellProps> = DefaultCell;
+  Row: React.FC<Grid.RowProps<T>> = DefaultRow;
+  Cell: React.FC<Grid.CellProps<T>> = DefaultCell;
   Head: React.FC<Grid.HeadProps> = DefaultHead;
   Header: React.FC<Grid.HeaderProps> = DefaultHeader;
 
-  data = [];
+  data = [] as T[];
   columns = [] as Column[];
 
   template = get(this, ({ columns }) => (

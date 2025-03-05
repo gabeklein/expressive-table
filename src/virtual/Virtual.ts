@@ -3,7 +3,7 @@ import { get, ref } from '@expressive/react';
 import { Grid } from '../Grid';
 import { Body } from './Body';
 
-export class Virtual extends Grid {
+export class Virtual<T extends {} = any> extends Grid<T> {
   Body = Body;
 
   scrollTop = 0;
