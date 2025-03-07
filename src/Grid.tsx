@@ -57,19 +57,22 @@ class Grid<T extends { [key: string]: any } = any> extends Model {
     const { Body } = this;
     const { children, ...rest } = props;
 
-    this.columns = [];
+    if (children)
+      this.columns = [];
 
     return (
       <Fragment>
-        {Children.map(children, (child) => (
-          isValidElement(child) && child.key == null
-            ? cloneElement(child, { key: child.props.id || child.props.name })
-            : child
-        ))}
+        {Children.map(children, setKey)}
         <Body {...rest} />
       </Fragment>
     )
   }
+}
+
+function setKey(child: React.ReactNode){
+  return isValidElement(child) && child.key == null
+    ? cloneElement(child, { key: child.props.id || child.props.name })
+    : child
 }
 
 class Column extends Model {
