@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@expressive/react':
-        specifier: 0.57.1
-        version: 0.57.1(react@18.3.1)
+        specifier: 0.57.2
+        version: 0.57.2(react@18.3.1)
       '@expressive/vite-plugin':
         specifier: ^0.2.5
         version: 0.2.7(vite@5.4.14)
@@ -1028,8 +1028,8 @@ packages:
     resolution: {integrity: sha512-StY6MPy3IWnhw5zofIN8mrMkQ4/TVgUNjkogZuA9+kRC4sKqLG9xXp9LsCd4M0MEObOpxkU4HeIVb9xFuU6udw==}
     dev: false
 
-  /@expressive/mvc@0.57.0:
-    resolution: {integrity: sha512-2xPlfWTkZcwwHqHqX8OEQulT2dN6oPNaGDo3FI+DV2OoT1LEGhPMXKlMpZfcXELYm7rTNmvRhpzRz4OOgh1SCw==}
+  /@expressive/mvc@0.57.2:
+    resolution: {integrity: sha512-pu9BuUy9xVlcxMg/kh1r9GmuIWLp3OQvkNKgiFiyFW2fZc0k+sWBaRE03dXcQNttYydKRS7VNYtILOrKCX//fA==}
     dev: true
 
   /@expressive/react@0.54.3(react@18.3.1):
@@ -1044,15 +1044,15 @@ packages:
       react: 18.3.1
     dev: false
 
-  /@expressive/react@0.57.1(react@18.3.1):
-    resolution: {integrity: sha512-VH5Vr5S/u7uaMRDUOPqzQbkqLIsVTWogC8pFvNANvRGPwBNMnbL8O5iPZt64zdz1UIfN3ttn57yc1BnWUh5u5w==}
+  /@expressive/react@0.57.2(react@18.3.1):
+    resolution: {integrity: sha512-pjVzb9l381pPA4xU8iB6CGEfV9AMxUD8gJBj/vbI+JZ0IJ9SCD/RJHDu/E17/UXdayiJBfAYaIPgpoPxjdbS+g==}
     peerDependencies:
       react: '>=16.8.0 <19.0.0'
     peerDependenciesMeta:
       react:
         optional: true
     dependencies:
-      '@expressive/mvc': 0.57.0
+      '@expressive/mvc': 0.57.2
       react: 18.3.1
     dev: true
 
