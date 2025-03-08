@@ -4,8 +4,8 @@ import { Grid } from '../Grid';
 import { Body } from './Body';
 
 export class Virtual<T extends {} = any> extends Grid<T> {
-  Body = Body;
-
+  static Body = Body;
+  
   scrollTop = 0;
   rowHeight = 50;
   fullHeight = 0;
@@ -34,17 +34,17 @@ export class Virtual<T extends {} = any> extends Grid<T> {
     }
   });
 
-  inner = ref<HTMLDivElement>(element => {
+  inner = ref<HTMLDivElement>(({ style }) => {
     this.get(({ length, rowHeight, template, gap }) => {
-      element.style.setProperty("height", `${length * rowHeight}px`);
-      element.style.setProperty("--table-columns", template.join(' '));
-      element.style.setProperty("--table-gap", `${gap}px`);
+      style.setProperty("height", `${length * rowHeight}px`);
+      style.setProperty("--table-columns", template.join(' '));
+      style.setProperty("--table-gap", typeof gap == "number" ? `${gap}px` : gap);
     });
   });
 
-  body = ref<HTMLDivElement>(element => {
+  body = ref<HTMLDivElement>(({ style }) => {
     this.get(({ range, rowHeight }) => {
-      element.style.setProperty("transform", `translateY(${range[0] * rowHeight}px)`);
+      style.setProperty("transform", `translateY(${range[0] * rowHeight}px)`);
     })
   });
 

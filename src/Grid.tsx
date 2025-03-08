@@ -38,11 +38,17 @@ declare namespace Grid {
 }
 
 class Grid<T extends { [key: string]: any } = any> extends Model {
-  Body: React.FC<Grid.BodyProps> = () => null;
-  Row: React.FC<Grid.RowProps<T>> = DefaultRow;
-  Cell: React.FC<Grid.CellProps<T>> = DefaultCell;
-  Head: React.FC<Grid.HeadProps> = DefaultHead;
-  Header: React.FC<Grid.HeaderProps> = DefaultHeader;
+  static Body: React.FC<Grid.BodyProps> = () => null;
+  static Row: React.FC<Grid.RowProps> = DefaultRow;
+  static Cell: React.FC<Grid.CellProps> = DefaultCell;
+  static Head: React.FC<Grid.HeadProps> = DefaultHead;
+  static Header: React.FC<Grid.HeaderProps> = DefaultHeader;
+
+  Body: React.FC<Grid.BodyProps> = type(this).Body;
+  Row: React.FC<Grid.RowProps<T>> = type(this).Row;
+  Cell: React.FC<Grid.CellProps<T>> = type(this).Cell;
+  Header: React.FC<Grid.HeaderProps> = type(this).Header;
+  Head: React.FC<Grid.HeadProps> = type(this).Head;
 
   data = [] as T[];
   columns = [] as Column[];
@@ -67,6 +73,10 @@ class Grid<T extends { [key: string]: any } = any> extends Model {
       </Fragment>
     )
   }
+}
+
+function type(model: Grid) {
+  return model.constructor as typeof Grid;
 }
 
 function setKey(child: React.ReactNode){
