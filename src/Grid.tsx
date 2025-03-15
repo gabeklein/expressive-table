@@ -1,7 +1,7 @@
 import Model, { get, set } from '@expressive/react';
 import { Children, cloneElement, Fragment, isValidElement, memo } from 'react';
 
-import { DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './defaults';
+import { DefaultBody, DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './defaults';
 
 declare namespace Grid {
   interface BodyProps {
@@ -38,7 +38,7 @@ declare namespace Grid {
 }
 
 class Grid<T extends { [key: string]: any } = any> extends Model {
-  static Body: React.FC<Grid.BodyProps> = () => null;
+  static Body: React.FC<Grid.BodyProps> = DefaultBody;
   static Row: React.FC<Grid.RowProps> = DefaultRow;
   static Cell: React.FC<Grid.CellProps> = DefaultCell;
   static Head: React.FC<Grid.HeadProps> = DefaultHead;

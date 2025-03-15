@@ -1,5 +1,7 @@
 import { Grid } from "./Grid";
 
+export const DefaultBody = () => null;
+
 /** @type React.FC */
 export const DefaultHeader = () => {
   backgroundColor: 0xf3f4f6;
