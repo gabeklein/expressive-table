@@ -4,7 +4,7 @@ import { Grid } from '../Grid';
 import { Virtual } from './Virtual';
 
 /** @type React.FC<Grid.BodyProps> */
-export const DefaultBody = ({ header, children }) => {
+export const Body = ({ header, children }) => {
   const { body, inner, outer } = Virtual.get();
 
   position: 'relative';
@@ -21,7 +21,7 @@ export const DefaultBody = ({ header, children }) => {
 }
 
 /** @type React.FC<Grid.HeaderProps> */
-export const DefaultHeader = () => {
+export const Header = () => {
   backgroundColor: 0xf3f4f6;
   columnGap: $tableGap;
   display: grid;
@@ -32,7 +32,7 @@ export const DefaultHeader = () => {
 }
 
 /** @type React.FC<Grid.HeadProps> */
-export const DefaultHead = ({ column }) => {
+export const Head = ({ column }) => {
   padding: '16px';
   textAlign: 'left';
   fontWeight: 500;
@@ -41,7 +41,7 @@ export const DefaultHead = ({ column }) => {
 }
 
 /** @type React.FC<Grid.RowProps> */
-export const DefaultRow = ({ data }) => {
+export const Row = ({ data }) => {
   backgroundColor: 0xffffff;
   borderBottom: 0xe5e7eb;
   columnGap: $tableGap;
@@ -54,7 +54,7 @@ export const DefaultRow = ({ data }) => {
 }
 
 /** @type React.FC<Grid.CellProps> */
-export const DefaultCell = ({ data }) => {
+export const Cell = ({ data }) => {
   padding: 16;
   color: 0x4b5563;
 }

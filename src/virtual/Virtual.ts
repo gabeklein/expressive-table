@@ -2,14 +2,14 @@ import { get, ref } from '@expressive/react';
 import { ReactNode } from 'react';
 
 import { Column, Grid } from '../Grid';
-import { DefaultBody, DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './Body';
+import { Body, Cell, Head, Header, Row } from './Body';
 
 export class Virtual<T extends Record<string, any> = any> extends Grid<T> {
-  static Body = DefaultBody;
-  static Row = DefaultRow;
-  static Cell = DefaultCell;
-  static Head = DefaultHead;
-  static Header = DefaultHeader;
+  static Body = Body;
+  static Header = Header;
+  static Head = Head;
+  static Row = Row;
+  static Cell = Cell;
   
   scrollTop = 0;
   rowHeight = 50;
