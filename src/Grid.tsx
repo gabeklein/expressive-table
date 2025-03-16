@@ -54,7 +54,7 @@ class Grid<T = any> extends Model {
   Head: React.FC<Grid.HeadProps> = type(this).Head;
 
   data = [] as T[];
-  rows = [] as number[];
+  rows = get(this, $ => $.data.map((_, i) => i));
 
   columns = [] as Column<T>[];
 
@@ -66,7 +66,7 @@ class Grid<T = any> extends Model {
     return key as unknown as T;
   }
 
-  cell(row: T, cell: Column): ReactNode {
+  cell(row: T, column: Column): ReactNode {
     return null;
   }
 

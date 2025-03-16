@@ -14,7 +14,7 @@ class Table extends Virtual {
   async getMore(){
     const data = await fetch(GET_USER)
       .then(x => x.json())
-      .then(x => x.results;
+      .then(x => x.results);
 
     this.data = this.data.concat(data);
   }
@@ -29,12 +29,11 @@ const Demo = () => {
   radius: 8;
   overflow: hidden;
   border: 0xeee;
+  fontFamily: "sans-serif";
+  fontSize: 14;
 
   Table: {
-    height: fill;
     margin: -1;
-    fontFamily: "sans-serif";
-    fontSize: 14;
   }
 
   <Table>

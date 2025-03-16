@@ -2,6 +2,8 @@ import { Grid } from "./Grid";
 
 /** @type React.FC<Grid.BodyProps> */
 export const Body = ({ header, children }) => {
+  borderSpacing: 0;
+
   <table this>
     {header}
     <tbody>
@@ -11,13 +13,17 @@ export const Body = ({ header, children }) => {
 };
 
 /** @type React.FC<Grid.HeaderProps> */
-export const Header = () => {
+export const Header = ({ children }) => {
   backgroundColor: 0xf3f4f6;
   zIndex: 1;
   position: sticky;
   top: 0;
 
-  <thead this />
+  <thead this>
+    <tr>
+      {children}
+    </tr>
+  </thead>
 }
 
 /** @type React.FC<Grid.HeadProps> */
@@ -44,7 +50,7 @@ export const Row = ({ data }) => {
 }
 
 /** @type React.FC<Grid.CellProps> */
-export const Cell = ({ data }) => {
+export const Cell = ({ column, data }) => {
   padding: 16;
   color: 0x4b5563;
 
