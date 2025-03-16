@@ -50,7 +50,7 @@ class Grid<T extends { [key: string]: any } = any> extends Model {
   Head: React.FC<Grid.HeadProps> = type(this).Head;
 
   data = [] as T[];
-  rows = [] as T[];
+  rows = [] as number[];
 
   columns = [] as Column[];
 
@@ -59,6 +59,14 @@ class Grid<T extends { [key: string]: any } = any> extends Model {
       typeof size == 'string' ? size : `${size || 1}fr`
     ))
   ));
+
+  getKey(index: number): string | number {
+    return index;
+  }
+
+  getData(index: number, key: string | number) {
+    return this.data[index];
+  }
 
   render(props: Grid.BodyProps) {
     const { Body } = this;
@@ -127,19 +135,26 @@ const Header = (props: { className: string }) => {
 }
 
 const Rows = (props: { className: string }) => {
-  const { rows } = Grid.get();
+  const { rows, getKey } = Grid.get();
 
-  return rows.map((data, i) => (
-    <Row {...props} key={data.id} data={data} />
-  ))
+  return rows.map((i) => {
+    const k = getKey(i);
+    return <Row {...props} key={k} k={k} index={i} />
+  });
 }
 
-const Row = memo((props: Grid.RowProps) => {
-  const { Cell: Default, Row, columns } = Grid.get();
-  const { data } = props;
+interface RowProps {
+  className: string;
+  index: number;
+  k: number | string;
+}
+
+const Row = memo((props: RowProps) => {
+  const { Cell: Default, Row, columns, getData } = Grid.get();
+  const data = getData(props.index, props.k);
 
   return (
-    <Row {...props} key={data.id}>
+    <Row {...props} data={data}>
       {columns.map(({ Cell = Default, className, id, is }, i) =>
         <Cell key={id} className={className} data={data} column={is} index={i}>
           {is.cell(data)}
