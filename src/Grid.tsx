@@ -1,7 +1,7 @@
 import Model, { get, set } from '@expressive/react';
 import { Children, cloneElement, Fragment, isValidElement, memo, ReactNode } from 'react';
 
-import { DefaultBody, DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './defaults';
+import { Body, Cell, Head, Header, Row } from './defaults';
 
 declare namespace Grid {
   interface Props {
@@ -25,7 +25,6 @@ declare namespace Grid {
 
   interface HeaderProps {
     children?: React.ReactNode;
-    className?: string;
   }
 
   interface HeadProps {
@@ -42,11 +41,11 @@ declare namespace Grid {
 }
 
 class Grid<T = any> extends Model {
-  static Body: React.FC<Grid.BodyProps> = DefaultBody;
-  static Row: React.FC<Grid.RowProps> = DefaultRow;
-  static Cell: React.FC<Grid.CellProps> = DefaultCell;
-  static Head: React.FC<Grid.HeadProps> = DefaultHead;
-  static Header: React.FC<Grid.HeaderProps> = DefaultHeader;
+  static Body: React.FC<Grid.BodyProps> = Body;
+  static Row: React.FC<Grid.RowProps> = Row;
+  static Cell: React.FC<Grid.CellProps> = Cell;
+  static Head: React.FC<Grid.HeadProps> = Head;
+  static Header: React.FC<Grid.HeaderProps> = Header;
 
   Body: React.FC<Grid.BodyProps> = type(this).Body;
   Row: React.FC<Grid.RowProps<T>> = type(this).Row;
@@ -81,8 +80,8 @@ class Grid<T = any> extends Model {
     return (
       <Fragment>
         {Children.map(children, setKey)}
-        <Body style={style} className={className} header={<Header />}>
-          <Rows />
+        <Body style={style} className={className} header={<IHeader />}>
+          <IRows />
         </Body>
       </Fragment>
     )
@@ -123,8 +122,8 @@ function setKey(child: React.ReactNode){
     : child
 }
 
-
-const Header = () => {
+/** Internal Header */
+const IHeader = () => {
   const { columns, Header, Head: Default } = Grid.get();
 
   return (
@@ -138,13 +137,15 @@ const Header = () => {
   )
 }
 
-const Rows = () => {
+/** Internal Rows */
+const IRows = () => {
   const { rows, key } = Grid.get();
 
-  return rows.map(key).map((i) => <Row i={i} key={i} />);
+  return rows.map(key).map((i) => <IRow i={i} key={i} />);
 }
 
-const Row = memo((props: { i: number | string }) => {
+/** Internal Row */
+const IRow = memo((props: { i: number | string }) => {
   const { cell: defaultCell, Cell: DefaultCell, columns, row, Row } = Grid.get();
   const data = row(props.i);
 
