@@ -1,5 +1,5 @@
 import Model, { get, set } from '@expressive/react';
-import { Children, cloneElement, Fragment, isValidElement } from 'react';
+import { Children, cloneElement, Fragment, isValidElement, ReactNode } from 'react';
 
 import { DefaultBody, DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './defaults';
 
@@ -12,6 +12,7 @@ declare namespace Grid {
 
   interface RowProps<T = any> {
     data: T;
+    i: number | string;
     className?: string;
     children?: React.ReactNode;
   }
@@ -34,7 +35,7 @@ declare namespace Grid {
   }
 }
 
-class Grid<T extends { [key: string]: any } = any> extends Model {
+class Grid<T = any> extends Model {
   static Body: React.FC<Grid.BodyProps> = DefaultBody;
   static Row: React.FC<Grid.RowProps> = DefaultRow;
   static Cell: React.FC<Grid.CellProps> = DefaultCell;
@@ -50,14 +51,18 @@ class Grid<T extends { [key: string]: any } = any> extends Model {
   data = [] as T[];
   rows = [] as number[];
 
-  columns = [] as Column[];
+  columns = [] as Column<T>[];
 
-  getKey(index: number): string | number {
+  key(index: number): string | number {
     return index;
   }
 
-  getData(index: number, key: string | number) {
-    return this.data[index];
+  row(key: string | number){
+    return key as unknown as T;
+  }
+
+  cell(row: T, cell: Column): ReactNode {
+    return null;
   }
 
   render(props: Grid.BodyProps) {
@@ -76,7 +81,7 @@ class Grid<T extends { [key: string]: any } = any> extends Model {
   }
 }
 
-class Column extends Model {
+class Column<T = any> extends Model {
   grid = get(Grid);
   id = set(() => this.name.toLowerCase());
 
@@ -92,9 +97,7 @@ class Column extends Model {
     return this.name;
   }
 
-  cell(row: Record<string, any>) {
-    return row[this.id];
-  }
+  cell?(row: T): ReactNode;
 
   render(){
     this.index = this.grid.columns.push(this) - 1;

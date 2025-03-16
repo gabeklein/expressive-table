@@ -1,9 +1,10 @@
 import { get, ref } from '@expressive/react';
+import { ReactNode } from 'react';
 
-import { Grid } from '../Grid';
+import { Column, Grid } from '../Grid';
 import { Body } from './Body';
 
-export class Virtual<T extends {} = any> extends Grid<T> {
+export class Virtual<T extends Record<string, any> = any> extends Grid<T> {
   static Body = Body;
   
   scrollTop = 0;
@@ -15,6 +16,16 @@ export class Virtual<T extends {} = any> extends Grid<T> {
   range = get(this.getRange);
   length = get(this.getLength);
   rows = get(this.getRows);
+
+  data = [] as T[];
+
+  row(key: string | number) {
+    return this.data[key as number];
+  }
+
+  cell(row: T, cell: Column): ReactNode {
+    return row[cell.id];
+  }
 
   template = get(this, ({ columns }) => (
     columns.map(({ size }) => (

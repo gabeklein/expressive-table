@@ -17,29 +17,25 @@ export const Header = (props: { className: string }) => {
 }
 
 export const Rows = (props: { className: string }) => {
-  const { rows, getKey } = Grid.get();
+  const { rows, key } = Grid.get();
 
-  return rows.map((i) => {
-    const k = getKey(i);
-    return <Row {...props} key={k} k={k} index={i} />
-  });
+  return rows.map(key).map((i) =>
+    <Row {...props} i={i} key={i} />
+  );
 }
 
-interface RowProps {
+const Row = memo((props: {
+  i: number | string;
   className: string;
-  index: number;
-  k: number | string;
-}
-
-export const Row = memo((props: RowProps) => {
-  const { Cell: Default, Row, columns, getData } = Grid.get();
-  const data = getData(props.index, props.k);
+}) => {
+  const { cell: defaultCell, Cell: DefaultCell, columns, row, Row } = Grid.get();
+  const data = row(props.i);
 
   return (
-    <Row className={props.className} data={data}>
-      {columns.map(({ Cell = Default, className, id, is }) =>
-        <Cell key={id} className={className} data={data} column={is}>
-          {is.cell(data)}
+    <Row {...props} data={data}>
+      {columns.map(({ Cell = DefaultCell, cell = defaultCell, className, id, is }) =>
+        <Cell className={className} column={is} data={data} key={id}>
+          {cell(data, is)}
         </Cell>
       )}
     </Row>
