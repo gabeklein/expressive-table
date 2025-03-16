@@ -2,10 +2,14 @@ import { get, ref } from '@expressive/react';
 import { ReactNode } from 'react';
 
 import { Column, Grid } from '../Grid';
-import { Body } from './Body';
+import { DefaultBody, DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './Body';
 
 export class Virtual<T extends Record<string, any> = any> extends Grid<T> {
-  static Body = Body;
+  static Body = DefaultBody;
+  static Row = DefaultRow;
+  static Cell = DefaultCell;
+  static Head = DefaultHead;
+  static Header = DefaultHeader;
   
   scrollTop = 0;
   rowHeight = 50;
@@ -34,6 +38,7 @@ export class Virtual<T extends Record<string, any> = any> extends Grid<T> {
   ));
 
   outer = ref<HTMLDivElement>(element => {
+    const { style } = element;
     const resizeObserver = new ResizeObserver(() => {
       this.fullHeight = element.clientHeight;
     });
@@ -45,6 +50,11 @@ export class Virtual<T extends Record<string, any> = any> extends Grid<T> {
     element.addEventListener('scroll', onScroll);
     resizeObserver.observe(element);
 
+    this.get(({ template, gap }) => {
+      style.setProperty("--table-columns", template.join(' '));
+      style.setProperty("--table-gap", typeof gap == "number" ? `${gap}px` : gap);
+    });
+
     return () => {
       element.removeEventListener('scroll', onScroll);
       resizeObserver.disconnect();
@@ -52,10 +62,8 @@ export class Virtual<T extends Record<string, any> = any> extends Grid<T> {
   });
 
   inner = ref<HTMLDivElement>(({ style }) => {
-    this.get(({ length, rowHeight, template, gap }) => {
+    this.get(({ rowHeight, length }) => {
       style.setProperty("height", `${length * rowHeight}px`);
-      style.setProperty("--table-columns", template.join(' '));
-      style.setProperty("--table-gap", typeof gap == "number" ? `${gap}px` : gap);
     });
   });
 
