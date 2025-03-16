@@ -20,7 +20,7 @@ export const DefaultHead = ({ column }) => {
 }
 
 /** @type React.FC */
-export const DefaultRow = () => {
+export const DefaultRow = ({ data }) => {
   borderBottom: 0xe5e7eb;
   backgroundColor: 0xffffff;
   transition: 'background-color 0.2s';
@@ -30,7 +30,7 @@ export const DefaultRow = () => {
 }
 
 /** @type React.FC<Grid.CellProps> */
-export const DefaultCell = () => {
+export const DefaultCell = ({ data }) => {
   padding: 16;
   color: 0x4b5563;
 }

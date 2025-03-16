@@ -14,7 +14,7 @@ export class Virtual<T extends {} = any> extends Grid<T> {
   gap = 10;
   range = get(this.getRange);
   length = get(this.getLength);
-  slice = get(this.getSlice);
+  rows = get(this.getSlice);
 
   outer = ref<HTMLDivElement>(element => {
     const resizeObserver = new ResizeObserver(() => {

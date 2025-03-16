@@ -11,7 +11,6 @@ declare namespace Grid {
   }
 
   interface RowProps<T = any> {
-    index: number;
     data: T;
     className?: string;
     children?: React.ReactNode;
@@ -51,6 +50,8 @@ class Grid<T extends { [key: string]: any } = any> extends Model {
   Head: React.FC<Grid.HeadProps> = type(this).Head;
 
   data = [] as T[];
+  rows = [] as T[];
+
   columns = [] as Column[];
 
   template = get(this, ({ columns }) => (
@@ -125,6 +126,14 @@ const Header = (props: { className: string }) => {
   )
 }
 
+const Rows = (props: { className: string }) => {
+  const { rows } = Grid.get();
+
+  return rows.map((data, i) => (
+    <Row {...props} key={data.id} data={data} />
+  ))
+}
+
 const Row = memo((props: Grid.RowProps) => {
   const { Cell: Default, Row, columns } = Grid.get();
   const { data } = props;
@@ -140,4 +149,4 @@ const Row = memo((props: Grid.RowProps) => {
   )
 })
 
-export { Grid, Column, Header, Row };
+export { Grid, Column, Header, Rows };

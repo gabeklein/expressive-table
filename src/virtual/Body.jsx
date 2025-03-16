@@ -1,6 +1,6 @@
 import { createElement, memo } from 'react';
 
-import { Grid, Header, Row } from '../Grid';
+import { Grid, Header, Rows } from '../Grid';
 import { Virtual } from './Virtual';
 
 /** @type React.FC<Grid.BodyProps> */
@@ -26,13 +26,4 @@ export const Body = ({ style, className }) => {
       </body>
     </inner>
   </container>
-}
-
-/** @type React.FC<Grid.RowProps> */
-const Rows = (props) => {
-  const { slice } = Virtual.get();
-
-  return slice.map(data => (
-    <Row {...props} key={data.id} data={data} />
-  ))
 }

@@ -39,7 +39,7 @@ const Demo = () => {
 };
 
 /** @type React.FC<Grid.CellProps> */
-export const Price = () => {
+export const Price = ({ data }) => {
   padding: 16;
   color: 0x4b5563;
 }
