@@ -54,12 +54,6 @@ class Grid<T extends { [key: string]: any } = any> extends Model {
 
   columns = [] as Column[];
 
-  template = get(this, ({ columns }) => (
-    columns.map(({ size }) => (
-      typeof size == 'string' ? size : `${size || 1}fr`
-    ))
-  ));
-
   getKey(index: number): string | number {
     return index;
   }

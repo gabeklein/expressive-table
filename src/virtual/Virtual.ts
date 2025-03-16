@@ -16,6 +16,12 @@ export class Virtual<T extends {} = any> extends Grid<T> {
   length = get(this.getLength);
   rows = get(this.getRows);
 
+  template = get(this, ({ columns }) => (
+    columns.map(({ size }) => (
+      typeof size == 'string' ? size : `${size || 1}fr`
+    ))
+  ));
+
   outer = ref<HTMLDivElement>(element => {
     const resizeObserver = new ResizeObserver(() => {
       this.fullHeight = element.clientHeight;
