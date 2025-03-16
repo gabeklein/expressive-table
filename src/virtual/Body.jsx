@@ -1,26 +1,23 @@
 import { createElement, memo } from 'react';
 
-import { Header, Rows } from '../components';
 import { Grid } from '../Grid';
 import { Virtual } from './Virtual';
 
 /** @type React.FC<Grid.BodyProps> */
-export const DefaultBody = ({ style, className }) => {
+export const DefaultBody = ({ header, children }) => {
   const { body, inner, outer } = Virtual.get();
 
-  container: {
-    position: 'relative';
-    overflowY: 'auto';
-  }
+  position: 'relative';
+  overflowY: 'auto';
 
-  <container ref={outer} style={style} className={className}>
-    <Header />
+  <this ref={outer}>
+    {header}
     <inner ref={inner}>
       <body ref={body}>
-        <Rows />
+        {children}
       </body>
     </inner>
-  </container>
+  </this>
 }
 
 /** @type React.FC<Grid.HeaderProps> */

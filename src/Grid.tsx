@@ -1,19 +1,25 @@
 import Model, { get, set } from '@expressive/react';
-import { Children, cloneElement, Fragment, isValidElement, ReactNode } from 'react';
+import { Children, cloneElement, Fragment, isValidElement, memo, ReactNode } from 'react';
 
 import { DefaultBody, DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './defaults';
 
 declare namespace Grid {
-  interface BodyProps {
+  interface Props {
     children?: React.ReactNode;
     style?: React.CSSProperties;
     className?: string;
   }
 
+  interface BodyProps {
+    header?: React.ReactNode;
+    className?: string;
+    children?: React.ReactNode;
+    style?: React.CSSProperties;
+  }
+
   interface RowProps<T = any> {
     data: T;
     i: number | string;
-    className?: string;
     children?: React.ReactNode;
   }
 
@@ -65,9 +71,9 @@ class Grid<T = any> extends Model {
     return null;
   }
 
-  render(props: Grid.BodyProps) {
+  render(props: Grid.Props) {
     const { Body } = this;
-    const { children, ...rest } = props;
+    const { children, style, className } = props;
 
     if (children)
       this.columns = [];
@@ -75,7 +81,9 @@ class Grid<T = any> extends Model {
     return (
       <Fragment>
         {Children.map(children, setKey)}
-        <Body {...rest} />
+        <Body style={style} className={className} header={<Header />}>
+          <Rows />
+        </Body>
       </Fragment>
     )
   }
@@ -114,5 +122,41 @@ function setKey(child: React.ReactNode){
     ? cloneElement(child, { key: child.props.id || child.props.name })
     : child
 }
+
+
+const Header = () => {
+  const { columns, Header, Head: Default } = Grid.get();
+
+  return (
+    <Header>
+      {columns.map(({ is: column, id, Head = Default }) =>
+        <Head key={id} column={column}>
+          {column.head()}
+        </Head>
+      )}
+    </Header>
+  )
+}
+
+const Rows = () => {
+  const { rows, key } = Grid.get();
+
+  return rows.map(key).map((i) => <Row i={i} key={i} />);
+}
+
+const Row = memo((props: { i: number | string }) => {
+  const { cell: defaultCell, Cell: DefaultCell, columns, row, Row } = Grid.get();
+  const data = row(props.i);
+
+  return (
+    <Row {...props} data={data}>
+      {columns.map(({ Cell = DefaultCell, cell = defaultCell, className, id, is }) =>
+        <Cell className={className} column={is} data={data} key={id}>
+          {cell(data, is)}
+        </Cell>
+      )}
+    </Row>
+  )
+})
 
 export { Grid, Column };
