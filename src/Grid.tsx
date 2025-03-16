@@ -126,14 +126,14 @@ const Header = (props: { className: string }) => {
 }
 
 const Row = memo((props: Grid.RowProps) => {
-  const { columns, Row, Cell: Default } = Grid.get();
+  const { Cell: Default, Row, columns } = Grid.get();
   const { data } = props;
 
   return (
     <Row {...props} key={data.id}>
-      {columns.map(({ Cell = Default, id, className, is: column }, i) =>
-        <Cell key={id} className={className} data={data} column={column} index={i}>
-          {column.cell(data)}
+      {columns.map(({ Cell = Default, className, id, is }, i) =>
+        <Cell key={id} className={className} data={data} column={is} index={i}>
+          {is.cell(data)}
         </Cell>
       )}
     </Row>
