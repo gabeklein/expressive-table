@@ -27,59 +27,19 @@ const Demo = () => {
     fontFamily: "sans-serif";
     fontSize: 14;
   }
-
+    
   <Table>
-    <Column name="ID" size={0.5} />
+    <Column name="ID" />
     <Column name="Name" />
     <Column name="Category" />
     <Column name="Stock" />
-    <Column name="Price" Cell={Price} />
-    <Column name="Claim Status" id="active" Cell={Status} />
+    <Column name="Price">
+      {data => `$${data.price}`}
+    </Column>
+    <Column name="Claim Status">
+      {data => <Status active={data.active} />}
+    </Column>
   </Table>
 };
-
-/** @type React.FC<Grid.CellProps> */
-export const Price = ({ data }) => {
-  padding: 16;
-  color: 0x4b5563;
-}
-
-const Status = ({ data }) => {
-  const { active } = data;
-
-  display: flex;
-  alignItems: center;
-  margin: 0, 20;
-  fontSize: 12;
-
-  if(active)
-    $color: green;
-  else
-    $color: red;
-
-  inner: {
-    radius: round;
-    padding: 3, 10;
-    color: $color;
-    textAlign: center;
-    border: $color;
-    position: relative;
-    overflow: hidden;
-    width: 50;
-  }
-
-  bg: {
-    absolute: fill;
-    background: $color;
-    opacity: 0.1;
-  }
-
-  <this>
-    <inner>
-      {active ? "Active" : "Closed"}
-      <bg />
-    </inner>
-  </this>
-}
 
 export default Demo;

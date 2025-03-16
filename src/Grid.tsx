@@ -72,7 +72,7 @@ class Grid<T = any> extends Model {
 
   render(props: Grid.Props) {
     const { Body } = this;
-    const { children, style, className } = props;
+    const { children, ...rest } = props;
 
     if (children)
       this.columns = [];
@@ -80,7 +80,7 @@ class Grid<T = any> extends Model {
     return (
       <Fragment>
         {Children.map(children, setKey)}
-        <Body style={style} className={className} header={<IHeader />}>
+        <Body {...rest} header={<IHeader />}>
           <IRows />
         </Body>
       </Fragment>
@@ -89,7 +89,7 @@ class Grid<T = any> extends Model {
 }
 
 class Column<T = any> extends Model {
-  grid = get(Grid);
+  grid = get(Grid) as Grid<T>;
   id = set(() => this.name.toLowerCase());
 
   name: string = "";
@@ -104,7 +104,7 @@ class Column<T = any> extends Model {
     return this.name;
   }
 
-  cell?(row: T): ReactNode;
+  children?: (row: T) => ReactNode = undefined;
 
   render(){
     this.index = this.grid.columns.push(this) - 1;
@@ -151,9 +151,9 @@ const IRow = memo((props: { i: number | string }) => {
 
   return (
     <Row {...props} data={data}>
-      {columns.map(({ Cell = DefaultCell, cell = defaultCell, className, id, is }) =>
+      {columns.map(({ Cell = DefaultCell, children = defaultCell, className, id, is }) =>
         <Cell className={className} column={is} data={data} key={id}>
-          {cell(data, is)}
+          {children(data, is)}
         </Cell>
       )}
     </Row>

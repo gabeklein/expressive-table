@@ -32,7 +32,6 @@ export const Head = ({ column }) => {
   textAlign: 'left';
   fontWeight: 500;
   color: 0x4b5563;
-  borderBottom: 0xe5e7eb;
 
   <th this />
 }
@@ -53,6 +52,7 @@ export const Row = ({ data }) => {
 export const Cell = ({ column, data }) => {
   padding: 16;
   color: 0x4b5563;
+  borderBottom: 0xe5e7eb;
 
   <td this />
 }

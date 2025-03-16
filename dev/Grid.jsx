@@ -1,4 +1,5 @@
 import { Column, Grid } from '../src';
+import { Status } from './Status';
 
 class Table extends Grid {
   data = Array.from({ length: 100 }, (_, i) => ({
@@ -33,68 +34,28 @@ const Demo = () => {
   overflowY: scroll;
 
   Table: {
-    height: 500;
     width: fill;
     margin: -1;
   }
 
+  Column: {
+    borderBottom: 0xeee;
+  }
+  
   <Table>
-    <Column name="ID" size={0.5} />
+    <Column name="ID" />
     <Column name="Name" />
     <Column name="Category" />
     <Column name="Stock" />
-    <Column name="Price" Cell={Price} />
-    <Column name="Claim Status" id="active" Cell={Status} />
+    <Column name="Price">
+      {data => `$${data.price}`}
+    </Column>
+    <Column name="Claim Status">
+      {data => {
+        <Status active={data.active} />
+      }}
+    </Column>
   </Table>
 };
-
-/** @type React.FC<Grid.CellProps> */
-export const Price = ({ children, data }) => {
-  padding: 16;
-  color: 0x4b5563;
-
-  <td this>
-    ${children}
-  </td>
-}
-
-const Status = ({ data }) => {
-  const { active } = data;
-
-  display: flex;
-  alignItems: center;
-  margin: 0, 20;
-  height: fill;
-  fontSize: 12;
-
-  if(active)
-    $color: green;
-  else
-    $color: red;
-
-  inner: {
-    radius: round;
-    padding: 3, 10;
-    color: $color;
-    textAlign: center;
-    border: $color;
-    position: relative;
-    overflow: hidden;
-    width: 50;
-  }
-
-  bg: {
-    absolute: fill;
-    background: $color;
-    opacity: 0.1;
-  }
-
-  <td this>
-    <inner>
-      {active ? "Active" : "Closed"}
-      <bg />
-    </inner>
-  </td>
-}
 
 export default Demo;
