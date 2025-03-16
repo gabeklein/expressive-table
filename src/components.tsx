@@ -7,8 +7,8 @@ export const Header = (props: { className: string }) => {
 
   return (
     <Header {...props}>
-      {columns.map(({ is: column, id, Head = Default }, i) =>
-        <Head key={id} column={column} index={i}>
+      {columns.map(({ is: column, id, Head = Default }) =>
+        <Head key={id} column={column}>
           {column.head()}
         </Head>
       )}
@@ -36,9 +36,9 @@ export const Row = memo((props: RowProps) => {
   const data = getData(props.index, props.k);
 
   return (
-    <Row {...props} data={data}>
-      {columns.map(({ Cell = Default, className, id, is }, i) =>
-        <Cell key={id} className={className} data={data} column={is} index={i}>
+    <Row className={props.className} data={data}>
+      {columns.map(({ Cell = Default, className, id, is }) =>
+        <Cell key={id} className={className} data={data} column={is}>
           {is.cell(data)}
         </Cell>
       )}

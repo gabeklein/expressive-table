@@ -24,7 +24,6 @@ declare namespace Grid {
   interface HeadProps {
     column: Column;
     children?: React.ReactNode;
-    index: number;
   }
 
   interface CellProps<T = any> {
@@ -32,7 +31,6 @@ declare namespace Grid {
     data: T;
     children?: React.ReactNode;
     className?: string;
-    index: number;
   }
 }
 
