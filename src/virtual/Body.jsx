@@ -1,6 +1,7 @@
 import { createElement, memo } from 'react';
 
-import { Grid, Header, Rows } from '../Grid';
+import { Header, Rows } from '../components';
+import { Grid } from '../Grid';
 import { Virtual } from './Virtual';
 
 /** @type React.FC<Grid.BodyProps> */

@@ -1,5 +1,5 @@
 import Model, { get, set } from '@expressive/react';
-import { Children, cloneElement, Fragment, isValidElement, memo } from 'react';
+import { Children, cloneElement, Fragment, isValidElement } from 'react';
 
 import { DefaultBody, DefaultCell, DefaultHead, DefaultHeader, DefaultRow } from './defaults';
 
@@ -84,16 +84,6 @@ class Grid<T extends { [key: string]: any } = any> extends Model {
   }
 }
 
-function type(model: Grid) {
-  return model.constructor as typeof Grid;
-}
-
-function setKey(child: React.ReactNode){
-  return isValidElement(child) && child.key == null
-    ? cloneElement(child, { key: child.props.id || child.props.name })
-    : child
-}
-
 class Column extends Model {
   grid = get(Grid);
   id = set(() => this.name.toLowerCase());
@@ -120,48 +110,14 @@ class Column extends Model {
   }
 }
 
-const Header = (props: { className: string }) => {
-  const { columns, Header, Head: Default } = Grid.get();
-
-  return (
-    <Header {...props}>
-      {columns.map(({ is: column, id, Head = Default }, i) =>
-        <Head key={id} column={column} index={i}>
-          {column.head()}
-        </Head>
-      )}
-    </Header>
-  )
+function type(model: Grid) {
+  return model.constructor as typeof Grid;
 }
 
-const Rows = (props: { className: string }) => {
-  const { rows, getKey } = Grid.get();
-
-  return rows.map((i) => {
-    const k = getKey(i);
-    return <Row {...props} key={k} k={k} index={i} />
-  });
+function setKey(child: React.ReactNode){
+  return isValidElement(child) && child.key == null
+    ? cloneElement(child, { key: child.props.id || child.props.name })
+    : child
 }
 
-interface RowProps {
-  className: string;
-  index: number;
-  k: number | string;
-}
-
-const Row = memo((props: RowProps) => {
-  const { Cell: Default, Row, columns, getData } = Grid.get();
-  const data = getData(props.index, props.k);
-
-  return (
-    <Row {...props} data={data}>
-      {columns.map(({ Cell = Default, className, id, is }, i) =>
-        <Cell key={id} className={className} data={data} column={is} index={i}>
-          {is.cell(data)}
-        </Cell>
-      )}
-    </Row>
-  )
-})
-
-export { Grid, Column, Header, Rows };
+export { Grid, Column };
