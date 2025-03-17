@@ -100,11 +100,11 @@ class Column<T = any> extends Model {
   Cell = undefined;
   Head = undefined;
 
+  children?: (row: T) => ReactNode = undefined;
+
   head() {
     return this.name;
   }
-
-  children?: (row: T) => ReactNode = undefined;
 
   render(){
     this.index = this.grid.columns.push(this) - 1;
@@ -123,25 +123,27 @@ function setKey(child: React.ReactNode){
 }
 
 /** Internal Header */
-const IHeader = () => {
+function IHeader() {
   const { columns, Header, Head: Default } = Grid.get();
 
   return (
     <Header>
-      {columns.map(({ is: column, id, Head = Default }) =>
+      {columns.map(({ is: column, id, Head = Default }) => (
         <Head key={id} column={column}>
           {column.head()}
         </Head>
-      )}
+      ))}
     </Header>
-  )
+  );
 }
 
 /** Internal Rows */
-const IRows = () => {
+function IRows() {
   const { rows, key } = Grid.get();
 
-  return rows.map(key).map((i) => <IRow i={i} key={i} />);
+  return rows.map(key).map((i) => (
+    <IRow i={i} key={i} />
+  ));
 }
 
 /** Internal Row */

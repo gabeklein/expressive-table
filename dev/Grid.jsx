@@ -30,7 +30,7 @@ const Demo = () => {
   border: 0xeee;
   fontFamily: "sans-serif";
   fontSize: 14;
-  height: 500;
+  maxHeight: 500;
   overflowY: scroll;
 
   Table: {
