@@ -39,11 +39,11 @@ declare namespace Grid {
 }
 
 class Grid<T = any> extends Model {
-  static Body: React.FC<Grid.BodyProps> = () => null;
-  static Row: React.FC<Grid.RowProps> = () => null;
-  static Cell: React.FC<Grid.CellProps> = () => null;
-  static Head: React.FC<Grid.HeadProps> = () => null;
-  static Header: React.FC<Grid.HeaderProps> = () => null;
+  static Body: React.FC<Grid.BodyProps> = Noop;
+  static Row: React.FC<Grid.RowProps> = Noop;
+  static Cell: React.FC<Grid.CellProps> = Noop;
+  static Head: React.FC<Grid.HeadProps> = Noop;
+  static Header: React.FC<Grid.HeaderProps> = Noop;
 
   Body: React.FC<Grid.BodyProps> = type(this).Body;
   Row: React.FC<Grid.RowProps<T>> = type(this).Row;
@@ -108,6 +108,10 @@ class Column<T = any> extends Model {
     this.index = this.grid.columns.push(this) - 1;
     return null;
   }
+}
+
+function Noop() {
+  return null;
 }
 
 function type(model: Grid) {
