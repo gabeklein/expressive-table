@@ -1,4 +1,4 @@
-import { Grid } from "./Grid";
+import { Grid } from "../Grid";
 
 /** @type React.FC<Grid.BodyProps> */
 export const Body = ({ header, children }) => {

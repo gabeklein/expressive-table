@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client';
 
-import Grid from './Grid';
+import Table from './Table';
 
 window.addEventListener("load", () => {
-  createRoot(document.getElementById('root')).render(<Grid />);
+  createRoot(document.getElementById('root')).render(<Table />);
 });

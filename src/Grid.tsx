@@ -1,8 +1,6 @@
 import Model, { get, set } from '@expressive/react';
 import { Children, cloneElement, Fragment, isValidElement, memo, ReactNode } from 'react';
 
-import { Body, Cell, Head, Header, Row } from './defaults';
-
 declare namespace Grid {
   interface Props {
     children?: React.ReactNode;
@@ -41,11 +39,11 @@ declare namespace Grid {
 }
 
 class Grid<T = any> extends Model {
-  static Body: React.FC<Grid.BodyProps> = Body;
-  static Row: React.FC<Grid.RowProps> = Row;
-  static Cell: React.FC<Grid.CellProps> = Cell;
-  static Head: React.FC<Grid.HeadProps> = Head;
-  static Header: React.FC<Grid.HeaderProps> = Header;
+  static Body: React.FC<Grid.BodyProps> = () => null;
+  static Row: React.FC<Grid.RowProps> = () => null;
+  static Cell: React.FC<Grid.CellProps> = () => null;
+  static Head: React.FC<Grid.HeadProps> = () => null;
+  static Header: React.FC<Grid.HeaderProps> = () => null;
 
   Body: React.FC<Grid.BodyProps> = type(this).Body;
   Row: React.FC<Grid.RowProps<T>> = type(this).Row;

@@ -1,7 +1,7 @@
-import { Column, Grid } from '../src';
+import { Column, Table } from '../src';
 import { Status } from './Status';
 
-class Table extends Grid {
+class Data extends Table {
   data = Array.from({ length: 100 }, (_, i) => ({
     id: i + 1,
     name: `Item ${i + 1}`,
@@ -33,7 +33,7 @@ const Demo = () => {
   maxHeight: 500;
   overflowY: scroll;
 
-  Table: {
+  Data: {
     width: fill;
     margin: -1;
   }
@@ -42,7 +42,7 @@ const Demo = () => {
     borderBottom: 0xeee;
   }
   
-  <Table>
+  <Data>
     <Column name="ID" />
     <Column name="Name" />
     <Column name="Category" />
@@ -55,7 +55,7 @@ const Demo = () => {
         <Status active={data.active} />
       }}
     </Column>
-  </Table>
+  </Data>
 };
 
 export default Demo;
