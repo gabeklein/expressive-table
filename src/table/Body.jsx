@@ -3,6 +3,7 @@ import { Grid } from "../Grid";
 /** @type React.FC<Grid.BodyProps> */
 export const Body = ({ header, children }) => {
   borderSpacing: 0;
+  width: fill;
 
   <table this>
     {header}
@@ -28,7 +29,7 @@ export const Header = ({ children }) => {
 
 /** @type React.FC<Grid.HeadProps> */
 export const Head = ({ column }) => {
-  padding: '16px';
+  padding: '1em';
   textAlign: 'left';
   fontWeight: 500;
   color: 0x4b5563;
@@ -50,7 +51,7 @@ export const Row = ({ data }) => {
 
 /** @type React.FC<Grid.CellProps> */
 export const Cell = ({ column, data }) => {
-  padding: 16;
+  padding: "1em";
   color: 0x4b5563;
   borderBottom: 0xe5e7eb;
 
