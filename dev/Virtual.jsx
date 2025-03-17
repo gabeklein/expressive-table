@@ -1,4 +1,5 @@
 import { Column, Grid, Virtual } from '../src';
+import { Status } from './Status';
 
 class Table extends Virtual {
   data = Array.from({ length: 100 }, (_, i) => ({
@@ -37,7 +38,9 @@ const Demo = () => {
       {data => `$${data.price}`}
     </Column>
     <Column name="Claim Status">
-      {data => <Status active={data.active} />}
+      {data => {
+        <Status active={data.active} />
+      }}
     </Column>
   </Table>
 };

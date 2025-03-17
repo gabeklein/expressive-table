@@ -1,11 +1,12 @@
 import Model from '@expressive/react';
 
-import { Column, Virtual } from "../src";
+import { Column, Table } from "../src";
 
 const GET_USER = "https://randomuser.me/api/?inc=name&nat=US&results=20";
 
-class Table extends Virtual {
-  data = [] as { first: string; last: string }[];
+class Grid extends Table {
+  /** @type {Array<{first: string, last: string}}>} */
+  data = [];
 
   constructor(){
     super(() => this.getMore());
@@ -32,14 +33,14 @@ const Demo = () => {
   fontFamily: "sans-serif";
   fontSize: 14;
 
-  Table: {
+  Grid: {
     margin: -1;
   }
 
-  <Table>
+  <Grid>
     <Column name="First Name" id="first" />
     <Column name="Last Name" id="last" />
-  </Table>
+  </Grid>
 }
 
 export default Demo;
