@@ -1,0 +1,16 @@
+{
+  "name": "dev",
+  "private": true,
+  "scripts": {
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "@expressive/react": "0.57.4",
+    "@expressive/table": "workspace:*",
+    "@expressive/vite-plugin": "^0.2.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.3.0",
+    "vite": "^5.4.14"
+  }
+}

@@ -1,7 +1,7 @@
-import { Column, Table } from '../src';
+import { Column, Virtual } from '../../src';
 import { Status } from './Status';
 
-class Data extends Table {
+class Table extends Virtual {
   data = Array.from({ length: 100 }, (_, i) => ({
     id: i + 1,
     name: `Item ${i + 1}`,
@@ -10,39 +10,26 @@ class Data extends Table {
     stock: Math.floor(Math.random() * 50) + 1,
     active: Math.random() > 0.5,
   }))
-
-  row(index){
-    return this.data[index];
-  }
-
-  cell(row, column){
-    return row[column.id];
-  }
 }
 
 const Demo = () => {
   width: fill;
+  height: 500;
   maxWidth: 1000;
   margin: 20, auto;
   backgroundColor: 0xffffff;
   radius: 8;
   overflow: hidden;
   border: 0xeee;
-  fontFamily: "sans-serif";
-  fontSize: 14;
-  maxHeight: 500;
-  overflowY: scroll;
 
-  Data: {
-    width: fill;
+  Table: {
+    height: fill;
     margin: -1;
+    fontFamily: "sans-serif";
+    fontSize: 14;
   }
-
-  Column: {
-    borderBottom: 0xeee;
-  }
-  
-  <Data>
+    
+  <Table>
     <Column name="ID" />
     <Column name="Name" />
     <Column name="Category" />
@@ -55,7 +42,7 @@ const Demo = () => {
         <Status active={data.active} />
       }}
     </Column>
-  </Data>
+  </Table>
 };
 
 export default Demo;

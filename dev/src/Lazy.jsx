@@ -1,6 +1,6 @@
 import Model from '@expressive/react';
 
-import { Column, Table } from "../src";
+import { Column, Table } from "../../src";
 
 const GET_USER = "https://randomuser.me/api/?inc=name&nat=US&results=20";
 
