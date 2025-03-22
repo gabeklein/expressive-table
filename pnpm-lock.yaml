@@ -11,36 +11,21 @@ importers:
       '@expressive/react':
         specifier: 0.57.4
         version: 0.57.4(react@18.3.1)
-      '@expressive/vite-plugin':
-        specifier: ^0.2.5
-        version: 0.2.7(vite@5.4.14)
       '@types/node':
         specifier: ^22.13.9
         version: 22.13.9
       '@types/react':
         specifier: ^18.3.18
         version: 18.3.18
-      '@vitejs/plugin-react':
-        specifier: ^4.3.4
-        version: 4.3.4(vite@5.4.14)
       react:
         specifier: ^18.3.1
         version: 18.3.1
-      react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
-      react-router-dom:
-        specifier: ^7.3.0
-        version: 7.3.0(react-dom@18.3.1)(react@18.3.1)
       tsup:
         specifier: ^8.3.6
         version: 8.4.0(typescript@5.7.3)
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
-      vite:
-        specifier: ^5.4.14
-        version: 5.4.14(@types/node@22.13.9)
 
   dev:
     devDependencies:
@@ -53,6 +38,9 @@ importers:
       '@expressive/vite-plugin':
         specifier: ^0.2.5
         version: 0.2.7(vite@5.4.14)
+      '@vitejs/plugin-react':
+        specifier: ^4.3.4
+        version: 4.3.4(vite@5.4.14)
       react:
         specifier: ^18.3.1
         version: 18.3.1

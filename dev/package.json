@@ -8,6 +8,7 @@
     "@expressive/react": "0.57.4",
     "@expressive/table": "workspace:*",
     "@expressive/vite-plugin": "^0.2.5",
+    "@vitejs/plugin-react": "^4.3.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.3.0",
