@@ -45,11 +45,11 @@ class Grid<T = any> extends Model {
   static Head: React.FC<Grid.HeadProps> = Noop;
   static Header: React.FC<Grid.HeaderProps> = Noop;
 
-  Body: React.FC<Grid.BodyProps> = type(this).Body;
-  Row: React.FC<Grid.RowProps<T>> = type(this).Row;
-  Cell: React.FC<Grid.CellProps<T>> = type(this).Cell;
-  Header: React.FC<Grid.HeaderProps> = type(this).Header;
-  Head: React.FC<Grid.HeadProps> = type(this).Head;
+  Body: React.FC<Grid.BodyProps> = T(this).Body;
+  Row: React.FC<Grid.RowProps<T>> = T(this).Row;
+  Cell: React.FC<Grid.CellProps<T>> = T(this).Cell;
+  Header: React.FC<Grid.HeaderProps> = T(this).Header;
+  Head: React.FC<Grid.HeadProps> = T(this).Head;
 
   data = [] as T[];
   rows = get(this, $ => $.data.map((_, i) => i));
@@ -114,7 +114,7 @@ function Noop() {
   return null;
 }
 
-function type(model: Grid) {
+function T(model: Grid) {
   return model.constructor as typeof Grid;
 }
 
