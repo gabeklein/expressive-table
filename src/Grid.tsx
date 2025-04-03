@@ -141,15 +141,15 @@ function IHeader() {
 
 /** Internal Rows */
 function IRows() {
-  const { rows, key } = Grid.get();
+  const { rows, key, data } = Grid.get();
 
   return rows.map(key).map((i) => (
-    <IRow i={i} key={i} />
+    <IRow i={i} data={data} key={i} />
   ));
 }
 
 /** Internal Row */
-const IRow = memo((props: { i: number | string }) => {
+const IRow = memo((props: { i: number | string; data: any }) => {
   const { cell: defaultCell, Cell: DefaultCell, columns, row, Row } = Grid.get();
   const data = row(props.i);
 
@@ -162,6 +162,8 @@ const IRow = memo((props: { i: number | string }) => {
       )}
     </Row>
   )
-})
+}, (a, b) => {
+  return a.i === b.i && a.data === b.data;
+});
 
 export { Grid, Column };
