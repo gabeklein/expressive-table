@@ -70,7 +70,7 @@ class Grid<T = any> extends Model {
 
   render(props: Grid.Props) {
     const { Body } = this;
-    const { children, ...rest } = props;
+    const { children, className, style } = props;
 
     if (children)
       this.columns = [];
@@ -78,7 +78,7 @@ class Grid<T = any> extends Model {
     return (
       <Fragment>
         {Children.map(children, setKey)}
-        <Body {...rest} header={<IHeader />}>
+        <Body style={style} className={className} header={<IHeader />}>
           <IRows />
         </Body>
       </Fragment>
